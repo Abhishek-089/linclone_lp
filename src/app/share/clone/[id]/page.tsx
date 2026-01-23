@@ -16,14 +16,14 @@ export async function generateMetadata(
   const APPLE_APP_ID = "6748680628"; 
   
   return {
-    title: `Share Post ${id} - LinClone`,
+    title: `Share Clone ${id} - LinClone`,
     other: {
-      "apple-itunes-app": `app-id=${APPLE_APP_ID}, app-argument=https://linclonelanding-page.vercel.app/share/post/${id}`,
+      "apple-itunes-app": `app-id=${APPLE_APP_ID}, app-argument=https://linclonelanding-page.vercel.app/share/clone/${id}`,
     },
   };
 }
 
-export default async function SharePostPage({ params }: Props) {
+export default async function ShareClonePage({ params }: Props) {
   const resolvedParams = await params;
   const { id } = resolvedParams;
 
@@ -75,3 +75,4 @@ export default async function SharePostPage({ params }: Props) {
     </div>
   );
 }
+
