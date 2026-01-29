@@ -7,7 +7,8 @@
             "namespace": "android_app",
             "package_name": "com.linclone.app",
             "sha256_cert_fingerprints": [
-                "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"
+                "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
+                "C6:76:9D:FC:23:91:EF:FA:F5:49:48:14:96:8B:5A:64:D3:48:BF:51:E8:33:7B:D2:C1:ED:1B:FE:CE:96:FA:7F"
             ]
         }
     }
