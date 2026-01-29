@@ -35,6 +35,14 @@ export default async function SharePostPage({ params }: Props) {
       <Script id="app-redirect" strategy="afterInteractive">
         {`
           (function() {
+            // Prevent re-execution on page reload
+            var hasAttempted = sessionStorage.getItem('deeplink_attempted');
+            if (hasAttempted === 'true') {
+              // Already attempted, don't run again
+              return;
+            }
+            sessionStorage.setItem('deeplink_attempted', 'true');
+            
             // 1. Detect platform
             var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             var isAndroid = /Android/i.test(navigator.userAgent);
@@ -47,7 +55,6 @@ export default async function SharePostPage({ params }: Props) {
               
               // 3. Construct deep link URLs
               var appDeepLink = "linclone://share/post/" + postId;
-              var universalLink = "https://www.linclone.com/share/post/" + postId;
               var appStoreUrl = "https://apps.apple.com/us/app/linclone/id6748680628";
               var playStoreUrl = "https://play.google.com/store/apps/details?id=com.linclone.app";
               
@@ -69,15 +76,8 @@ export default async function SharePostPage({ params }: Props) {
               
               // 7. Try to open the app
               if (isIOS) {
-                // For iOS, try universal link first, then custom scheme
-                window.location.href = universalLink;
-                
-                // Fallback to custom scheme after a brief delay
-                setTimeout(function() {
-                  if (!appOpened) {
-                    window.location.href = appDeepLink;
-                  }
-                }, 500);
+                // For iOS, try custom scheme directly
+                window.location.href = appDeepLink;
                 
                 // If app didn't open after 2.5 seconds, redirect to App Store
                 setTimeout(function() {
