@@ -18,7 +18,7 @@ export async function generateMetadata(
   return {
     title: `Share Post ${id} - LinClone`,
     other: {
-      "apple-itunes-app": `app-id=${APPLE_APP_ID}, app-argument=https://linclonelanding-page.vercel.app/share/post/${id}`,
+      "apple-itunes-app": `app-id=${APPLE_APP_ID}, app-argument=https://www.linclone.com/share/post/${id}`,
     },
   };
 }
@@ -47,7 +47,7 @@ export default async function SharePostPage({ params }: Props) {
               
               // 3. Construct deep link URLs
               var appDeepLink = "linclone://share/post/" + postId;
-              var universalLink = "https://linclonelanding-page.vercel.app/share/post/" + postId;
+              var universalLink = "https://www.linclone.com/share/post/" + postId;
               var appStoreUrl = "https://apps.apple.com/us/app/linclone/id6748680628";
               var playStoreUrl = "https://play.google.com/store/apps/details?id=com.linclone.app";
               
