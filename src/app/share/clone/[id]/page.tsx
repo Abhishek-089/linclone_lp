@@ -80,39 +80,60 @@ export default async function ShareClonePage({ params }: Props) {
                 var isIPad = /iPad/i.test(navigator.userAgent) || 
                              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
                 
+                console.log('[iOS] Device detected:', isIPad ? 'iPad' : 'iPhone');
+                console.log('[iOS] Deep link:', appDeepLink);
+                console.log('[iOS] App Store URL:', appStoreUrl);
+                
                 if (isIPad) {
-                  // iPad-specific handling: use iframe to prevent page navigation
-                  console.log('[iPad] Attempting to open app via iframe');
+                  // iPad-specific handling: ONLY use iframe, do NOT use window.location
+                  // window.location causes navigation issues on iPad Safari
+                  console.log('[iPad] Using iframe-only approach (no window.location)');
                   
                   var iframe = document.createElement('iframe');
                   iframe.style.display = 'none';
                   iframe.style.width = '0';
                   iframe.style.height = '0';
+                  iframe.style.border = 'none';
                   iframe.src = appDeepLink;
-                  document.body.appendChild(iframe);
                   
-                  // Remove iframe after attempt
+                  try {
+                    document.body.appendChild(iframe);
+                    console.log('[iPad] Iframe created and appended');
+                  } catch(e) {
+                    console.error('[iPad] Failed to append iframe:', e);
+                  }
+                  
+                  // Clean up iframe
                   setTimeout(function() {
                     try {
-                      document.body.removeChild(iframe);
-                    } catch(e) {}
-                  }, 2000);
-                  
-                  // If app didn't open, redirect to App Store
-                  setTimeout(function() {
-                    if (!appOpened && Date.now() - startTime < 3000) {
-                      console.log('[iPad] App did not open, redirecting to App Store');
-                      window.location.href = appStoreUrl;
+                      if (iframe && iframe.parentNode) {
+                        document.body.removeChild(iframe);
+                        console.log('[iPad] Iframe removed');
+                      }
+                    } catch(e) {
+                      console.log('[iPad] Iframe cleanup error:', e);
                     }
-                  }, 2500);
+                  }, 3000);
+                  
+                  // Wait longer before redirecting to App Store
+                  setTimeout(function() {
+                    console.log('[iPad] Checking if app opened... appOpened =', appOpened);
+                    if (!appOpened) {
+                      console.log('[iPad] App did NOT open. Redirecting to App Store:', appStoreUrl);
+                      window.location.href = appStoreUrl;
+                    } else {
+                      console.log('[iPad] App opened successfully!');
+                    }
+                  }, 3000);
                 } else {
                   // iPhone: use direct window.location
-                  console.log('[iPhone] Attempting to open app');
+                  console.log('[iPhone] Using direct window.location');
                   window.location.href = appDeepLink;
                   
                   // If app didn't open after 2.5 seconds, redirect to App Store
                   setTimeout(function() {
                     if (!appOpened && Date.now() - startTime < 3000) {
+                      console.log('[iPhone] App did not open, redirecting to App Store');
                       window.location.href = appStoreUrl;
                     }
                   }, 2500);
