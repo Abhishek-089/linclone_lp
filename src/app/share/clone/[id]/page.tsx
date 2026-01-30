@@ -90,6 +90,8 @@ export default async function ShareClonePage({ params }: Props) {
                   
                   var openButton = document.getElementById('openInAppButton');
                   if (openButton) {
+                    // Set the correct href with the clone ID
+                    openButton.href = appDeepLink;
                     openButton.classList.remove('hidden');
                     console.log('[iPad] Button displayed');
                   }
@@ -138,14 +140,8 @@ export default async function ShareClonePage({ params }: Props) {
         {/* iPad-specific: Show "Open in App" button */}
         <a
           id="openInAppButton"
-          href="#"
+          href="linclone://share/clone/"
           className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors text-center font-semibold hidden"
-          onClick={(e) => {
-            e.preventDefault();
-            const pathParts = window.location.pathname.split('/');
-            const cloneId = pathParts[pathParts.length - 1];
-            window.location.href = `linclone://share/clone/${cloneId}`;
-          }}
         >
           🚀 Open in LinClone App
         </a>
