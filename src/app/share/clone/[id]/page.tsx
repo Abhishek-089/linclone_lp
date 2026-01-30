@@ -35,18 +35,13 @@ export default async function ShareClonePage({ params }: Props) {
       <Script id="app-redirect" strategy="afterInteractive">
         {`
           (function() {
-            // Prevent re-execution on page reload
-            var hasAttempted = sessionStorage.getItem('deeplink_attempted');
-            if (hasAttempted === 'true') {
-              // Already attempted, don't run again
-              return;
-            }
-            sessionStorage.setItem('deeplink_attempted', 'true');
             
-            // 1. Detect platform
-            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            // 1. Detect platform (including modern iPads that report as MacIntel)
+            var isIPadDevice = /iPad/i.test(navigator.userAgent) || 
+                               (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || isIPadDevice;
             var isAndroid = /Android/i.test(navigator.userAgent);
-            var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || isIPadDevice;
             
             if (isMobile) {
               // 2. Get the clone ID from the URL
