@@ -84,29 +84,17 @@ export default async function ShareClonePage({ params }: Props) {
                 console.log('[iOS] Deep link:', appDeepLink);
                 
                 if (isIPad) {
-                  // iPad: Safari blocks iframes from triggering URL schemes
-                  // Solution: Create a link and programmatically click it
-                  console.log('[iPad] Creating clickable link to trigger app');
+                  // iPad: Try multiple approaches in sequence
+                  console.log('[iPad] Trying multiple deep link strategies');
                   
-                  var link = document.createElement('a');
-                  link.href = appDeepLink;
-                  link.style.display = 'none';
-                  document.body.appendChild(link);
-                  
-                  // Programmatically click the link
+                  // Strategy 1: Try custom URL scheme with timeout
+                  console.log('[iPad] Strategy 1: Custom URL scheme');
                   setTimeout(function() {
-                    console.log('[iPad] Clicking link to open app');
-                    link.click();
-                    
-                    // Clean up
-                    setTimeout(function() {
-                      if (link && link.parentNode) {
-                        document.body.removeChild(link);
-                      }
-                    }, 1000);
+                    window.location.href = appDeepLink;
                   }, 100);
                   
-                  // Wait to see if app opened
+                  // Strategy 2: If page is still visible after 1 second, app didn't open
+                  // Redirect to App Store
                   setTimeout(function() {
                     console.log('[iPad] Checking if app opened... appOpened =', appOpened);
                     if (!appOpened) {
@@ -117,8 +105,8 @@ export default async function ShareClonePage({ params }: Props) {
                     }
                   }, 2500);
                 } else {
-                  // iPhone: use direct window.location
-                  console.log('[iPhone] Using direct window.location');
+                  // iPhone: use direct window.location with custom scheme
+                  console.log('[iPhone] Using custom URL scheme');
                   window.location.href = appDeepLink;
                   
                   // If app didn't open after 2.5 seconds, redirect to App Store
