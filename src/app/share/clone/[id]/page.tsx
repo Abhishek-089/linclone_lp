@@ -80,7 +80,7 @@ export default async function ShareClonePage({ params }: Props) {
                 
                 if (isIPad) {
                   // iPad: Safari blocks automatic deep links
-                  // Show "Open in App" button instead (user-initiated clicks work)
+                  // Show "Open in App" button and auto-click it
                   console.log('[iPad] Showing Open in App button');
                   
                   var openButton = document.getElementById('openInAppButton');
@@ -89,9 +89,15 @@ export default async function ShareClonePage({ params }: Props) {
                     openButton.href = appDeepLink;
                     openButton.classList.remove('hidden');
                     console.log('[iPad] Button displayed');
+                    
+                    // Automatically click the button after a short delay
+                    setTimeout(function() {
+                      console.log('[iPad] Auto-clicking button');
+                      openButton.click();
+                    }, 500);
                   }
                   
-                  // Don't auto-redirect - let user click the button
+                  // Don't auto-redirect - let the button click handle it
                 } else {
                   // iPhone: use direct window.location with custom scheme
                   console.log('[iPhone] Using custom URL scheme');
