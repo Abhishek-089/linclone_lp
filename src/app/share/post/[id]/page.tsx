@@ -76,15 +76,47 @@ export default async function SharePostPage({ params }: Props) {
               
               // 7. Try to open the app
               if (isIOS) {
-                // For iOS, try custom scheme directly
-                window.location.href = appDeepLink;
+                // Detect iPad specifically (including modern iPads that report as MacOS)
+                var isIPad = /iPad/i.test(navigator.userAgent) || 
+                             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
                 
-                // If app didn't open after 2.5 seconds, redirect to App Store
-                setTimeout(function() {
-                  if (!appOpened && Date.now() - startTime < 3000) {
-                    window.location.href = appStoreUrl;
-                  }
-                }, 2500);
+                if (isIPad) {
+                  // iPad-specific handling: use iframe to prevent page navigation
+                  console.log('[iPad] Attempting to open app via iframe');
+                  
+                  var iframe = document.createElement('iframe');
+                  iframe.style.display = 'none';
+                  iframe.style.width = '0';
+                  iframe.style.height = '0';
+                  iframe.src = appDeepLink;
+                  document.body.appendChild(iframe);
+                  
+                  // Remove iframe after attempt
+                  setTimeout(function() {
+                    try {
+                      document.body.removeChild(iframe);
+                    } catch(e) {}
+                  }, 2000);
+                  
+                  // If app didn't open, redirect to App Store
+                  setTimeout(function() {
+                    if (!appOpened && Date.now() - startTime < 3000) {
+                      console.log('[iPad] App did not open, redirecting to App Store');
+                      window.location.href = appStoreUrl;
+                    }
+                  }, 2500);
+                } else {
+                  // iPhone: use direct window.location
+                  console.log('[iPhone] Attempting to open app');
+                  window.location.href = appDeepLink;
+                  
+                  // If app didn't open after 2.5 seconds, redirect to App Store
+                  setTimeout(function() {
+                    if (!appOpened && Date.now() - startTime < 3000) {
+                      window.location.href = appStoreUrl;
+                    }
+                  }, 2500);
+                }
                 
               } else if (isAndroid) {
                 // For Android, try intent first
