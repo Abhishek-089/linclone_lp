@@ -84,26 +84,17 @@ export default async function ShareClonePage({ params }: Props) {
                 console.log('[iOS] Deep link:', appDeepLink);
                 
                 if (isIPad) {
-                  // iPad: Try multiple approaches in sequence
-                  console.log('[iPad] Trying multiple deep link strategies');
+                  // iPad: Safari blocks automatic deep links
+                  // Show "Open in App" button instead (user-initiated clicks work)
+                  console.log('[iPad] Showing Open in App button');
                   
-                  // Strategy 1: Try custom URL scheme with timeout
-                  console.log('[iPad] Strategy 1: Custom URL scheme');
-                  setTimeout(function() {
-                    window.location.href = appDeepLink;
-                  }, 100);
+                  var openButton = document.getElementById('openInAppButton');
+                  if (openButton) {
+                    openButton.classList.remove('hidden');
+                    console.log('[iPad] Button displayed');
+                  }
                   
-                  // Strategy 2: If page is still visible after 1 second, app didn't open
-                  // Redirect to App Store
-                  setTimeout(function() {
-                    console.log('[iPad] Checking if app opened... appOpened =', appOpened);
-                    if (!appOpened) {
-                      console.log('[iPad] App did NOT open. Redirecting to App Store');
-                      window.location.href = appStoreUrl;
-                    } else {
-                      console.log('[iPad] App opened successfully!');
-                    }
-                  }, 2500);
+                  // Don't auto-redirect - let user click the button
                 } else {
                   // iPhone: use direct window.location with custom scheme
                   console.log('[iPhone] Using custom URL scheme');
@@ -144,6 +135,21 @@ export default async function ShareClonePage({ params }: Props) {
       </Script>
 
       <div className="flex flex-col sm:flex-row gap-4">
+        {/* iPad-specific: Show "Open in App" button */}
+        <a
+          id="openInAppButton"
+          href="#"
+          className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors text-center font-semibold hidden"
+          onClick={(e) => {
+            e.preventDefault();
+            const pathParts = window.location.pathname.split('/');
+            const cloneId = pathParts[pathParts.length - 1];
+            window.location.href = `linclone://share/clone/${cloneId}`;
+          }}
+        >
+          🚀 Open in LinClone App
+        </a>
+
         <a
           href="https://apps.apple.com/us/app/linclone/id6748680628"
           className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
