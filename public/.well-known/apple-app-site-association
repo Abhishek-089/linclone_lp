@@ -4,8 +4,36 @@
     "details": [
       {
         "appID": "984HXYKS34.com.linclone.app",
-        "paths": [ "*" ]
+        "paths": [
+          "*"
+        ]
+      },
+      {
+        "appID": "984HXYKS34.com.linclone.app.stg",
+        "paths": [
+          "*"
+        ]
+      },
+      {
+        "appID": "984HXYKS34.com.linclone.app.qa",
+        "paths": [
+          "*"
+        ]
+      },
+      {
+        "appID": "984HXYKS34.com.linclone.app.dev",
+        "paths": [
+          "*"
+        ]
       }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "984HXYKS34.com.linclone.app",
+      "984HXYKS34.com.linclone.app.stg",
+      "984HXYKS34.com.linclone.app.qa",
+      "984HXYKS34.com.linclone.app.dev"
     ]
   }
 }
