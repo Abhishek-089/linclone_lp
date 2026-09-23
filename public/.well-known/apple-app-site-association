@@ -2,30 +2,11 @@
   "applinks": {
     "apps": [],
     "details": [
-      {
-        "appID": "984HXYKS34.com.linclone.app",
-        "paths": [
-          "*"
-        ]
-      },
-      {
-        "appID": "984HXYKS34.com.linclone.app.stg",
-        "paths": [
-          "*"
-        ]
-      },
-      {
-        "appID": "984HXYKS34.com.linclone.app.qa",
-        "paths": [
-          "*"
-        ]
-      },
-      {
-        "appID": "984HXYKS34.com.linclone.app.dev",
-        "paths": [
-          "*"
-        ]
-      }
+      { "appID": "984HXYKS34.com.linclone.studio", "paths": [ "/studio/*" ] },
+      { "appID": "984HXYKS34.com.linclone.app", "paths": [ "*" ] },
+      { "appID": "984HXYKS34.com.linclone.app.stg", "paths": [ "*" ] },
+      { "appID": "984HXYKS34.com.linclone.app.qa", "paths": [ "*" ] },
+      { "appID": "984HXYKS34.com.linclone.app.dev", "paths": [ "*" ] }
     ]
   },
   "webcredentials": {
@@ -33,7 +14,8 @@
       "984HXYKS34.com.linclone.app",
       "984HXYKS34.com.linclone.app.stg",
       "984HXYKS34.com.linclone.app.qa",
-      "984HXYKS34.com.linclone.app.dev"
+      "984HXYKS34.com.linclone.app.dev",
+      "984HXYKS34.com.linclone.studio"
     ]
   }
 }
