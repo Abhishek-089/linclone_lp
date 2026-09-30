@@ -170,10 +170,6 @@ export default function ChildProtectionPolicyPage() {
                 <h3 className="text-lg font-medium text-gray-900 mb-3">Child Protection Officer</h3>
                 <div className="space-y-2 text-gray-700">
                   <p><strong>Email:</strong> childprotection@linclone.com</p>
-                  <p><strong>Phone:</strong> 1-800-PROTECT (1-800-776-8328)</p>
-                  <p><strong>Address:</strong> LinClone Child Protection Office<br />
-                     123 Safety Street<br />
-                     Protection City, PC 12345</p>
                 </div>
               </div>
             </section>
