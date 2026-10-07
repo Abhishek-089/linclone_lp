@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
-import { localePath } from '@/i18n/paths';
+import { localePath, type PageKey } from '@/i18n/paths';
 import { mailtoStudio } from '@/lib/store-links';
 import { SOCIAL } from '@/lib/site-config';
 import { Icon } from '../icons/Icon';
@@ -38,12 +38,12 @@ function Column({ title, links }: { title: string; links: Link[] }): ReactNode {
  * four link columns on desktop, <details> accordions on mobile. Legacy pages
  * are plain <a> (different root layout, so always a full load).
  */
-export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: 'home' | 'creators' }) {
+export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: PageKey }) {
   const L = d.footer.links;
   const anchor = (hash: string) => (page === 'home' ? hash : localePath(lang, 'home', hash));
   const home = page === 'home';
   return (
-    <footer className="site-footer" data-surface="dark" data-page={page} data-download-block={home ? '' : undefined}>
+    <footer className="site-footer" data-surface="dark" data-page={home ? 'home' : 'creators'} data-download-block={home ? '' : undefined}>
       <span className="footer-watermark" aria-hidden="true">
         {d.common.brand}
       </span>

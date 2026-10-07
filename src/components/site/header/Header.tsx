@@ -1,6 +1,6 @@
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
-import { localePath } from '@/i18n/paths';
+import { localePath, type PageKey } from '@/i18n/paths';
 import { getUrl, storeUrl } from '@/lib/store-links';
 import { Icon } from '../icons/Icon';
 import { Disclosure } from '../Disclosure';
@@ -22,8 +22,12 @@ const QR_ID = 'header-qr';
  * off `html[data-platform]` from the head script. HeaderBehavior only adds
  * scroll glass, surface theming, auto-hide, the progress line and the menu.
  */
-export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: 'home' | 'creators' }) {
-  const creators = page === 'creators';
+export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: PageKey }) {
+  // LC Studio's legal pages wear the Studio header, like /creators itself.
+  const creators = page !== 'home';
+  const sectionsPage: PageKey = creators ? 'creators' : 'home';
+  // The section anchors live on home and /creators; from any other page they lead there.
+  const at = (hash: string) => (page === sectionsPage ? hash : localePath(lang, sectionsPage, hash));
   const other: Locale = lang === 'ja' ? 'en' : 'ja';
   const nav = creators
     ? ([
@@ -55,9 +59,9 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: '
   const menuCommand = { commandfor: MENU_ID, command: 'show-modal' } as Record<string, string>;
 
   return (
-    <header className="site-header" data-page={page} data-top="">
+    <header className="site-header" data-page={sectionsPage} data-top="">
       <div className="header-inner">
-        <a href={localePath(lang, page)} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
+        <a href={localePath(lang, sectionsPage)} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
           {/* eslint-disable-next-line @next/next/no-img-element -- 28px brand mark */}
           <img src="/brand/mark-56.png" alt="" width={28} height={28} />
           {creators ? <span className="lockup-studio">{d.creators.header.lockup}</span> : <span className="wordmark">{d.common.brand}</span>}
@@ -67,7 +71,7 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: '
           <ul>
             {nav.map(([href, label]) => (
               <li key={href}>
-                <a href={href}>{label}</a>
+                <a href={at(href)}>{label}</a>
               </li>
             ))}
           </ul>
@@ -121,7 +125,7 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: '
 
       <dialog id={MENU_ID} className="header-sheet" aria-label={navLabel} data-lenis-prevent="">
         <div className="sheet-top">
-          <a href={localePath(lang, page)} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
+          <a href={localePath(lang, sectionsPage)} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
             {/* eslint-disable-next-line @next/next/no-img-element -- 28px brand mark */}
             <img src="/brand/mark-56.png" alt="" width={28} height={28} />
             {creators ? <span className="lockup-studio">{d.creators.header.lockup}</span> : <span className="wordmark">{d.common.brand}</span>}
@@ -135,7 +139,7 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: '
             <ul>
               {nav.map(([href, label]) => (
                 <li key={href}>
-                  <a href={href} className="t-h2" data-menu-close="">
+                  <a href={at(href)} className="t-h2" data-menu-close="">
                     {label}
                   </a>
                 </li>

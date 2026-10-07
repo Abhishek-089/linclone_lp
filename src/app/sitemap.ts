@@ -18,6 +18,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: O + p.en, lastModified: UPDATED, alternates },
     ];
   });
-  const legal = ['/privacy', '/terms', '/cookies', '/support', '/policies/child-protection-policy'].map((p) => ({ url: O + p }));
+  const legal = [
+    '/privacy',
+    '/terms',
+    '/cookies',
+    '/support',
+    '/policies/child-protection-policy',
+    '/lc-studio/privacy',
+    '/lc-studio/privacy/ja',
+    '/lc-studio/terms',
+    '/lc-studio/terms/ja',
+  ].map((p) => ({ url: O + p }));
   return [...marketing, ...legal];
 }
