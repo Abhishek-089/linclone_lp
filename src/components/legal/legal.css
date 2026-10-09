@@ -236,7 +236,8 @@
 }
 
 /* tables (stacked cards below 640px) */
-.legal-table-wrap { border-radius: 18px; background: rgba(255, 255, 255, .62); border: 1px solid rgba(255, 255, 255, .9); box-shadow: var(--soft-shadow); overflow: hidden; }
+/* overflow: auto, not hidden — if a table ever outgrows the card it scrolls instead of silently losing its last column */
+.legal-table-wrap { border-radius: 18px; background: rgba(255, 255, 255, .62); border: 1px solid rgba(255, 255, 255, .9); box-shadow: var(--soft-shadow); overflow: auto; }
 .legal-table { width: 100%; border-collapse: collapse; font: 400 14.5px/1.6 var(--font-sans); color: var(--color-ink); }
 .legal-table:lang(ja) { font-size: 14px; line-height: 1.75; }
 .legal-table caption { caption-side: top; padding: 16px 20px 12px; text-align: left; font: 700 13.5px/1.5 var(--font-sans); color: var(--color-ink); }
@@ -244,6 +245,11 @@
 .legal-table thead th { padding-block: 10px; background: rgba(40, 39, 59, .035); font: 700 12px/1.4 var(--font-label); letter-spacing: .08em; text-transform: uppercase; color: var(--color-ink-2); }
 .legal-table thead th:lang(ja) { font: 700 12.5px/1.4 var(--font-sans); letter-spacing: .02em; text-transform: none; }
 .legal-table tbody th { font-weight: 700; }
+/* cells get the body text's wrapping rules: strict kinsoku and JA phrase units, so a desktop column never splits a word like リージ|ョン and the auto layout balances the columns on whole phrases */
+.legal-table :is(th, td) { line-break: strict; }
+/* overflow-wrap: anywhere keeps the cells' min-content small, so a 4-column table still fits 720px (break-word would let whole phrases set the minimum and push the last column out of the card) */
+.legal-table:lang(ja) :is(th, td) { word-break: auto-phrase; overflow-wrap: anywhere; }
+.legal-table thead th { text-wrap: balance; }
 @media (max-width: 639.98px) {
   .legal-table, .legal-table tbody, .legal-table tr, .legal-table th, .legal-table td { display: block; }
   .legal-table caption { display: block; padding: 16px 18px 4px; }
@@ -297,7 +303,8 @@
 .legal-step-body:lang(ja) { font-size: 14.5px; line-height: 1.85; }
 
 /* phone mockup beside the steps (delete-user) */
-.legal-mock { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 12px 0; }
+/* min-content: the column is as wide as the phone, so a long caption wraps under it instead of widening the grid track and squeezing the steps to nothing */
+.legal-mock { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 12px 0; width: min-content; max-width: 100%; }
 .legal-mock .phone { box-shadow: 0 0 0 9px #0f1018, 0 0 0 10px rgba(255, 255, 255, .14), 0 30px 60px rgba(15, 16, 24, .22); }
 .legal-mock-caption { margin: 8px 0 0; font: 400 12px/1.5 var(--font-sans); color: var(--color-ink-2); }
 .lm-screen { position: absolute; inset: 0; padding-top: 54px; background: linear-gradient(180deg, #fbf7f0, #f7f3ec 40%); }
