@@ -37,7 +37,7 @@ export function LegalEnhancer({ copiedLabel }: { copiedLabel: string }) {
       current = id;
       for (const a of tocLinks) {
         const on = a.hash === `#${id}`;
-        if (on) a.setAttribute('aria-current', 'true');
+        if (on) a.setAttribute('aria-current', 'location');
         else a.removeAttribute('aria-current');
         // keep the active entry visible inside a tall desktop TOC (never scrolls the page)
         if (on && tocScroller && tocScroller.contains(a)) {

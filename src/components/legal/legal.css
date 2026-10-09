@@ -276,7 +276,8 @@
 
 /* steps */
 .legal-steps-wrap[data-illustrated] { display: grid; gap: 32px; justify-items: center; }
-@media (min-width: 768px) { .legal-steps-wrap[data-illustrated] { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 40px; justify-items: stretch; } }
+/* steps start right under the heading (centring them on the phone left a ~140px hole above step 1) */
+@media (min-width: 768px) { .legal-steps-wrap[data-illustrated] { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 40px; justify-items: stretch; } .legal-steps-wrap[data-illustrated] .legal-steps { padding-top: 8px; } }
 .legal-steps { counter-reset: legal-step; margin: 0; padding: 0; list-style: none; width: 100%; }
 .legal-step { position: relative; counter-increment: legal-step; padding: 0 0 22px 56px; min-height: 52px; }
 .legal-step:last-child { padding-bottom: 0; }
@@ -303,9 +304,9 @@
 .lm-row { position: relative; display: flex; align-items: center; justify-content: space-between; height: 58px; padding: 0 16px 0 18px; font: 500 16px/1 var(--font-sans); color: #28273b; }
 .lm-row + .lm-row { border-top: 1px solid rgba(40, 39, 59, .07); }
 .lm-row svg { color: #8d8ba0; }
-.lm-row[data-hit] { z-index: 1; margin: 0 -6px; padding-inline: 24px 22px; border-radius: 16px; background: #fff; color: #d6455a; font-weight: 700; box-shadow: 0 0 0 2.5px #00c4d8, 0 10px 26px rgba(0, 175, 196, .28); }
+.lm-row[data-hit] { z-index: 1; margin: 0 -6px; padding-inline: 24px 22px; border-radius: 16px; background: #fff; color: #c93a50; font-weight: 700; box-shadow: 0 0 0 2.5px #00c4d8, 0 10px 26px rgba(0, 175, 196, .28); }
 .lm-row[data-hit] + .lm-row, .lm-row + .lm-row[data-hit] { border-top-color: transparent; }
-.lm-row[data-hit] svg { color: #d6455a; }
+.lm-row[data-hit] svg { color: #c93a50; }
 .lm-tap { position: absolute; right: 64px; top: 50%; width: 36px; height: 36px; margin-top: -18px; border-radius: 50%; background: rgba(0, 196, 216, .28); box-shadow: 0 0 0 6px rgba(0, 196, 216, .12); animation: legalTap 1.6s var(--ease-sine) infinite; }
 @keyframes legalTap { 0%, 100% { transform: scale(.85); opacity: .9; } 50% { transform: scale(1.08); opacity: .6; } }
 
@@ -436,7 +437,8 @@ html:has(.site-header[data-theme="dark"]) .legal-totop { background: rgba(15, 16
   .legal-hero { padding: 0 0 12pt; background: none; }
   .legal-hero::before, .legal-hero::after { display: none; }
   .legal-h1 { font-size: 22pt; }
-  .legal-body { display: block; padding: 0; width: auto; }
+  .legal-frame, .legal-body { display: block; padding: 0; width: auto; }
+  .legal-hero-inner { display: flex; }
   .legal-article, .legal-p, .legal-list { max-width: none; }
   .legal-section + .legal-section { margin-top: 16pt; padding-top: 12pt; }
   .legal :is(.glass, .legal-glance-card, .legal-contact, .legal-table-wrap, .legal-stores, .legal-store-link, .faq-item, .legal-callout) {

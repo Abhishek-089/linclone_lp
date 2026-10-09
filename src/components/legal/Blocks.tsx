@@ -58,28 +58,30 @@ export function LegalBlock({ block, ui }: { block: Block; ui: LegalUi }) {
 
     case 'table':
       return (
+        // explicit roles: below 640px the cells are display:block (stacked cards), which
+        // drops the implicit table semantics in WebKit/VoiceOver
         <div className="legal-table-wrap">
-          <table className="legal-table">
+          <table className="legal-table" role="table">
             <caption>{block.caption}</caption>
-            <thead>
-              <tr>
+            <thead role="rowgroup">
+              <tr role="row">
                 {block.columns.map((c) => (
-                  <th key={c} scope="col">
+                  <th key={c} scope="col" role="columnheader">
                     {c}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody role="rowgroup">
               {block.rows.map((row, r) => (
-                <tr key={r}>
+                <tr key={r} role="row">
                   {row.map((cell, c) =>
                     c === 0 ? (
-                      <th key={c} scope="row" data-label={block.columns[c]}>
+                      <th key={c} scope="row" role="rowheader" data-label={block.columns[c]}>
                         <Inline text={cell} />
                       </th>
                     ) : (
-                      <td key={c} data-label={block.columns[c]}>
+                      <td key={c} role="cell" data-label={block.columns[c]}>
                         <span className="legal-cell">
                           <Inline text={cell} />
                         </span>

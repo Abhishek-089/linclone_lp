@@ -20,10 +20,12 @@ function printLabel(href: string): string | undefined {
   return href.replace(/^https:\/\//, '');
 }
 
-export function InlineLink({ href, children, className }: { href: string; children: ReactNode; className?: string }) {
+export function InlineLink({ href, children, className, label }: { href: string; children: ReactNode; className?: string; label?: string }) {
   const external = href.startsWith('https://');
+  const printed = printLabel(href);
   return (
-    <a href={href} className={className} data-print={printLabel(href)} rel={external ? 'noopener' : undefined}>
+    // no "(address)" suffix in print when the visible text already is the address
+    <a href={href} className={className} data-print={printed === label ? undefined : printed} rel={external ? 'noopener' : undefined}>
       {children}
     </a>
   );
@@ -49,7 +51,7 @@ function parse(text: string, allowBold: boolean, keyPrefix: string): ReactNode[]
     } else if (label !== undefined && href !== undefined) {
       out.push(
         isSafeHref(href) ? (
-          <InlineLink key={key} href={href}>
+          <InlineLink key={key} href={href} label={label}>
             {parse(label, allowBold, `${key}.`)}
           </InlineLink>
         ) : (
