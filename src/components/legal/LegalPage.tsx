@@ -8,12 +8,10 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { SkipLink, Header, Footer, Eyebrow } from '@/components/site';
 import { LegalIcon, type LegalIconName } from './icons/LegalIcon';
 import { Inline } from './Inline';
-import { LegalBlock } from './Blocks';
+import { LegalSections, pad, sectionNumbersOn } from './Sections';
 import { ContactCard } from './ContactCard';
 import { LegalEnhancer } from './LegalEnhancer.client';
 import './legal.css';
-
-const pad = (n: number) => String(n).padStart(2, '0');
 
 export function formatDate(iso: string, lang: Locale): string {
   const [y, m, d] = iso.split('-').map(Number);
@@ -23,6 +21,7 @@ export function formatDate(iso: string, lang: Locale): string {
 
 function Dates({ doc, ui, lang }: { doc: LegalDoc; ui: LegalUi; lang: Locale }) {
   const items = [
+    doc.establishedDate ? { icon: 'calendar_month' as const, label: ui.established, iso: doc.establishedDate } : null,
     doc.effectiveDate ? { icon: 'calendar_month' as const, label: ui.effective, iso: doc.effectiveDate } : null,
     doc.lastUpdated ? { icon: 'update' as const, label: ui.updated, iso: doc.lastUpdated } : null,
   ].filter((x) => x !== null);
@@ -112,14 +111,15 @@ function Related({ keys, lang, ui }: { keys: readonly string[]; lang: Locale; ui
 /**
  * Shared layout of every legal/support page (src/content/legal/**): hero
  * (eyebrow, H1, lead, dates, language note, optional quick actions or "at a
- * glance" cards), then a sticky scroll-spied TOC beside a readable article,
- * related pages, and the site footer. All text is server-rendered.
+ * glance" cards), then a sticky scroll-spied TOC beside a readable article
+ * (./Sections.tsx: sections, then the document's closing lines), related
+ * pages, and the site footer. All text is server-rendered.
  */
 export function LegalPage({ page, lang, d, doc }: { page: LegalPageKey; lang: Locale; d: Dictionary; doc: LegalDoc }) {
   const ui = LEGAL_UI[lang];
   const def = LEGAL_PAGES[page];
   const other: Locale = lang === 'ja' ? 'en' : 'ja';
-  const numbered = def.group === 'legal';
+  const numbered = sectionNumbersOn(def, doc);
   return (
     <>
       <SkipLink href="#main" label={d.common.skip.toContent} />
@@ -152,7 +152,7 @@ export function LegalPage({ page, lang, d, doc }: { page: LegalPageKey; lang: Lo
                 </a>
               </p>
             </div>
-            {ui.langPrevails && numbered ? <p className="legal-prevails">{ui.langPrevails}</p> : null}
+            {ui.langPrevails && def.group === 'legal' ? <p className="legal-prevails">{ui.langPrevails}</p> : null}
             {doc.status === 'draft' ? (
               <p className="legal-draft" role="note">
                 <LegalIcon name="edit_note" size={18} />
@@ -208,22 +208,7 @@ export function LegalPage({ page, lang, d, doc }: { page: LegalPageKey; lang: Lo
           </aside>
           <article className="legal-article" aria-labelledby="legal-title">
             <Toc doc={doc} ui={ui} numbered={numbered} variant="mobile" />
-            {doc.sections.map((s, i) => (
-              <section key={s.id} id={s.id} className="legal-section" aria-labelledby={`${s.id}-h`} data-legal-section="">
-                <h2 id={`${s.id}-h`} className="legal-h2">
-                  {numbered ? <span className="legal-num">{pad(i + 1)}</span> : null}
-                  <span className="legal-h2-text">{s.heading}</span>
-                  <a href={`#${s.id}`} className="legal-anchor" data-copy-link="" aria-label={`${ui.copyLink}: ${s.heading}`}>
-                    <LegalIcon name="link" size={18} />
-                  </a>
-                </h2>
-                <div className="legal-blocks">
-                  {s.blocks.map((b, j) => (
-                    <LegalBlock key={j} block={b} ui={ui} />
-                  ))}
-                </div>
-              </section>
-            ))}
+            <LegalSections doc={doc} ui={ui} numbered={numbered} />
             {doc.contactCard ? (
               <div className="legal-closing">
                 <ContactCard card={doc.contactCard} ui={ui} headingLevel="h2" />

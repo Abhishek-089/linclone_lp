@@ -94,7 +94,7 @@ export default defineLegalDoc({
         {
           kind: 'callout',
           tone: 'info',
-          body: '【ドラフト】詳しくは[プライバシーポリシー](/privacy#retention)をご覧ください。',
+          body: '【ドラフト】詳しくは[プライバシーポリシー](/privacy#art-11)をご覧ください。',
         },
       ],
     },

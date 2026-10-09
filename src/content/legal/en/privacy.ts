@@ -1,6 +1,10 @@
 import { defineLegalDoc } from '../types';
 
-// [DRAFT] Structural placeholder. The real text comes from the drafting step.
+// [DRAFT] Placeholder for the English translation of the owner-approved Japanese
+// text (docs/legal/source/privacy_policy_ja.md; JA page: ../ja/privacy.ts, generated).
+// Translate it article by article, keeping the structure: one section per article
+// with the same id (art-1 … art-17), the same lists, table and closing lines,
+// and no added summaries or cards. The Japanese version prevails (ui.langPrevails).
 export default defineLegalDoc({
   status: 'draft',
   meta: {
@@ -8,210 +12,97 @@ export default defineLegalDoc({
     description:
       '[DRAFT] What LinClone collects, why, who we share it with, how long we keep it, your rights, and how to contact us about your personal data.',
   },
-  eyebrow: 'Legal',
-  title: 'Privacy Policy',
-  lead: '[DRAFT] How LinClone K.K. ("we") handles the information you give us in the LinClone app and on this website. [[Replace the lead once drafted]]',
-  effectiveDate: '2026-11-01',
-  lastUpdated: '2026-10-09',
-  atAGlance: [
-    {
-      icon: 'block',
-      title: 'We never sell your data',
-      body: '[DRAFT] We do not sell the personal data you entrust to us.',
-    },
-    {
-      icon: 'psychology',
-      title: 'You control the memories',
-      body: '[DRAFT] Review or delete what an AI clone remembers about you, any time, in the app.',
-    },
-    {
-      icon: 'delete',
-      title: 'Delete any time',
-      body: '[DRAFT] Delete your account from Settings. See [Delete your account](/en/delete-user).',
-    },
-  ],
+  title: 'LinClone Privacy Policy',
+  lead: '[DRAFT] [[Translate the preamble of docs/legal/source/privacy_policy_ja.md]]',
+  establishedDate: '2026-10-09',
+  sectionNumbers: false,
   sections: [
     {
-      id: 'overview',
-      heading: 'About this policy',
-      blocks: [
-        {
-          kind: 'paragraph',
-          text: '[DRAFT] This policy covers the LinClone app, this website and related services (the "Service"). [[Confirm scope]]',
-        },
-        {
-          kind: 'definitionList',
-          items: [
-            { term: 'Operator', definition: 'LinClone K.K. 【要確認】' },
-            { term: 'Address', definition: '[[Registered address]]' },
-            { term: 'Contact', definition: '[info@linclone.com](mailto:info@linclone.com)' },
-          ],
-        },
-      ],
+      id: 'art-1',
+      heading: '[DRAFT] Article 1',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第1条（事業者情報） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'information-we-collect',
-      heading: 'Information we collect',
-      blocks: [
-        { kind: 'paragraph', text: '[DRAFT] We collect only what we need to run the Service:' },
-        {
-          kind: 'list',
-          items: [
-            {
-              text: '**Account details**',
-              items: ['Username, display name and email address', 'Date of birth [[confirm purpose]]'],
-            },
-            {
-              text: '**How you use the app**',
-              items: ['Chat and call content', 'Coin purchases and spending'],
-            },
-            'Device details (operating system, app version)',
-          ],
-        },
-        {
-          kind: 'callout',
-          tone: 'info',
-          title: 'We never read your contacts',
-          body: '[DRAFT] The app does not access your address book. [[Fact-check]]',
-        },
-      ],
+      id: 'art-2',
+      heading: '[DRAFT] Article 2',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第2条（取得する情報） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'how-we-use',
-      heading: 'How we use it',
-      blocks: [
-        {
-          kind: 'list',
-          ordered: true,
-          items: [
-            'To provide the Service and identify your account',
-            'To tailor conversations with AI clones to you',
-            'To prevent abuse and keep people safe',
-            'To answer your questions',
-          ],
-        },
-      ],
+      id: 'art-3',
+      heading: '[DRAFT] Article 3',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第3条（利用目的） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'sharing',
-      heading: 'Sharing and processors',
-      blocks: [
-        {
-          kind: 'paragraph',
-          text: '[DRAFT] We do not share personal data without your consent unless the law requires it. We use these processors:',
-        },
-        {
-          kind: 'table',
-          caption: '[DRAFT] Main processors (example)',
-          columns: ['Processor type', 'Purpose', 'Country'],
-          rows: [
-            ['Cloud hosting', 'Storing and processing data', '[[Country]]'],
-            ['Payments (App Store, Google Play)', 'Coin and subscription payments', '[[Country]]'],
-            ['Speech and AI processing', 'Generating AI clone replies', '[[Country]]'],
-          ],
-        },
-        {
-          kind: 'storeLinks',
-          body: '[DRAFT] Apple and Google handle payment details; we never receive your card number. Manage subscriptions in your store account.',
-        },
-      ],
+      id: 'art-4',
+      heading: '[DRAFT] Article 4',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第4条（統計・内部分析） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'retention',
-      heading: 'How long we keep it',
-      blocks: [
-        {
-          kind: 'paragraph',
-          text: '[DRAFT] When you delete your account, your profile and conversation memories are erased within [[N]] days. Records the law requires us to keep are kept for the required period.',
-        },
-        {
-          kind: 'callout',
-          tone: 'important',
-          title: 'Purchased coins',
-          body: '[DRAFT] Deleting your account voids unused coins, and they cannot be refunded. [[Confirm refund policy]]',
-        },
-      ],
+      id: 'art-5',
+      heading: '[DRAFT] Article 5',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第5条（クリエイターへの提供） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'your-rights',
-      heading: 'Your rights',
-      blocks: [
-        { kind: 'paragraph', text: '[DRAFT] You can ask us to disclose, correct, stop using or delete your information.' },
-        {
-          kind: 'steps',
-          items: [
-            { title: 'Email us', body: 'Write to [info@linclone.com](mailto:info@linclone.com) with your request.' },
-            { title: 'We confirm it is you', body: '[DRAFT] We reply to the email address registered to your account.' },
-            { title: 'We act on it', body: '[DRAFT] We respond within [[N]] days of confirming your identity.' },
-          ],
-        },
-      ],
+      id: 'art-6',
+      heading: '[DRAFT] Article 6',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第6条（当社によるやり取り履歴の確認） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'children',
-      heading: 'Minors',
-      blocks: [
-        {
-          kind: 'paragraph',
-          text: '[DRAFT] See our [Child Protection Policy](/en/policies/child-protection-policy) for how we protect minors.',
-        },
-      ],
+      id: 'art-7',
+      heading: '[DRAFT] Article 7',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第7条（その他の第三者提供） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'security',
-      heading: 'Security',
-      blocks: [
-        {
-          kind: 'paragraph',
-          text: '[DRAFT] We encrypt data in transit and limit who can access it. For cookies, see the [Cookie Policy](/en/cookies).',
-        },
-      ],
+      id: 'art-8',
+      heading: '[DRAFT] Article 8',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第8条（業務の委託） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'changes',
-      heading: 'Changes to this policy',
-      blocks: [
-        {
-          kind: 'paragraph',
-          text: '[DRAFT] We announce material changes in the app or on this page before they take effect.',
-        },
-      ],
+      id: 'art-9',
+      heading: '[DRAFT] Article 9',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第9条（外国にある第三者への提供等） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'faq',
-      heading: 'Questions people ask',
-      blocks: [
-        {
-          kind: 'faq',
-          items: [
-            {
-              q: 'Can the real creator read my conversations?',
-              a: '[DRAFT] Creators see aggregate statistics only, never individual conversations. [[Fact-check]]',
-            },
-            {
-              q: 'How do I erase what a clone remembers?',
-              a: '[DRAFT] Edit or delete memories any time in the app.',
-            },
-          ],
-        },
-      ],
+      id: 'art-10',
+      heading: '[DRAFT] Article 10',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第10条（外部送信） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
     {
-      id: 'contact',
-      heading: 'Contact',
-      blocks: [
-        {
-          kind: 'contact',
-          title: 'Questions about your personal data',
-          body: '[DRAFT] Requests about your data, or questions about this policy.',
-          email: 'info@linclone.com',
-          subject: 'Privacy request',
-          bodyTemplate: 'Account email or @username:\nYour request or question:\n',
-          label: 'Email us',
-          note: '[DRAFT] Please write from the email address registered to your account so we can confirm it is you.',
-        },
-      ],
+      id: 'art-11',
+      heading: '[DRAFT] Article 11',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第11条（保存期間） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
+    },
+    {
+      id: 'art-12',
+      heading: '[DRAFT] Article 12',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第12条（安全管理措置） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
+    },
+    {
+      id: 'art-13',
+      heading: '[DRAFT] Article 13',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第13条（開示等の請求） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
+    },
+    {
+      id: 'art-14',
+      heading: '[DRAFT] Article 14',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第14条（未成年者） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
+    },
+    {
+      id: 'art-15',
+      heading: '[DRAFT] Article 15',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第15条（AIによる自動処理） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
+    },
+    {
+      id: 'art-16',
+      heading: '[DRAFT] Article 16',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第16条（改定） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
+    },
+    {
+      id: 'art-17',
+      heading: '[DRAFT] Article 17',
+      blocks: [{ kind: 'paragraph', text: '[DRAFT] [[Translate 第17条（お問い合わせ窓口） verbatim from docs/legal/source/privacy_policy_ja.md]]' }],
     },
   ],
+  closing: ['[DRAFT] [[Translate the closing lines (制定日, and the company name and address where the source has them)]]'],
   related: ['terms', 'cookies', 'childProtection', 'deleteUser', 'support'],
 });

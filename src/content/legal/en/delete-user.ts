@@ -95,7 +95,7 @@ export default defineLegalDoc({
         {
           kind: 'callout',
           tone: 'info',
-          body: '[DRAFT] Details in the [Privacy Policy](/en/privacy#retention).',
+          body: '[DRAFT] Details in the [Privacy Policy](/en/privacy#art-11).',
         },
       ],
     },

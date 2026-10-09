@@ -4,9 +4,11 @@
 //
 // Always (errors):
 //   - every page in pages.ts has src/content/legal/{ja,en}/<file>.ts and both load
-//   - the document shape is valid (required fields, block kinds, table widths, ISO dates)
+//   - the document shape is valid (required fields, block kinds, table widths, list
+//     numbering, ISO dates, closing lines)
 //   - ja and en have the same section ids in the same order; ids are slugs, unique, not reserved
-//   - inline markdown is well formed (balanced **, links with an allowed href)
+//   - inline markdown is well formed (balanced **, links with an allowed href); the
+//     token syntax is src/components/legal/inline-syntax.ts, shared with the renderer
 //   - every mailto: / contact email is info@linclone.com (or in ALLOWED_EMAILS below)
 //   - internal links point at a registered page of the SAME locale; #anchors exist
 //   - related keys exist; quick-action hrefs resolve
@@ -134,10 +136,10 @@ function checkHref(where, href, lang, doc) {
   err(where, `href "${href}" must be https://, mailto:, /path or #id`);
 }
 
-const TOKEN = /\*\*(.+?)\*\*|\[\[(.+?)\]\]|\[([^\]\n]+)\]\(([^)\s]+)\)/g;
+const { INLINE_TOKEN: TOKEN } = load(join(ROOT, 'src/components/legal/inline-syntax.ts'));
 function checkInline(where, text, lang, doc) {
-  // links
-  for (const m of text.matchAll(TOKEN)) if (m[4] !== undefined) checkHref(where, m[4], lang, doc);
+  // links (groups: 1 escape, 2 bold, 3 placeholder, 4 label, 5 href)
+  for (const m of text.matchAll(TOKEN)) if (m[5] !== undefined) checkHref(where, m[5], lang, doc);
   // what remains after removing well-formed tokens must not hold markup fragments
   const rest = text.replace(TOKEN, '');
   if (rest.includes('**')) err(where, 'unbalanced **bold**');
@@ -160,14 +162,16 @@ function checkBlock(where, b, lang, doc) {
       return inl(where, b.text);
     case 'list':
       if (!b.items?.length) return err(where, 'empty list');
+      if (b.start !== undefined && (!b.ordered || !Number.isInteger(b.start) || b.start < 1)) err(where, `start ${b.start} needs ordered: true and a whole number ≥ 1`);
       return b.items.forEach((it, i) => {
         if (typeof it === 'string') return inl(`${where}.items[${i}]`, it);
         inl(`${where}.items[${i}].text`, it.text);
+        if (it.ordered !== undefined && typeof it.ordered !== 'boolean') err(`${where}.items[${i}]`, 'ordered must be true or false');
         if (!it.items?.length) err(`${where}.items[${i}]`, 'nested list is empty');
         it.items?.forEach((n, j) => (typeof n === 'string' ? inl(`${where}.items[${i}].items[${j}]`, n) : err(`${where}.items[${i}].items[${j}]`, 'lists nest one level only')));
       });
     case 'table':
-      if (!isStr(b.caption)) err(where, 'table needs a caption');
+      if (b.caption !== undefined && !isStr(b.caption)) err(where, 'table caption is empty (omit it instead)');
       if (!b.columns?.length) return err(where, 'table needs columns');
       return b.rows.forEach((r, i) => {
         if (r.length !== b.columns.length) err(`${where}.rows[${i}]`, `${r.length} cells for ${b.columns.length} columns`);
@@ -212,7 +216,7 @@ for (const [key, byLang] of Object.entries(docs)) {
     if (!['draft', 'final'].includes(doc.status)) err(at, `status must be 'draft' or 'final'`);
     for (const f of ['title', 'lead']) if (!isStr(doc[f])) err(at, `${f} is required`);
     if (!isStr(doc.meta?.title) || !isStr(doc.meta?.description)) err(at, 'meta.title and meta.description are required');
-    for (const f of ['effectiveDate', 'lastUpdated']) if (doc[f] !== undefined && !isIso(doc[f])) err(at, `${f} "${doc[f]}" is not an ISO date (YYYY-MM-DD)`);
+    for (const f of ['establishedDate', 'effectiveDate', 'lastUpdated']) if (doc[f] !== undefined && !isIso(doc[f])) err(at, `${f} "${doc[f]}" is not an ISO date (YYYY-MM-DD)`);
     if (doc.meta) {
       const [tMax, dMax] = l === 'ja' ? [32, 120] : [60, 155];
       if ([...doc.meta.title].length > tMax) warnings.push(`${at}: meta.title is ${[...doc.meta.title].length} chars (aim ≤${tMax})`);
@@ -229,6 +233,11 @@ for (const [key, byLang] of Object.entries(docs)) {
       if (!isStr(s.heading)) err(w, 'heading is required');
       if (!s.blocks?.length) err(w, 'needs at least one block');
       s.blocks?.forEach((b, j) => checkBlock(`${w}(${s.id}).blocks[${j}]`, b, l, doc));
+    }
+    if (doc.sectionNumbers !== undefined && typeof doc.sectionNumbers !== 'boolean') err(at, 'sectionNumbers must be true or false');
+    if (doc.closing !== undefined) {
+      if (!Array.isArray(doc.closing) || !doc.closing.length) err(at, 'closing must be a non-empty list of lines (or omitted)');
+      else doc.closing.forEach((c, i) => (isStr(c) ? checkInline(`${at} closing[${i}]`, c, l, doc) : err(`${at} closing[${i}]`, 'empty line')));
     }
     doc.atAGlance?.forEach((g, i) => checkInline(`${at} atAGlance[${i}]`, g.body, l, doc));
     doc.quickActions?.forEach((q, i) => checkHref(`${at} quickActions[${i}]`, q.href, l, doc));

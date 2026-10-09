@@ -132,7 +132,7 @@ export function creatorsGraph(lang: Locale, d: Dictionary): object {
 export function legalGraph(
   lang: Locale,
   page: LegalPageKey,
-  doc: { meta: { title: string; description: string }; title: string; lastUpdated?: string; effectiveDate?: string },
+  doc: { meta: { title: string; description: string }; title: string; lastUpdated?: string; effectiveDate?: string; establishedDate?: string },
   homeName: string,
 ): object {
   const home = abs(localePath(lang, 'home'));
@@ -153,7 +153,7 @@ export function legalGraph(
         about: { '@id': ORG_ID },
         publisher: { '@id': ORG_ID },
         breadcrumb: { '@id': `${url}#breadcrumb` },
-        ...(doc.effectiveDate ? { datePublished: doc.effectiveDate } : {}),
+        ...(doc.establishedDate || doc.effectiveDate ? { datePublished: doc.establishedDate ?? doc.effectiveDate } : {}),
         ...(doc.lastUpdated ? { dateModified: doc.lastUpdated } : {}),
       },
       {

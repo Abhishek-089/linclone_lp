@@ -11,8 +11,17 @@
 //   [label](#section-id)         jump to a section on the same page
 //   [label](mailto:info@linclone.com?subject=…)   mail link (lint: info@ only)
 //   [[note for drafters]]        a visible placeholder, highlighted on the page
+//   \\  \*  \[  \]                 a literal \ * [ or ] (escapeInline() in
+//                                src/components/legal/inline-syntax.ts adds these)
 // Anything else is printed literally. Line breaks are not supported: use
 // another paragraph or a list.
+//
+// ── Verbatim documents ───────────────────────────────────────────────────────
+// ja/privacy.ts and ja/terms.ts are GENERATED from the owner-approved texts in
+// docs/legal/source/*.md by scripts/legal-from-markdown.mjs, and
+// scripts/legal-verbatim-check.mjs (in `legal:lint` and prebuild) fails when
+// the rendered text differs from the source by a single character. Edit the
+// markdown, never the generated file.
 //
 // ── Placeholders ─────────────────────────────────────────────────────────────
 // Drafts may contain TODO, 【要確認】, 【ドラフト】, [DRAFT] and [[…]].
@@ -27,17 +36,24 @@ export type IsoDate = `${number}-${number}-${number}`;
 /** Glyph name (a LegalIconName: site sprite icons + src/components/legal/icons/legal-paths.ts). */
 export type IconRef = string;
 
-export type ListItem = Inline | { readonly text: Inline; readonly items: readonly Inline[] };
+/** A list item; an object item carries ONE nested level (`ordered` numbers it 1., 2., …). */
+export type ListItem = Inline | { readonly text: Inline; readonly items: readonly Inline[]; readonly ordered?: boolean };
 
 export type Block =
   /** One paragraph. */
   | { readonly kind: 'paragraph'; readonly text: Inline }
-  /** Bulleted or numbered list; an item may carry ONE nested level. */
-  | { readonly kind: 'list'; readonly ordered?: boolean; readonly items: readonly ListItem[] }
-  /** Data table; becomes stacked cards below 640px (each cell labelled by its column). */
+  /**
+   * Bulleted or numbered list; an item may carry ONE nested level. `start`
+   * (ordered lists) is the first number, for a list a table interrupts.
+   */
+  | { readonly kind: 'list'; readonly ordered?: boolean; readonly start?: number; readonly items: readonly ListItem[] }
+  /**
+   * Data table; becomes stacked cards below 640px (each cell labelled by its column).
+   * Give it a caption unless the text must stay verbatim (a source without one).
+   */
   | {
       readonly kind: 'table';
-      readonly caption: string;
+      readonly caption?: string;
       readonly columns: readonly string[];
       readonly rows: readonly (readonly Inline[])[];
     }
@@ -112,13 +128,26 @@ export type LegalDoc = {
   readonly title: string;
   readonly eyebrow?: string;
   readonly lead: Inline;
+  /** 制定日 / "Established": the date the document was first adopted (hero chip). */
+  readonly establishedDate?: IsoDate;
   readonly effectiveDate?: IsoDate;
   readonly lastUpdated?: IsoDate;
+  /**
+   * false: no automatic "01, 02 …" counters before the section headings and in
+   * the contents (for documents whose headings carry their own numbers, 第1条…).
+   * Default: counters on the 'legal' group's pages.
+   */
+  readonly sectionNumbers?: boolean;
   /** "At a glance" summary cards under the hero (policy pages). */
   readonly atAGlance?: readonly GlanceCard[];
   /** Hero tiles linking to sections or pages (support page). */
   readonly quickActions?: readonly QuickAction[];
   readonly sections: readonly Section[];
+  /**
+   * Lines after the last section, below a rule (a document's own trailing
+   * lines: 制定日, company name, address). One paragraph each.
+   */
+  readonly closing?: readonly Inline[];
   /** Contact card closing the article. */
   readonly contactCard?: ContactCard;
   /** Related pages, by key of src/content/legal/pages.ts. */

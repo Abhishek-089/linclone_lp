@@ -21,16 +21,17 @@ function Item({ item }: { item: ListItem }) {
       </li>
     );
   }
+  const L = item.ordered ? 'ol' : 'ul';
   return (
     <li>
       <Inline text={item.text} />
-      <ul className="legal-list legal-list-nested">
-        {item.items.map((t) => (
-          <li key={t}>
+      <L className="legal-list legal-list-nested" data-ordered={item.ordered ? '' : undefined}>
+        {item.items.map((t, i) => (
+          <li key={i}>
             <Inline text={t} />
           </li>
         ))}
-      </ul>
+      </L>
     </li>
   );
 }
@@ -46,13 +47,29 @@ export function LegalBlock({ block, ui }: { block: Block; ui: LegalUi }) {
       );
 
     case 'list': {
-      const L = block.ordered ? 'ol' : 'ul';
+      if (block.ordered) {
+        // the visible numbers are a CSS counter (legal.css); `start` keeps it and the
+        // list semantics in step when a table interrupts a numbered list
+        const start = block.start ?? 1;
+        return (
+          <ol
+            className="legal-list"
+            data-ordered=""
+            start={start === 1 ? undefined : start}
+            style={start === 1 ? undefined : { counterReset: `legal-ol ${start - 1}` }}
+          >
+            {block.items.map((item, i) => (
+              <Item key={i} item={item} />
+            ))}
+          </ol>
+        );
+      }
       return (
-        <L className="legal-list" data-ordered={block.ordered ? '' : undefined}>
-          {block.items.map((item) => (
-            <Item key={typeof item === 'string' ? item : item.text} item={item} />
+        <ul className="legal-list">
+          {block.items.map((item, i) => (
+            <Item key={i} item={item} />
           ))}
-        </L>
+        </ul>
       );
     }
 
@@ -62,7 +79,7 @@ export function LegalBlock({ block, ui }: { block: Block; ui: LegalUi }) {
         // drops the implicit table semantics in WebKit/VoiceOver
         <div className="legal-table-wrap">
           <table className="legal-table" role="table">
-            <caption>{block.caption}</caption>
+            {block.caption ? <caption>{block.caption}</caption> : null}
             <thead role="rowgroup">
               <tr role="row">
                 {block.columns.map((c) => (

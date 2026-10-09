@@ -1,16 +1,12 @@
 import type { ReactNode } from 'react';
 import { SITE } from '@/lib/site-config';
+import { INLINE_TOKEN, isSafeHref } from './inline-syntax';
+
+export { isSafeHref };
 
 // Tiny, safe renderer for the inline markdown subset documented in
 // src/content/legal/types.ts. It never builds HTML strings: every token
 // becomes a React element, everything else stays literal text.
-
-const TOKEN = /\*\*(.+?)\*\*|\[\[(.+?)\]\]|\[([^\]\n]+)\]\(([^)\s]+)\)/g;
-
-/** Hrefs the renderer will link; anything else prints as plain text. */
-export function isSafeHref(href: string): boolean {
-  return /^https:\/\/[^\s]+$/.test(href) || /^mailto:[^\s]+$/.test(href) || /^\/(?!\/)[^\s]*$/.test(href) || /^#[a-z0-9-]+$/.test(href);
-}
 
 /** Address shown after the link text when printed (print stylesheet reads data-print). */
 function printLabel(href: string): string | undefined {
@@ -35,12 +31,14 @@ function parse(text: string, allowBold: boolean, keyPrefix: string): ReactNode[]
   const out: ReactNode[] = [];
   let last = 0;
   let i = 0;
-  for (const m of text.matchAll(TOKEN)) {
+  for (const m of text.matchAll(INLINE_TOKEN)) {
     const at = m.index ?? 0;
     if (at > last) out.push(text.slice(last, at));
     const key = `${keyPrefix}${i++}`;
-    const [whole, bold, note, label, href] = m;
-    if (bold !== undefined) {
+    const [whole, escaped, bold, note, label, href] = m;
+    if (escaped !== undefined) {
+      out.push(escaped);
+    } else if (bold !== undefined) {
       out.push(allowBold ? <strong key={key}>{parse(bold, false, `${key}.`)}</strong> : whole);
     } else if (note !== undefined) {
       out.push(
@@ -65,7 +63,7 @@ function parse(text: string, allowBold: boolean, keyPrefix: string): ReactNode[]
   return out;
 }
 
-/** Renders one `Inline` string (bold, links, [[placeholders]]). */
+/** Renders one `Inline` string (bold, links, [[placeholders]], \\-escapes). */
 export function Inline({ text }: { text: string }) {
   return <>{parse(text, true, 'i')}</>;
 }

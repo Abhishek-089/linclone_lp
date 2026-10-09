@@ -19,8 +19,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   };
   const marketing = (['home', 'creators'] as const).flatMap((p) => entries(p, { ja: SITE_LAST_MODIFIED, en: SITE_LAST_MODIFIED }));
-  const legal = LEGAL_PAGE_KEYS.flatMap((p) =>
-    entries(p, { ja: getLegalDoc(p, 'ja').lastUpdated, en: getLegalDoc(p, 'en').lastUpdated }),
-  );
+  const modified = (p: (typeof LEGAL_PAGE_KEYS)[number], l: 'ja' | 'en') => {
+    const doc = getLegalDoc(p, l);
+    return doc.lastUpdated ?? doc.establishedDate;
+  };
+  const legal = LEGAL_PAGE_KEYS.flatMap((p) => entries(p, { ja: modified(p, 'ja'), en: modified(p, 'en') }));
   return [...marketing, ...legal];
 }

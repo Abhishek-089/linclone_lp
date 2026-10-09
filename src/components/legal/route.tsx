@@ -35,6 +35,7 @@ export async function legalMetadata(page: LegalPageKey, params: Params, parent: 
       description: doc.meta.description,
       locale: lang === 'ja' ? 'ja_JP' : 'en_US',
       alternateLocale: [lang === 'ja' ? 'en_US' : 'ja_JP'],
+      ...(doc.establishedDate ? { publishedTime: doc.establishedDate } : {}),
       ...(doc.lastUpdated ? { modifiedTime: doc.lastUpdated } : {}),
       images,
     },

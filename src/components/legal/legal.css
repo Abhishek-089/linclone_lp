@@ -228,6 +228,12 @@
 .legal-list .legal-list-nested > li { padding-left: 22px; color: var(--color-ink-2); }
 .legal-list .legal-list-nested > li::before { content: ""; position: absolute; left: 6px; top: calc(.85em - 3px); width: 6px; height: 6px; border-radius: 50%; background: none; box-shadow: inset 0 0 0 1.5px var(--color-ink-faint); }
 .legal-list .legal-list-nested > li + li { margin-top: 4px; }
+/* numbered sub-items (e.g. 第3条第5項 1., 2.): clauses, so full ink and a counter instead of a ring */
+.legal-list .legal-list-nested[data-ordered] > li { padding-left: 30px; color: var(--color-ink); }
+.legal-list .legal-list-nested[data-ordered] > li::before {
+  content: counter(legal-ol) "."; left: 0; top: 0; width: auto; height: auto; min-width: 20px; border-radius: 0; box-shadow: none; background: none;
+  text-align: right; font-weight: 600; color: var(--color-ink-2); font-variant-numeric: tabular-nums;
+}
 
 /* tables (stacked cards below 640px) */
 .legal-table-wrap { border-radius: 18px; background: rgba(255, 255, 255, .62); border: 1px solid rgba(255, 255, 255, .9); box-shadow: var(--soft-shadow); overflow: hidden; }
@@ -346,6 +352,9 @@
   .legal-contact-btn { width: 100%; }
 }
 .legal-closing { margin-top: clamp(44px, 2rem + 2.5vw, 64px); }
+/* a document's own closing lines (制定日, company, address), below a rule like its source's "---" */
+.legal-colophon { margin-top: clamp(36px, 1.75rem + 1.5vw, 52px); padding-top: clamp(28px, 1.5rem + 1vw, 40px); border-top: 1px solid var(--hairline); }
+.legal-colophon > .legal-p + .legal-p { margin-top: 6px; }
 
 /* store links */
 .legal-stores { padding: 18px; border-radius: 20px; background: rgba(255, 255, 255, .5); box-shadow: inset 0 0 0 1px var(--hairline); }
@@ -440,7 +449,7 @@ html:has(.site-header[data-theme="dark"]) .legal-totop { background: rgba(15, 16
   .legal-frame, .legal-body { display: block; padding: 0; width: auto; }
   .legal-hero-inner { display: flex; }
   .legal-article, .legal-p, .legal-list { max-width: none; }
-  .legal-section + .legal-section { margin-top: 16pt; padding-top: 12pt; }
+  .legal-section + .legal-section, .legal-colophon { margin-top: 16pt; padding-top: 12pt; }
   .legal :is(.glass, .legal-glance-card, .legal-contact, .legal-table-wrap, .legal-stores, .legal-store-link, .faq-item, .legal-callout) {
     background: none !important; box-shadow: none !important; border: 1px solid #bbb !important; backdrop-filter: none !important;
   }
