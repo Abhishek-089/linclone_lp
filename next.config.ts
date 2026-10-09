@@ -38,6 +38,10 @@ const nextConfig: NextConfig = {
         { source: "/terms", destination: "/ja/terms" },
         { source: "/cookies", destination: "/ja/cookies" },
         { source: "/policies/child-protection-policy", destination: "/ja/policies/child-protection-policy" },
+        // LC Studio's legal pages keep the URLs Google Play and the app link to:
+        // English unprefixed, Japanese with /ja at the end (src/i18n/paths.ts).
+        { source: "/lc-studio/:doc(privacy|terms)", destination: "/en/lc-studio/:doc" },
+        { source: "/lc-studio/:doc(privacy|terms)/ja", destination: "/ja/lc-studio/:doc" },
         // one explicit line per future marketing page; NEVER a catch-all (it would hijack /share/*)
       ],
     };
@@ -51,6 +55,10 @@ const nextConfig: NextConfig = {
         destination: "https://www.linclone.com/:path",
         permanent: false,
       },
+      // The [lang] forms behind the LC Studio legal rewrites are not public
+      // URLs. Before the /ja rule below, which would send Japanese to English.
+      { source: "/en/lc-studio/:doc(privacy|terms)", destination: "/lc-studio/:doc", permanent: false },
+      { source: "/ja/lc-studio/:doc(privacy|terms)", destination: "/lc-studio/:doc/ja", permanent: false },
       { source: "/ja", destination: "/", permanent: true },
       // keep /ja/…/opengraph-image reachable (metadata image URLs are generated under /ja)
       { source: "/ja/:path((?!.*opengraph-image).*)", destination: "/:path", permanent: true },

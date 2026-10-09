@@ -48,7 +48,7 @@ export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
   const legalLinks = (group: 'support' | 'legal'): Link[] =>
     LEGAL_PAGE_KEYS.filter((k) => LEGAL_PAGES[k].group === group).map((k) => ({ href: localePath(lang, k), label: LEGAL_PAGES[k].label[lang] }));
   return (
-    <footer className="site-footer" data-surface="dark" data-page={page} data-download-block={home ? '' : undefined}>
+    <footer className="site-footer" data-surface="dark" data-page={home ? 'home' : 'creators'} data-download-block={home ? '' : undefined}>
       <span className="footer-watermark" aria-hidden="true">
         {d.common.brand}
       </span>

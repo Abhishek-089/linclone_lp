@@ -1,0 +1,36 @@
+/*
+ * LC Studio legal pages (/lc-studio/privacy, /lc-studio/terms). Laid out like
+ * the creators FAQ: a sticky title column beside the reading column on
+ * desktop, stacked on mobile. Colours are the §3.1 tokens as literals, for
+ * the reason creators.css gives. Unlayered on purpose, like creators.css.
+ */
+.lg-page { padding-block: calc(var(--header-h) + clamp(40px, 3vw + 24px, 96px)) clamp(80px, 5rem + 4vw, 160px); }
+.lg-grid { display: grid; row-gap: 40px; }
+
+.lg-aside { display: flex; flex-direction: column; gap: 16px; }
+.lg-aside > * { margin: 0; }
+.lg-aside .t-small { color: #5b5970; }
+.lg-cross a {
+  display: inline-block; padding-block: 12px; margin-block: -12px;
+  color: #28273b; font-weight: 600; text-decoration: underline 2px #8b55d6; text-underline-offset: 5px;
+  transition: text-decoration-color var(--dur-fast), color var(--dur-fast);
+}
+.lg-cross a:hover { color: #6f3fb8; text-decoration-color: #6f3fb8; }
+
+.lg-text { display: flex; flex-direction: column; gap: 16px; color: #28273b; overflow-wrap: anywhere; }
+.lg-text > * { margin: 0; }
+.lg-text .lg-h { margin-top: 32px; }
+.lg-text .lg-h:first-child { margin-top: 0; }
+/* Hanging indent: the clause number sits in the margin, the text aligns. */
+.lg-clause { padding-left: 1.5em; text-indent: -1.5em; }
+.lg-sub { padding-left: 3em; }
+
+.lg-contact { margin: 48px 0 0; padding-top: 24px; border-top: 1px solid rgba(40, 39, 59, .14); color: #5b5970; }
+.lg-contact a { color: #28273b; font-weight: 600; text-decoration: underline 2px #8b55d6; text-underline-offset: 5px; }
+.lg-contact a:hover { color: #6f3fb8; text-decoration-color: #6f3fb8; }
+
+@media (min-width: 1024px) {
+  .lg-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+  .lg-aside { grid-column: 1 / span 4; position: sticky; top: calc(var(--header-h) + 48px); }
+  .lg-doc { grid-column: 6 / span 7; }
+}

@@ -1,6 +1,6 @@
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
-import { isLegalPage, localePath, type PageKey } from '@/i18n/paths';
+import { isStudioLegalPage, localePath, type PageKey } from '@/i18n/paths';
 import { getUrl, storeUrl } from '@/lib/store-links';
 import { Icon } from '../icons/Icon';
 import { Disclosure } from '../Disclosure';
@@ -23,10 +23,12 @@ const QR_ID = 'header-qr';
  * scroll glass, surface theming, auto-hide, the progress line and the menu.
  */
 export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: PageKey }) {
-  const creators = page === 'creators';
-  // Legal/support pages wear the fan header; its chapter links point back to the home page.
-  const homeHref = (hash: string) => (page === 'home' ? hash : localePath(lang, 'home', hash));
-  const lockupHref = localePath(lang, isLegalPage(page) ? 'home' : page);
+  // /creators and LC Studio's legal pages wear the Studio header; home and the fan
+  // legal/support pages wear the fan header.
+  const creators = page === 'creators' || isStudioLegalPage(page);
+  const sectionsPage: PageKey = creators ? 'creators' : 'home';
+  // The section anchors live on home and /creators; from any other page they lead there.
+  const at = (hash: string) => (page === sectionsPage ? hash : localePath(lang, sectionsPage, hash));
   const other: Locale = lang === 'ja' ? 'en' : 'ja';
   const nav = creators
     ? ([
@@ -37,12 +39,12 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
         ['#faq', d.creators.header.nav.faq],
       ] as const)
     : ([
-        [homeHref('#call'), d.header.nav.call],
-        [homeHref('#morning-call'), d.header.nav.morning],
-        [homeHref('#chat'), d.header.nav.chat],
-        [homeHref('#live'), d.header.nav.live],
-        [homeHref('#grow'), d.header.nav.grow],
-        [homeHref('#faq'), d.header.nav.faq],
+        ['#call', d.header.nav.call],
+        ['#morning-call', d.header.nav.morning],
+        ['#chat', d.header.nav.chat],
+        ['#live', d.header.nav.live],
+        ['#grow', d.header.nav.grow],
+        ['#faq', d.header.nav.faq],
       ] as const);
   const navLabel = creators ? d.creators.header.navLabel : d.header.navLabel;
   const crossLink = creators
@@ -58,9 +60,9 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
   const menuCommand = { commandfor: MENU_ID, command: 'show-modal' } as Record<string, string>;
 
   return (
-    <header className="site-header" data-page={page} data-top="">
+    <header className="site-header" data-page={sectionsPage} data-top="">
       <div className="header-inner">
-        <a href={lockupHref} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
+        <a href={localePath(lang, sectionsPage)} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
           {/* eslint-disable-next-line @next/next/no-img-element -- 28px brand mark */}
           <img src="/brand/mark-56.png" alt="" width={28} height={28} />
           {creators ? <span className="lockup-studio">{d.creators.header.lockup}</span> : <span className="wordmark">{d.common.brand}</span>}
@@ -70,7 +72,7 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
           <ul>
             {nav.map(([href, label]) => (
               <li key={href}>
-                <a href={href}>{label}</a>
+                <a href={at(href)}>{label}</a>
               </li>
             ))}
           </ul>
@@ -124,7 +126,7 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
 
       <dialog id={MENU_ID} className="header-sheet" aria-label={navLabel} data-lenis-prevent="">
         <div className="sheet-top">
-          <a href={lockupHref} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
+          <a href={localePath(lang, sectionsPage)} aria-label={creators ? d.creators.header.homeLabel : d.header.homeLabel} className="header-lockup">
             {/* eslint-disable-next-line @next/next/no-img-element -- 28px brand mark */}
             <img src="/brand/mark-56.png" alt="" width={28} height={28} />
             {creators ? <span className="lockup-studio">{d.creators.header.lockup}</span> : <span className="wordmark">{d.common.brand}</span>}
@@ -138,7 +140,7 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
             <ul>
               {nav.map(([href, label]) => (
                 <li key={href}>
-                  <a href={href} className="t-h2" data-menu-close="">
+                  <a href={at(href)} className="t-h2" data-menu-close="">
                     {label}
                   </a>
                 </li>

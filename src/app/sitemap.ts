@@ -24,5 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return doc.lastUpdated ?? doc.establishedDate;
   };
   const legal = LEGAL_PAGE_KEYS.flatMap((p) => entries(p, { ja: modified(p, 'ja'), en: modified(p, 'en') }));
-  return [...marketing, ...legal];
+  // LC Studio's legal pages (EN at /lc-studio/<doc>, JA at /lc-studio/<doc>/ja).
+  const studioLegal = (['studioPrivacy', 'studioTerms'] as const).flatMap((p) => entries(p, {}));
+  return [...marketing, ...legal, ...studioLegal];
 }
