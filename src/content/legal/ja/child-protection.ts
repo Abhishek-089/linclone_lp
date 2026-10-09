@@ -337,7 +337,7 @@ export default defineLegalDoc({
           title: 'LinClone株式会社 児童保護担当',
           body: '児童の性的虐待・搾取に関する報告、この方針に関するお問い合わせはこちらへ。画像や動画は添付しないでください。',
           email: 'info@linclone.com',
-          subject: '【児童保護】報告・お問い合わせ',
+          subject: '【LinClone】児童保護',
           bodyTemplate: '報告の対象（ユーザー名・表示名・クリエイター名・AIクローンの名前など）：\n場所（チャット・通話・LIVE配信・ストーリーなど）：\n日時：\n内容：\nご連絡先（返信が必要な場合）：\n',
           label: 'メールで報告する',
           note: '危険が迫っている場合は、まず警察（110番）に連絡してください。',

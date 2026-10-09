@@ -162,7 +162,7 @@ export default defineLegalDoc({
             },
             {
               title: 'Report by email',
-              body: 'Anyone, including people without an account, parents and guardians, and Creators using LC Studio, can report by email to our [child safety contact](#contact). Please include “Child safety” in the subject.',
+              body: 'Anyone, including people without an account, parents and guardians, and Creators using LC Studio, can report by email to our [child safety contact](#contact). Please include “Child protection” in the subject.',
             },
             {
               title: 'Tell us what you can',
@@ -339,7 +339,7 @@ export default defineLegalDoc({
           title: 'LinClone K.K., Child Protection Officer',
           body: 'Reports of child sexual abuse or exploitation, and questions about this policy. Please do not attach images or videos.',
           email: 'info@linclone.com',
-          subject: 'Child safety report',
+          subject: '[LinClone] Child protection',
           bodyTemplate: 'Who or what you are reporting (username, display name, Creator or AI Clone name):\nWhere (chat, call, LIVE stream, Story, etc.):\nDate and time:\nWhat happened:\nHow to reach you (if you would like a reply):\n',
           label: 'Report by email',
           note: 'If someone is in danger, contact the police (110 in Japan) first.',

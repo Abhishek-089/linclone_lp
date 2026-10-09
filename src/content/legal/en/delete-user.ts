@@ -83,7 +83,7 @@ export default defineLegalDoc({
               { label: 'Account', rows: ['View the tutorial', 'Log out'] },
             ],
             highlight: 'Security & passkeys',
-            caption: 'Delete account is on the Security screen behind this row (called Security on Android). Illustration only.',
+            caption: 'Delete account is on the Security & passkeys screen behind this row (called Security on Android). Illustration only.',
           },
         },
         {
