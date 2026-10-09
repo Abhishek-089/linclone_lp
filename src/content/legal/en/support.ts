@@ -375,7 +375,7 @@ export default defineLegalDoc({
           kind: 'callout',
           tone: 'info',
           title: 'Creators using LC Studio',
-          body: 'This is the support page for the fan app LinClone. For LC Studio, the app for creators, please see the guidance in LC Studio. Creators are covered by their separate agreement with us and the creator terms.',
+          body: 'This is the support page for the fan app LinClone. For LC Studio, the app for creators, please see the guidance in LC Studio. Creators are covered by their separate agreement with us and the [LC Studio Terms of Service](/lc-studio/terms); how we handle their personal information is set out in the [LC Studio Privacy Policy](/lc-studio/privacy).',
         },
       ],
     },

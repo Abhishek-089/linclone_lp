@@ -373,7 +373,7 @@ export default defineLegalDoc({
           kind: 'callout',
           tone: 'info',
           title: 'LC Studioをご利用のクリエイターの方へ',
-          body: 'このページは、ファン向けアプリ「LinClone」のサポートページです。クリエイター向けアプリ「LC Studio」については、LC Studio内のご案内をご覧ください。クリエイターの方には、当社と別途締結する契約・クリエイター向けの規約が適用されます。',
+          body: 'このページは、ファン向けアプリ「LinClone」のサポートページです。クリエイター向けアプリ「LC Studio」については、LC Studio内のご案内をご覧ください。クリエイターの方には、当社と別途締結する契約と[LC Studio利用規約](/lc-studio/terms/ja)が適用され、個人情報の取扱いは[LC Studioプライバシーポリシー](/lc-studio/privacy/ja)に定めています。',
         },
       ],
     },

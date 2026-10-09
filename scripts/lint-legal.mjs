@@ -67,7 +67,12 @@ for (const [key, p] of Object.entries(LEGAL_PAGES)) {
   if (p.ja.startsWith('/en') || p.ja.startsWith('/ja')) err(`pages.ts:${key}`, `JA path is served unprefixed (got ${p.ja})`);
 }
 // Non-legal pages documents may link to.
-const OTHER_PATHS = { ja: new Set(['/', '/creators']), en: new Set(['/en', '/en/creators']) };
+// Non-legal pages legal content may link to. The LC Studio legal pages keep the
+// store-registered URLs (English unprefixed, Japanese with /ja at the end; src/i18n/paths.ts).
+const OTHER_PATHS = {
+  ja: new Set(['/', '/creators', '/lc-studio/privacy/ja', '/lc-studio/terms/ja']),
+  en: new Set(['/en', '/en/creators', '/lc-studio/privacy', '/lc-studio/terms']),
+};
 
 // ── load documents ───────────────────────────────────────────────────────────
 const docs = {};

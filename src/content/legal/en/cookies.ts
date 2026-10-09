@@ -131,9 +131,9 @@ export default defineLegalDoc({
           rows: [
             [
               'When you open any page',
-              'The hosting provider the Company uses to deliver the Site [[Confirm and state the provider and its country (assumed: Vercel Inc., United States)]]',
+              'The hosting provider the Company uses to deliver the Site (Vercel Inc., United States)',
               'Information normally sent when you visit a website, such as your IP address, browser type (user agent), the URL of the page you viewed, and the date and time',
-              'To deliver the page. This information is kept as the server’s access records [[Confirm and state how long the hosting provider keeps them]].',
+              'To deliver the page. This information is kept as the server’s access records for the period set by the hosting provider.',
             ],
             [
               'When you tap an App Store button or link, or when an iPhone or iPad is sent to the App Store automatically from the invitation page (/invite) or a share page (/share/…)',

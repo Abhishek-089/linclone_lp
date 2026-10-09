@@ -121,7 +121,7 @@ export default defineLegalDoc({
             },
             {
               title: 'We delete the account',
-              body: 'Once we have confirmed it is you, we delete the account. What happens afterwards is the same as deleting in the app. [[Confirm the time from request to deletion, and whether we confirm completion]]',
+              body: 'Once we have confirmed it is you, we delete the account. What happens afterwards is the same as deleting in the app.',
             },
           ],
         },
@@ -162,7 +162,7 @@ export default defineLegalDoc({
             [
               'Other personal information (date of birth, device and log information, etc.)',
               'Handled as set out in the [Privacy Policy](/en/privacy) ([Terms, Article 19(5)](/en/terms#art-19)).',
-              '[[Confirm how long it is kept and when it is deleted]]',
+              'As set out in the Privacy Policy',
             ],
           ],
         },
