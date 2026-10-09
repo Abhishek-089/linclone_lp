@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
-import { localePath } from '@/i18n/paths';
+import { localePath, type PageKey } from '@/i18n/paths';
+import { LEGAL_PAGES, LEGAL_PAGE_KEYS } from '@/content/legal/pages';
 import { mailtoStudio } from '@/lib/store-links';
 import { SOCIAL } from '@/lib/site-config';
 import { Icon } from '../icons/Icon';
@@ -35,13 +36,17 @@ function Column({ title, links }: { title: string; links: Link[] }): ReactNode {
 
 /**
  * Site footer (spec §4.1, §5.14): night-deep with a 4% watermark wordmark;
- * four link columns on desktop, <details> accordions on mobile. Legacy pages
- * are plain <a> (different root layout, so always a full load).
+ * four link columns on desktop, <details> accordions on mobile. Links are
+ * plain <a> (the legacy pages live under a different root layout).
  */
-export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: 'home' | 'creators' }) {
+export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: PageKey }) {
   const L = d.footer.links;
   const anchor = (hash: string) => (page === 'home' ? hash : localePath(lang, 'home', hash));
   const home = page === 'home';
+  const creators = page === 'creators';
+  // Support and legal columns come from the legal page registry, in the locale of this page.
+  const legalLinks = (group: 'support' | 'legal'): Link[] =>
+    LEGAL_PAGE_KEYS.filter((k) => LEGAL_PAGES[k].group === group).map((k) => ({ href: localePath(lang, k), label: LEGAL_PAGES[k].label[lang] }));
   return (
     <footer className="site-footer" data-surface="dark" data-page={page} data-download-block={home ? '' : undefined}>
       <span className="footer-watermark" aria-hidden="true">
@@ -54,7 +59,7 @@ export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: '
             <img src="/brand/mark-white-256.png" alt="" width={36} height={36} loading="lazy" decoding="async" fetchPriority="low" />
             <p className="wordmark">{d.common.brand}</p>
             <p className="footer-tagline t-small">{d.footer.tagline}</p>
-            {home ? <StoreBadges d={d} lang={lang} placement="footer" /> : <StudioStoreCTA d={d} lang={lang} compact labelled />}
+            {creators ? <StudioStoreCTA d={d} lang={lang} compact labelled /> : <StoreBadges d={d} lang={lang} placement="footer" />}
           </div>
           <div className="footer-cols">
             <Column
@@ -76,22 +81,8 @@ export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: '
                 { href: mailtoStudio(lang, d), label: L.requestInvite, analytics: 'studio_mailto:footer' },
               ]}
             />
-            <Column
-              title={d.footer.columns.support}
-              links={[
-                { href: '/support', label: L.support },
-                { href: '/delete-user', label: L.deleteUser },
-              ]}
-            />
-            <Column
-              title={d.footer.columns.legal}
-              links={[
-                { href: '/privacy', label: L.privacy },
-                { href: '/terms', label: L.terms },
-                { href: '/cookies', label: L.cookies },
-                { href: '/policies/child-protection-policy', label: L.childSafety },
-              ]}
-            />
+            <Column title={d.footer.columns.support} links={legalLinks('support')} />
+            <Column title={d.footer.columns.legal} links={legalLinks('legal')} />
           </div>
         </div>
         {SOCIAL.length ? (

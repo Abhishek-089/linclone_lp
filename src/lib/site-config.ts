@@ -19,6 +19,12 @@ export const FAN_APP = {
   appStoreProviderToken: null as string | null, // owner to supply App Store Connect `pt`
 } as const;
 
+/** Official store pages where a user cancels or manages a subscription (legal/support pages). */
+export const SUBSCRIPTION_MANAGEMENT = {
+  apple: 'https://apps.apple.com/account/subscriptions',
+  google: 'https://play.google.com/store/account/subscriptions',
+} as const;
+
 /** Flip to true ONLY when LC Studio is public on BOTH stores. Swaps 近日公開 pills → official badges + real links. */
 export const STUDIO_LIVE: boolean = false;
 export const STUDIO_APP = {

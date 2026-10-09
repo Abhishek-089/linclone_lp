@@ -1,6 +1,6 @@
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
-import { localePath } from '@/i18n/paths';
+import { localePath, type LegalPageKey } from '@/i18n/paths';
 import { FAN_APP, SITE, STUDIO_APP, STUDIO_LIVE } from './site-config';
 
 // schema.org graphs (spec §8.3). No aggregateRating, FAQPage or HowTo.
@@ -124,6 +124,46 @@ export function creatorsGraph(lang: Locale, d: Dictionary): object {
             },
           ]
         : []),
+    ],
+  };
+}
+
+/** Legal/support pages: WebPage + BreadcrumbList (Home › page). */
+export function legalGraph(
+  lang: Locale,
+  page: LegalPageKey,
+  doc: { meta: { title: string; description: string }; title: string; lastUpdated?: string; effectiveDate?: string },
+  homeName: string,
+): object {
+  const home = abs(localePath(lang, 'home'));
+  const url = abs(localePath(lang, page));
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      ORGANIZATION,
+      WEBSITE,
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: doc.meta.title,
+        description: doc.meta.description,
+        inLanguage: lang,
+        isPartOf: { '@id': WEBSITE_ID },
+        about: { '@id': ORG_ID },
+        publisher: { '@id': ORG_ID },
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+        ...(doc.effectiveDate ? { datePublished: doc.effectiveDate } : {}),
+        ...(doc.lastUpdated ? { dateModified: doc.lastUpdated } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: homeName, item: home },
+          { '@type': 'ListItem', position: 2, name: doc.title, item: url },
+        ],
+      },
     ],
   };
 }

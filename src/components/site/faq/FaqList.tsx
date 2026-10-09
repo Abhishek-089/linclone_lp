@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
 import { Icon } from '../icons/Icon';
 
-export type FaqItem = { q: string; a: string; link?: { href: string; label: string } };
+/** `a` is plain copy on the marketing pages; the legal pages pass inline rich text (links, bold). */
+export type FaqItem = { q: string; a: ReactNode; link?: { href: string; label: string } };
 
 /**
  * Native <details> accordion shared by both FAQs (spec §5.11, §6.11): `.glass`

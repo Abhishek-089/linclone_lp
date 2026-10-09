@@ -1,23 +1,26 @@
 import type { MetadataRoute } from 'next';
 import { SITE, SITE_LAST_MODIFIED } from '@/lib/site-config';
+import { LEGAL_PAGE_KEYS, getLegalDoc } from '@/content/legal';
+import { localePath, type PageKey } from '@/i18n/paths';
 
-// Marketing pages with reciprocal hreflang, plus the public legal pages
-// (spec §8.4). /invite, /share/*, /get and /delete-user are deliberately absent.
+// Marketing and legal/support pages, each with reciprocal hreflang (spec §8.4;
+// x-default = JA). /invite, /share/* and /get are deliberately absent.
 export default function sitemap(): MetadataRoute.Sitemap {
   const O = SITE.origin;
-  // Never a future lastmod (a mis-typed constant would make crawlers distrust it).
-  const UPDATED = new Date(Math.min(Date.parse(SITE_LAST_MODIFIED), Date.now()));
-  const pages = [
-    { ja: '/', en: '/en' },
-    { ja: '/creators', en: '/en/creators' },
-  ];
-  const marketing = pages.flatMap((p) => {
-    const alternates = { languages: { ja: O + p.ja, en: O + p.en, 'x-default': O + p.ja } };
+  // Never a future lastmod (a mis-typed date would make crawlers distrust it).
+  const notFuture = (iso: string) => new Date(Math.min(Date.parse(iso), Date.now()));
+  const entries = (page: PageKey, lastModified: { ja?: string; en?: string }) => {
+    const ja = O + localePath('ja', page);
+    const en = O + localePath('en', page);
+    const alternates = { languages: { ja, en, 'x-default': ja } };
     return [
-      { url: O + p.ja, lastModified: UPDATED, alternates },
-      { url: O + p.en, lastModified: UPDATED, alternates },
+      { url: ja, alternates, ...(lastModified.ja ? { lastModified: notFuture(lastModified.ja) } : {}) },
+      { url: en, alternates, ...(lastModified.en ? { lastModified: notFuture(lastModified.en) } : {}) },
     ];
-  });
-  const legal = ['/privacy', '/terms', '/cookies', '/support', '/policies/child-protection-policy'].map((p) => ({ url: O + p }));
+  };
+  const marketing = (['home', 'creators'] as const).flatMap((p) => entries(p, { ja: SITE_LAST_MODIFIED, en: SITE_LAST_MODIFIED }));
+  const legal = LEGAL_PAGE_KEYS.flatMap((p) =>
+    entries(p, { ja: getLegalDoc(p, 'ja').lastUpdated, en: getLegalDoc(p, 'en').lastUpdated }),
+  );
   return [...marketing, ...legal];
 }

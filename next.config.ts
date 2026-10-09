@@ -31,6 +31,13 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         { source: "/", destination: "/ja" },
         { source: "/creators", destination: "/ja/creators" },
+        // legal/support pages (src/content/legal/pages.ts): JA at the store-registered URLs
+        { source: "/support", destination: "/ja/support" },
+        { source: "/delete-user", destination: "/ja/delete-user" },
+        { source: "/privacy", destination: "/ja/privacy" },
+        { source: "/terms", destination: "/ja/terms" },
+        { source: "/cookies", destination: "/ja/cookies" },
+        { source: "/policies/child-protection-policy", destination: "/ja/policies/child-protection-policy" },
         // one explicit line per future marketing page; NEVER a catch-all (it would hijack /share/*)
       ],
     };
