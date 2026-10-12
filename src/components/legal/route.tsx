@@ -2,7 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import { LOCALES, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { alternatesFor, localePath } from '@/i18n/paths';
-import { getLegalDoc, type LegalPageKey } from '@/content/legal';
+import { getLegalDoc, type AnyLegalKey } from '@/content/legal';
 import { LegalPage } from './LegalPage';
 
 // Shared route plumbing for src/app/(site)/[lang]/<legal page>/page.tsx: each
@@ -14,7 +14,7 @@ export function legalStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
 }
 
-export async function legalMetadata(page: LegalPageKey, params: Params, parent: ResolvingMetadata): Promise<Metadata> {
+export async function legalMetadata(page: AnyLegalKey, params: Params, parent: ResolvingMetadata): Promise<Metadata> {
   const lang = (await params).lang as Locale;
   const doc = getLegalDoc(page, lang);
   const url = localePath(lang, page);
@@ -43,7 +43,7 @@ export async function legalMetadata(page: LegalPageKey, params: Params, parent: 
   };
 }
 
-export async function LegalRoute({ page, params }: { page: LegalPageKey; params: Params }) {
+export async function LegalRoute({ page, params }: { page: AnyLegalKey; params: Params }) {
   const lang = (await params).lang as Locale;
   return <LegalPage page={page} lang={lang} d={getDictionary(lang)} doc={getLegalDoc(page, lang)} />;
 }

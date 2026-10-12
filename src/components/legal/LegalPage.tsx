@@ -1,7 +1,7 @@
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { localePath } from '@/i18n/paths';
-import { LEGAL_PAGES, type LegalPageKey, type LegalDoc } from '@/content/legal';
+import { LEGAL_PAGES, STUDIO_LEGAL_PAGES, legalPageDef, type AnyLegalKey, type LegalDoc } from '@/content/legal';
 import { LEGAL_UI, type LegalUi } from '@/content/legal/ui';
 import { legalGraph } from '@/lib/jsonld';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -82,7 +82,7 @@ function Toc({ doc, ui, numbered, variant }: { doc: LegalDoc; ui: LegalUi; numbe
 }
 
 function Related({ keys, lang, ui }: { keys: readonly string[]; lang: Locale; ui: LegalUi }) {
-  const pages = keys.filter((k): k is LegalPageKey => k in LEGAL_PAGES);
+  const pages = keys.filter((k): k is AnyLegalKey => k in LEGAL_PAGES || k in STUDIO_LEGAL_PAGES);
   if (!pages.length) return null;
   return (
     <section className="legal-related" aria-labelledby="legal-related-title">
@@ -95,9 +95,9 @@ function Related({ keys, lang, ui }: { keys: readonly string[]; lang: Locale; ui
             <li key={k}>
               <a href={localePath(lang, k)} className="legal-related-card glass">
                 <span className="legal-disc" aria-hidden="true">
-                  <LegalIcon name={LEGAL_PAGES[k].icon as LegalIconName} size={22} />
+                  <LegalIcon name={legalPageDef(k).icon as LegalIconName} size={22} />
                 </span>
-                <span className="legal-related-label">{LEGAL_PAGES[k].label[lang]}</span>
+                <span className="legal-related-label">{legalPageDef(k).label[lang]}</span>
                 <LegalIcon name="arrow_forward" size={20} className="legal-related-arrow" />
               </a>
             </li>
@@ -115,9 +115,9 @@ function Related({ keys, lang, ui }: { keys: readonly string[]; lang: Locale; ui
  * (./Sections.tsx: sections, then the document's closing lines), related
  * pages, and the site footer. All text is server-rendered.
  */
-export function LegalPage({ page, lang, d, doc }: { page: LegalPageKey; lang: Locale; d: Dictionary; doc: LegalDoc }) {
+export function LegalPage({ page, lang, d, doc }: { page: AnyLegalKey; lang: Locale; d: Dictionary; doc: LegalDoc }) {
   const ui = LEGAL_UI[lang];
-  const def = LEGAL_PAGES[page];
+  const def = legalPageDef(page);
   const other: Locale = lang === 'ja' ? 'en' : 'ja';
   const numbered = sectionNumbersOn(def, doc);
   return (

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { SITE, SITE_LAST_MODIFIED } from '@/lib/site-config';
-import { LEGAL_PAGE_KEYS, getLegalDoc } from '@/content/legal';
+import { LEGAL_PAGE_KEYS, STUDIO_LEGAL_PAGES, getLegalDoc, type AnyLegalKey, type StudioLegalKey } from '@/content/legal';
 import { localePath, type PageKey } from '@/i18n/paths';
 
 // Marketing and legal/support pages, each with reciprocal hreflang (spec §8.4;
@@ -19,12 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   };
   const marketing = (['home', 'creators'] as const).flatMap((p) => entries(p, { ja: SITE_LAST_MODIFIED, en: SITE_LAST_MODIFIED }));
-  const modified = (p: (typeof LEGAL_PAGE_KEYS)[number], l: 'ja' | 'en') => {
+  const modified = (p: AnyLegalKey, l: 'ja' | 'en') => {
     const doc = getLegalDoc(p, l);
     return doc.lastUpdated ?? doc.establishedDate;
   };
   const legal = LEGAL_PAGE_KEYS.flatMap((p) => entries(p, { ja: modified(p, 'ja'), en: modified(p, 'en') }));
   // LC Studio's legal pages (EN at /lc-studio/<doc>, JA at /lc-studio/<doc>/ja).
-  const studioLegal = (['studioPrivacy', 'studioTerms'] as const).flatMap((p) => entries(p, {}));
+  const studioLegal = (Object.keys(STUDIO_LEGAL_PAGES) as StudioLegalKey[]).flatMap((p) => entries(p, { ja: modified(p, 'ja'), en: modified(p, 'en') }));
   return [...marketing, ...legal, ...studioLegal];
 }

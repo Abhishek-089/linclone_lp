@@ -33,7 +33,7 @@ const { renderToStaticMarkup } = require('react-dom/server');
 
 const { LegalSections, sectionNumbersOn } = loadFromRoot('src/components/legal/Sections.tsx');
 const { Inline } = loadFromRoot('src/components/legal/Inline.tsx');
-const { LEGAL_PAGES } = loadFromRoot('src/content/legal/pages.ts');
+const { legalPageDef } = loadFromRoot('src/content/legal/pages.ts');
 const { LEGAL_UI } = loadFromRoot('src/content/legal/ui.ts');
 
 const norm = (s) => s.replace(/\s+/g, ' ').trim();
@@ -47,7 +47,7 @@ export function renderDoc(page, doc, lang = 'ja') {
       null,
       h('h1', { className: 'legal-h1' }, doc.title),
       h('p', { className: 'legal-lead' }, h(Inline, { text: doc.lead })),
-      h(LegalSections, { doc, ui: LEGAL_UI[lang], numbered: sectionNumbersOn(LEGAL_PAGES[page], doc) }),
+      h(LegalSections, { doc, ui: LEGAL_UI[lang], numbered: sectionNumbersOn(legalPageDef(page), doc) }),
     ),
   );
 }
@@ -160,21 +160,40 @@ function firstDifference(a, b) {
   return `first difference at character ${i}:\n    source:   ${ctx(x)}\n    rendered: ${ctx(y)}`;
 }
 
+// ── the source's own dates (read here independently of the converter) ────────
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const DATE_LINES = {
+  ja: { established: /^制定日：(\d{4})年(\d{1,2})月(\d{1,2})日$/m, revised: /^改定日：(\d{4})年(\d{1,2})月(\d{1,2})日/m },
+  en: {
+    established: new RegExp(`^Established: (\\d{1,2}) (${MONTHS.join('|')}) (\\d{4})$`, 'm'),
+    revised: new RegExp(`^Revised: (\\d{1,2}) (${MONTHS.join('|')}) (\\d{4})`, 'm'),
+  },
+};
+/** ISO date of the source's 制定日 / 改定日 (Established / Revised) line, or undefined. */
+function sourceDate(md, lang, which) {
+  const m = DATE_LINES[lang][which].exec(md);
+  if (!m) return undefined;
+  const [y, mo, d] = lang === 'ja' ? [m[1], m[2], m[3]] : [m[3], String(MONTHS.indexOf(m[2]) + 1), m[1]];
+  return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+}
+
 // ── check ────────────────────────────────────────────────────────────────────
 export function checkDoc(def, doc) {
   const errors = [];
   const md = readFileSync(join(ROOT, def.source), 'utf8');
   const source = markdownToBlocks(md);
-  const { blocks: rendered, problems } = htmlToBlocks(renderDoc(def.page, doc));
+  const lang = def.lang ?? 'ja';
+  const { blocks: rendered, problems } = htmlToBlocks(renderDoc(def.page, doc, lang));
   errors.push(...problems);
   if (JSON.stringify(source) !== JSON.stringify(rendered)) {
     errors.push(
       `rendered text differs from ${def.source} (- source only, + page only):\n${diff(source, rendered)}\n  ${firstDifference(source, rendered) ?? 'same characters, different block boundaries'}`,
     );
   }
-  const est = /^制定日：(\d{4})年(\d{1,2})月(\d{1,2})日$/m.exec(md);
-  const iso = est ? `${est[1]}-${est[2].padStart(2, '0')}-${est[3].padStart(2, '0')}` : undefined;
+  const iso = sourceDate(md, lang, 'established');
   if (doc.establishedDate !== iso) errors.push(`hero 制定日 chip shows ${doc.establishedDate ?? '(none)'}, the source says ${iso ?? '(none)'}`);
+  const revised = sourceDate(md, lang, 'revised');
+  if (doc.lastUpdated !== revised) errors.push(`hero "updated" chip shows ${doc.lastUpdated ?? '(none)'}, the source's 改定日 / Revised says ${revised ?? '(none)'}`);
   if (doc.status !== 'final') errors.push(`status is '${doc.status}' (an approved text is 'final')`);
   return { errors, blocks: source.length, chars: source.join('').length };
 }

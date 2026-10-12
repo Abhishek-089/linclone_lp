@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
-import { localePath, type PageKey } from '@/i18n/paths';
+import { isStudioLegalPage, localePath, type PageKey } from '@/i18n/paths';
 import { LEGAL_PAGES, LEGAL_PAGE_KEYS } from '@/content/legal/pages';
 import { mailtoStudio } from '@/lib/store-links';
 import { SOCIAL } from '@/lib/site-config';
@@ -43,7 +43,8 @@ export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
   const L = d.footer.links;
   const anchor = (hash: string) => (page === 'home' ? hash : localePath(lang, 'home', hash));
   const home = page === 'home';
-  const creators = page === 'creators';
+  // /creators and LC Studio's legal pages offer the Studio app; everything else the fan app.
+  const creators = page === 'creators' || isStudioLegalPage(page);
   // Support and legal columns come from the legal page registry, in the locale of this page.
   const legalLinks = (group: 'support' | 'legal'): Link[] =>
     LEGAL_PAGE_KEYS.filter((k) => LEGAL_PAGES[k].group === group).map((k) => ({ href: localePath(lang, k), label: LEGAL_PAGES[k].label[lang] }));

@@ -142,6 +142,12 @@ export type LegalDoc = {
   readonly atAGlance?: readonly GlanceCard[];
   /** Hero tiles linking to sections or pages (support page). */
   readonly quickActions?: readonly QuickAction[];
+  /**
+   * Paragraphs a verbatim document has between its first paragraph (the lead)
+   * and its first article; rendered at the top of the article (LC Studio's
+   * documents: a second introduction, and the English translation note).
+   */
+  readonly preamble?: readonly Block[];
   readonly sections: readonly Section[];
   /**
    * Lines after the last section, below a rule (a document's own trailing

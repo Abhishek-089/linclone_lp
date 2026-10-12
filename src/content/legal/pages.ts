@@ -84,3 +84,42 @@ export const LEGAL_PAGES = {
 
 export type LegalPageKey = keyof typeof LEGAL_PAGES;
 export const LEGAL_PAGE_KEYS = Object.keys(LEGAL_PAGES) as LegalPageKey[];
+
+/**
+ * LC Studio's (the creator app's) own Terms and Privacy Policy: the same layout
+ * as the pages above (src/components/legal/LegalPage.tsx), but NOT in
+ * LEGAL_PAGES — they keep the URLs Google Play and the app already link to
+ * (English unprefixed, Japanese with /ja at the end; src/i18n/paths.ts and the
+ * rewrites in next.config.ts), so they sit outside its URL rules and the fan
+ * footer. Content: src/content/legal/{ja,en}/studio-*.ts, GENERATED verbatim
+ * from docs/legal/source/lc_studio_*.md (scripts/legal-from-markdown.mjs).
+ */
+export type StudioLegalPageDef = Omit<LegalPageDef, 'group'> & { readonly group: 'studio' };
+
+export const STUDIO_LEGAL_PAGES = {
+  studioPrivacy: {
+    ja: '/lc-studio/privacy/ja',
+    en: '/lc-studio/privacy',
+    file: 'studio-privacy',
+    group: 'studio',
+    label: { ja: 'LC Studio プライバシーポリシー', en: 'LC Studio Privacy Policy' },
+    icon: 'lock',
+  },
+  studioTerms: {
+    ja: '/lc-studio/terms/ja',
+    en: '/lc-studio/terms',
+    file: 'studio-terms',
+    group: 'studio',
+    label: { ja: 'LC Studio 利用規約', en: 'LC Studio Terms of Service' },
+    icon: 'gavel',
+  },
+} as const satisfies Record<string, StudioLegalPageDef>;
+
+export type StudioLegalKey = keyof typeof STUDIO_LEGAL_PAGES;
+/** Every page LegalPage renders. */
+export type AnyLegalKey = LegalPageKey | StudioLegalKey;
+
+/** The registry entry of a fan legal page or an LC Studio one. */
+export function legalPageDef(page: AnyLegalKey): LegalPageDef | StudioLegalPageDef {
+  return page in STUDIO_LEGAL_PAGES ? STUDIO_LEGAL_PAGES[page as StudioLegalKey] : LEGAL_PAGES[page as LegalPageKey];
+}

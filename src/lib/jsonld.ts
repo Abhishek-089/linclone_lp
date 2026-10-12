@@ -1,6 +1,6 @@
 import type { Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
-import { localePath, type LegalPageKey } from '@/i18n/paths';
+import { localePath, type AnyLegalKey } from '@/i18n/paths';
 import { FAN_APP, SITE, STUDIO_APP, STUDIO_LIVE } from './site-config';
 
 // schema.org graphs (spec §8.3). No aggregateRating, FAQPage or HowTo.
@@ -131,7 +131,7 @@ export function creatorsGraph(lang: Locale, d: Dictionary): object {
 /** Legal/support pages: WebPage + BreadcrumbList (Home › page). */
 export function legalGraph(
   lang: Locale,
-  page: LegalPageKey,
+  page: AnyLegalKey,
   doc: { meta: { title: string; description: string }; title: string; lastUpdated?: string; effectiveDate?: string; establishedDate?: string },
   homeName: string,
 ): object {

@@ -1,6 +1,6 @@
 import 'server-only';
 import type { Locale } from '@/i18n/config';
-import type { LegalPageKey } from './pages';
+import type { AnyLegalKey } from './pages';
 import type { LegalDoc, SectionIds } from './types';
 
 import jaSupport from './ja/support';
@@ -15,11 +15,23 @@ import enPrivacy from './en/privacy';
 import enTerms from './en/terms';
 import enCookies from './en/cookies';
 import enChildProtection from './en/child-protection';
+import jaStudioPrivacy from './ja/studio-privacy';
+import jaStudioTerms from './ja/studio-terms';
+import enStudioPrivacy from './en/studio-privacy';
+import enStudioTerms from './en/studio-terms';
 
-export { LEGAL_PAGES, LEGAL_PAGE_KEYS, type LegalPageKey } from './pages';
+export {
+  LEGAL_PAGES,
+  LEGAL_PAGE_KEYS,
+  STUDIO_LEGAL_PAGES,
+  legalPageDef,
+  type LegalPageKey,
+  type StudioLegalKey,
+  type AnyLegalKey,
+} from './pages';
 export type * from './types';
 
-/** Every page in ./pages.ts must have both locales here (a missing key is a type error). */
+/** Every page in ./pages.ts (LEGAL_PAGES and STUDIO_LEGAL_PAGES) must have both locales here (a missing key is a type error). */
 const DOCS = {
   support: { ja: jaSupport, en: enSupport },
   deleteUser: { ja: jaDeleteUser, en: enDeleteUser },
@@ -27,7 +39,9 @@ const DOCS = {
   terms: { ja: jaTerms, en: enTerms },
   cookies: { ja: jaCookies, en: enCookies },
   childProtection: { ja: jaChildProtection, en: enChildProtection },
-} satisfies Record<LegalPageKey, Record<Locale, LegalDoc>>;
+  studioPrivacy: { ja: jaStudioPrivacy, en: enStudioPrivacy },
+  studioTerms: { ja: jaStudioTerms, en: enStudioTerms },
+} satisfies Record<AnyLegalKey, Record<Locale, LegalDoc>>;
 
 // ── compile-time parity: en must have exactly the ja section ids ─────────────
 // A mismatch fails `tsc` and names the offending ids, e.g.
@@ -42,6 +56,6 @@ type AllParity = { [K in keyof typeof DOCS]: Parity<(typeof DOCS)[K]['ja'], (typ
 const parity: { [K in keyof typeof DOCS]: Clean } = null as unknown as AllParity;
 void parity;
 
-export function getLegalDoc(page: LegalPageKey, lang: Locale): LegalDoc {
+export function getLegalDoc(page: AnyLegalKey, lang: Locale): LegalDoc {
   return DOCS[page][lang];
 }

@@ -3,15 +3,22 @@
 //
 //   docs/legal/source/privacy_policy_ja.md   → src/content/legal/ja/privacy.ts
 //   docs/legal/source/terms_of_service_ja.md → src/content/legal/ja/terms.ts
+//   docs/legal/source/lc_studio_*_{ja,en}.md  → src/content/legal/{ja,en}/studio-*.ts
+//     (LC Studio's creator Terms and Privacy Policy, Japanese and English: the
+//     same text the app's in-app reader serves from clone-net-web)
 //
 // The markdown is the approved original: never reword it here or in the
 // generated files. This script only maps its structure onto the content schema
 // (src/content/legal/types.ts):
 //   '# '            → title (H1)            the paragraph before the first '## ' → lead
 //   '## 第N条（…）' → section id 'art-N', heading exactly as written
+//                     (English documents: '## Article N (…)')
+//   more plain paragraphs before the first article (documents with
+//   `preamble: true` only) → preamble, shown at the top of the article
 //   '1. ' / '- '    → ordered / bulleted list ('    1. ' = numbered sub-items)
 //   '| … |' table   → table (header row = columns, no caption)
 //   other lines     → paragraphs           '---' and what follows → closing lines
+//   closing '制定日：…' / 'Established: …' → hero date; '改定日：…' / 'Revised: …' → 'Updated' date
 // Text is escaped (escapeInline) so the Inline renderer prints every character
 // as-is. Anything the mapping cannot represent exactly fails loudly.
 //
@@ -52,6 +59,61 @@ export const VERBATIM_DOCS = [
     },
     related: ['privacy', 'cookies', 'childProtection', 'support'],
   },
+  // LC Studio (the creator app): owner-approved v1.1, Japanese original and its
+  // English translation. Pages: src/app/(site)/[lang]/lc-studio/*, keys in
+  // STUDIO_LEGAL_PAGES (src/content/legal/pages.ts).
+  {
+    source: 'docs/legal/source/lc_studio_privacy_policy_ja.md',
+    out: 'src/content/legal/ja/studio-privacy.ts',
+    page: 'studioPrivacy',
+    lang: 'ja',
+    preamble: true,
+    meta: {
+      title: 'LC Studio プライバシーポリシー｜LinClone',
+      description:
+        'LinClone株式会社のクリエイター向けアプリ「LC Studio」のプライバシーポリシーです。取得する情報、声のデータの取扱い、外国にある第三者への提供、保存期間、開示等の請求について定めています。',
+    },
+    related: ['studioTerms'],
+  },
+  {
+    source: 'docs/legal/source/lc_studio_privacy_policy_en.md',
+    out: 'src/content/legal/en/studio-privacy.ts',
+    page: 'studioPrivacy',
+    lang: 'en',
+    preamble: true,
+    meta: {
+      title: 'LC Studio Privacy Policy (for Creators) | LinClone',
+      description:
+        'How LinClone K.K. handles creators’ personal information in LC Studio: what we obtain, how voice data is used, transfers abroad, retention and your rights. English translation; the Japanese text prevails.',
+    },
+    related: ['studioTerms'],
+  },
+  {
+    source: 'docs/legal/source/lc_studio_terms_of_service_ja.md',
+    out: 'src/content/legal/ja/studio-terms.ts',
+    page: 'studioTerms',
+    lang: 'ja',
+    preamble: true,
+    meta: {
+      title: 'LC Studio 利用規約｜LinClone',
+      description:
+        'LinClone株式会社のクリエイター向けアプリ「LC Studio」の利用規約です。AIクローンの作成・公開、声などの利用許諾、報酬の計算と支払い、禁止事項、契約の終了などの条件を定めています。',
+    },
+    related: ['studioPrivacy'],
+  },
+  {
+    source: 'docs/legal/source/lc_studio_terms_of_service_en.md',
+    out: 'src/content/legal/en/studio-terms.ts',
+    page: 'studioTerms',
+    lang: 'en',
+    preamble: true,
+    meta: {
+      title: 'LC Studio Terms of Service (for Creators) | LinClone',
+      description:
+        'The terms for creators who build and publish an AI clone with LC Studio: licence to use voice and likeness, rewards and payouts, prohibited acts and termination. English translation; the Japanese text prevails.',
+    },
+    related: ['studioPrivacy'],
+  },
 ];
 
 // ── markdown → document ──────────────────────────────────────────────────────
@@ -65,10 +127,32 @@ const RE = {
 };
 const ARTICLE = /^第(\d+)条（[^（）]+）$/;
 const ESTABLISHED = /^制定日：(\d{4})年(\d{1,2})月(\d{1,2})日$/;
+const REVISED = /^改定日：(\d{4})年(\d{1,2})月(\d{1,2})日/;
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const EN_DATE = `(\\d{1,2}) (${MONTHS.join('|')}) (\\d{4})`;
+/** The English documents' patterns; dates are captured as [year, month, day]. */
+const PATTERNS = {
+  ja: { article: ARTICLE, articleLabel: '第N条（…）', established: ESTABLISHED, revised: REVISED, ymd: (m) => [m[1], m[2], m[3]] },
+  en: {
+    article: /^Article (\d+) \([^()]+\)$/,
+    articleLabel: 'Article N (…)',
+    established: new RegExp(`^Established: ${EN_DATE}$`),
+    revised: new RegExp(`^Revised: ${EN_DATE}`),
+    ymd: (m) => [m[3], String(MONTHS.indexOf(m[2]) + 1), m[1]],
+  },
+};
+/** The ISO date of a closing line matching `re`, or undefined. */
+export function closingDate(closing, re, ymd) {
+  const m = closing.map((c) => re.exec(c)).find(Boolean);
+  if (!m) return undefined;
+  const [y, mo, d] = ymd(m);
+  return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+}
 /** Characters a markdown viewer would not print literally (we print them literally). */
 const MD_INLINE = /[*_`<>\\[\]]|https?:\/\//;
 
-export function parseMarkdown(md, file) {
+export function parseMarkdown(md, file, { lang = 'ja', preamble = false } = {}) {
+  const P = PATTERNS[lang];
   const fail = (n, msg) => {
     throw new Error(`${file}:${n + 1}: ${msg}`);
   };
@@ -84,7 +168,7 @@ export function parseMarkdown(md, file) {
 
   const h1 = RE.h1.exec(lines[0] ?? '');
   if (!h1) fail(0, "the first line must be the '# ' title");
-  const doc = { title: text(0, h1[1]), lead: null, sections: [], closing: [] };
+  const doc = { title: text(0, h1[1]), lead: null, preamble: [], sections: [], closing: [] };
   let mode = 'lead'; // lead → sections → closing
   let blocks = null; // blocks of the current section
   let list = null; // { block, ordered, last } of the list being built (null once interrupted)
@@ -107,10 +191,10 @@ export function parseMarkdown(md, file) {
     const h2 = RE.h2.exec(line);
     if (h2) {
       const heading = h2[1];
-      const m = ARTICLE.exec(heading);
-      if (!m) fail(n, `section heading "${heading}" is not 第N条（…）`);
+      const m = P.article.exec(heading);
+      if (!m) fail(n, `section heading "${heading}" is not ${P.articleLabel}`);
       const num = Number(m[1]);
-      if (num !== doc.sections.length + 1) fail(n, `${heading}: expected 第${doc.sections.length + 1}条`);
+      if (num !== doc.sections.length + 1) fail(n, `${heading}: expected article ${doc.sections.length + 1}`);
       blocks = [];
       doc.sections.push({ id: `art-${num}`, heading: text(n, heading), blocks });
       mode = 'sections';
@@ -120,10 +204,12 @@ export function parseMarkdown(md, file) {
     if (/^#/.test(line)) fail(n, 'only one # title and ## article headings are supported');
 
     if (mode === 'lead') {
-      if (doc.lead !== null) fail(n, 'the lead must be one paragraph');
+      if (doc.lead !== null && !preamble) fail(n, 'the lead must be one paragraph');
       if (!/^\S/.test(line) || RE.ol.test(line) || RE.ul.test(line) || RE.table.test(line)) fail(n, 'the lead must be a plain paragraph');
       if (lines[n + 1]?.trim()) fail(n + 1, 'a paragraph must be one line (soft line breaks are not supported)');
-      doc.lead = text(n, line);
+      // The first paragraph is the hero lead; with `preamble`, the others open the article.
+      if (doc.lead === null) doc.lead = text(n, line);
+      else doc.preamble.push({ kind: 'paragraph', text: text(n, line) });
       continue;
     }
 
@@ -208,10 +294,10 @@ export function parseMarkdown(md, file) {
   if (!doc.sections.length) fail(0, 'no articles');
   if (doc.sections.some((s) => !s.blocks.length)) fail(0, 'an article without text');
   if (!doc.closing.length) fail(lines.length - 1, "no closing lines after '---'");
-  const est = doc.closing.map((c) => ESTABLISHED.exec(c)).find(Boolean);
-  if (!est) fail(lines.length - 1, 'no 制定日：YYYY年M月D日 line in the closing');
-  const pad = (s) => s.padStart(2, '0');
-  doc.establishedDate = `${est[1]}-${pad(est[2])}-${pad(est[3])}`;
+  doc.establishedDate = closingDate(doc.closing, P.established, P.ymd);
+  if (!doc.establishedDate) fail(lines.length - 1, `no ${lang === 'ja' ? '制定日：YYYY年M月D日' : 'Established: D Month YYYY'} line in the closing`);
+  doc.lastUpdated = closingDate(doc.closing, P.revised, P.ymd);
+  if (!doc.preamble.length) delete doc.preamble;
   return { doc, warnings };
 }
 
@@ -242,7 +328,9 @@ export function render(def, doc) {
     title: doc.title,
     lead: doc.lead,
     establishedDate: doc.establishedDate,
+    lastUpdated: doc.lastUpdated,
     sectionNumbers: false,
+    preamble: doc.preamble,
     sections: doc.sections,
     closing: doc.closing,
     related: def.related,
@@ -264,7 +352,7 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     const md = readFileSync(join(ROOT, def.source), 'utf8');
     let parsed;
     try {
-      parsed = parseMarkdown(md, def.source);
+      parsed = parseMarkdown(md, def.source, def);
     } catch (e) {
       console.error(`legal:convert: ${e.message}`);
       process.exit(1);
