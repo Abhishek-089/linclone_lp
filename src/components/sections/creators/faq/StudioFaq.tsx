@@ -1,6 +1,7 @@
 import type { SectionProps } from '@/i18n/types';
 import { CLAIMS, STUDIO_LIVE } from '@/lib/site-config';
 import { Units } from '@/lib/units';
+import { localePath } from '@/i18n/paths';
 import { Section, FaqList, RevealGroup, type FaqItem } from '@/components/site';
 import '../creators.css';
 
@@ -22,7 +23,8 @@ export function StudioFaq({ d, lang }: SectionProps) {
     i.control,
     i.label,
     i.agency,
-    { q: i.stop.q, a: i.stop.a, link: { href: '/privacy', label: i.stop.linkLabel } },
+    // Deleting a creator's voice data and models: LC Studio Privacy Policy, Article 10 (retention periods).
+    { q: i.stop.q, a: i.stop.a, link: { href: localePath(lang, 'studioPrivacy', '#art-10'), label: i.stop.linkLabel } },
     ...(CLAIMS.legacyCarryOver ? [i.legacy] : []),
     STUDIO_LIVE ? i.releaseLive : i.release,
   ];

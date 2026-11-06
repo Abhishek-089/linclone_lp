@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
 import { isStudioLegalPage, localePath, type PageKey } from '@/i18n/paths';
-import { LEGAL_PAGES, LEGAL_PAGE_KEYS } from '@/content/legal/pages';
+import { LEGAL_PAGES, LEGAL_PAGE_KEYS, legalPageDef, type LegalPageKey, type StudioLegalKey } from '@/content/legal/pages';
 import { mailtoStudio } from '@/lib/store-links';
 import { SOCIAL } from '@/lib/site-config';
 import { Icon } from '../icons/Icon';
@@ -34,6 +34,9 @@ function Column({ title, links }: { title: string; links: Link[] }): ReactNode {
   );
 }
 
+/** The LC Studio document that replaces a fan legal page on /creators and the LC Studio legal pages. */
+const STUDIO_COUNTERPART: Partial<Record<LegalPageKey, StudioLegalKey>> = { privacy: 'studioPrivacy', terms: 'studioTerms' };
+
 /**
  * Site footer (spec §4.1, §5.14): night-deep with a 4% watermark wordmark;
  * four link columns on desktop, <details> accordions on mobile. Links are
@@ -46,8 +49,12 @@ export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
   // /creators and LC Studio's legal pages offer the Studio app; everything else the fan app.
   const creators = page === 'creators' || isStudioLegalPage(page);
   // Support and legal columns come from the legal page registry, in the locale of this page.
+  // On the creator side, Privacy and Terms are LC Studio's own documents, not the fan app's.
   const legalLinks = (group: 'support' | 'legal'): Link[] =>
-    LEGAL_PAGE_KEYS.filter((k) => LEGAL_PAGES[k].group === group).map((k) => ({ href: localePath(lang, k), label: LEGAL_PAGES[k].label[lang] }));
+    LEGAL_PAGE_KEYS.filter((k) => LEGAL_PAGES[k].group === group).map((k) => {
+      const key = (creators && STUDIO_COUNTERPART[k]) || k;
+      return { href: localePath(lang, key), label: legalPageDef(key).label[lang] };
+    });
   return (
     <footer className="site-footer" data-surface="dark" data-page={home ? 'home' : 'creators'} data-download-block={home ? '' : undefined}>
       <span className="footer-watermark" aria-hidden="true">
