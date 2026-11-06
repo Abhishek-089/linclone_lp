@@ -132,21 +132,37 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const EN_DATE = `(\\d{1,2}) (${MONTHS.join('|')}) (\\d{4})`;
 /** The English documents' patterns; dates are captured as [year, month, day]. */
 const PATTERNS = {
-  ja: { article: ARTICLE, articleLabel: '第N条（…）', established: ESTABLISHED, revised: REVISED, ymd: (m) => [m[1], m[2], m[3]] },
+  ja: {
+    article: ARTICLE,
+    articleLabel: '第N条（…）',
+    established: ESTABLISHED,
+    revised: REVISED,
+    date: /(\d{4})年(\d{1,2})月(\d{1,2})日/g,
+    ymd: (m) => [m[1], m[2], m[3]],
+  },
   en: {
     article: /^Article (\d+) \([^()]+\)$/,
     articleLabel: 'Article N (…)',
     established: new RegExp(`^Established: ${EN_DATE}$`),
     revised: new RegExp(`^Revised: ${EN_DATE}`),
+    date: new RegExp(EN_DATE, 'g'),
     ymd: (m) => [m[3], String(MONTHS.indexOf(m[2]) + 1), m[1]],
   },
 };
-/** The ISO date of a closing line matching `re`, or undefined. */
-export function closingDate(closing, re, ymd) {
-  const m = closing.map((c) => re.exec(c)).find(Boolean);
-  if (!m) return undefined;
-  const [y, mo, d] = ymd(m);
-  return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+/**
+ * The ISO date of a closing line matching `re`, or undefined. With `dates` (a global
+ * date pattern), the LATEST date on that line wins: a revision line lists every
+ * revision ('改定日：2026年10月9日（…）、2026年11月6日（…）'), and the newest is the 'Updated' date.
+ */
+export function closingDate(closing, re, ymd, dates) {
+  const line = closing.find((c) => re.test(c));
+  if (line === undefined) return undefined;
+  const iso = (m) => {
+    const [y, mo, d] = ymd(m);
+    return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  };
+  if (!dates) return iso(re.exec(line));
+  return [...line.matchAll(dates)].map(iso).sort().at(-1);
 }
 /** Characters a markdown viewer would not print literally (we print them literally). */
 const MD_INLINE = /[*_`<>\\[\]]|https?:\/\//;
@@ -296,7 +312,7 @@ export function parseMarkdown(md, file, { lang = 'ja', preamble = false } = {}) 
   if (!doc.closing.length) fail(lines.length - 1, "no closing lines after '---'");
   doc.establishedDate = closingDate(doc.closing, P.established, P.ymd);
   if (!doc.establishedDate) fail(lines.length - 1, `no ${lang === 'ja' ? '制定日：YYYY年M月D日' : 'Established: D Month YYYY'} line in the closing`);
-  doc.lastUpdated = closingDate(doc.closing, P.revised, P.ymd);
+  doc.lastUpdated = closingDate(doc.closing, P.revised, P.ymd, P.date);
   if (!doc.preamble.length) delete doc.preamble;
   return { doc, warnings };
 }

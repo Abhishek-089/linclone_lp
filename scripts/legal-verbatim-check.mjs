@@ -169,12 +169,24 @@ const DATE_LINES = {
     revised: new RegExp(`^Revised: (\\d{1,2}) (${MONTHS.join('|')}) (\\d{4})`, 'm'),
   },
 };
-/** ISO date of the source's 制定日 / 改定日 (Established / Revised) line, or undefined. */
+const ANY_DATE = {
+  ja: /(\d{4})年(\d{1,2})月(\d{1,2})日/g,
+  en: new RegExp(`(\\d{1,2}) (${MONTHS.join('|')}) (\\d{4})`, 'g'),
+};
+/**
+ * ISO date of the source's 制定日 / 改定日 (Established / Revised) line, or undefined.
+ * A revision line lists every revision; its latest date is the 'Updated' date.
+ */
 function sourceDate(md, lang, which) {
   const m = DATE_LINES[lang][which].exec(md);
   if (!m) return undefined;
-  const [y, mo, d] = lang === 'ja' ? [m[1], m[2], m[3]] : [m[3], String(MONTHS.indexOf(m[2]) + 1), m[1]];
-  return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  const iso = (x) => {
+    const [y, mo, d] = lang === 'ja' ? [x[1], x[2], x[3]] : [x[3], String(MONTHS.indexOf(x[2]) + 1), x[1]];
+    return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  };
+  if (which !== 'revised') return iso(m);
+  const line = md.slice(m.index).split('\n')[0];
+  return [...line.matchAll(ANY_DATE[lang])].map(iso).sort().at(-1);
 }
 
 // ── check ────────────────────────────────────────────────────────────────────

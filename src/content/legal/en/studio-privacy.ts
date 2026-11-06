@@ -13,7 +13,7 @@ export default defineLegalDoc({
   title: 'LC Studio Privacy Policy (for Creators)',
   lead: 'This English text is a translation provided for convenience. The Japanese text is the original, and it prevails if the two differ.',
   establishedDate: '2026-10-09',
-  lastUpdated: '2026-10-09',
+  lastUpdated: '2026-11-06',
   sectionNumbers: false,
   preamble: [
     {
@@ -197,7 +197,7 @@ export default defineLegalDoc({
           kind: 'list',
           ordered: true,
           items: [
-            'The Company stores the Service\'s data in the cloud service provided by Amazon Web Services Japan G.K. (Amazon Web Services, "AWS"). The creation of Voice Models and voice synthesis, and the generation of AI Clone replies and speech recognition, are outsourced to and processed by outside AI businesses.',
+            'The Company stores the Service\'s data in the cloud service provided by Amazon Web Services Japan G.K. (Amazon Web Services, "AWS"). The creation of Voice Models and voice synthesis, and the generation of AI Clone replies and speech recognition, are outsourced to and processed by outside AI businesses. These outside AI businesses are ElevenLabs (USA), which receives voice Materials and recordings of the AI interview to create Voice Models and synthesise speech; OpenAI (USA), which receives the persona, profile and other text, links and files the Creator provides, photos, and conversations with the AI Clone, to create the persona, generate replies and images, and recognise content; and Groq (USA), which receives conversations with the AI Clone to generate replies.',
           ],
         },
         {
@@ -344,6 +344,9 @@ export default defineLegalDoc({
       ],
     },
   ],
-  closing: ['Established: 9 October 2026', 'Revised: 9 October 2026 (Article 4, paragraph 2)'],
+  closing: [
+    'Established: 9 October 2026',
+    'Revised: 9 October 2026 (Article 4, paragraph 2); 6 November 2026 (Article 8, paragraph 1)',
+  ],
   related: ['studioTerms'],
 });

@@ -90,7 +90,7 @@ To the extent necessary to achieve the purposes of use, the Company may outsourc
 
 ## Article 8 (Provision to Third Parties in Foreign Countries, etc.)
 
-1. The Company stores the Service's data in the cloud service provided by Amazon Web Services Japan G.K. (Amazon Web Services, "AWS"). The creation of Voice Models and voice synthesis, and the generation of AI Clone replies and speech recognition, are outsourced to and processed by outside AI businesses.
+1. The Company stores the Service's data in the cloud service provided by Amazon Web Services Japan G.K. (Amazon Web Services, "AWS"). The creation of Voice Models and voice synthesis, and the generation of AI Clone replies and speech recognition, are outsourced to and processed by outside AI businesses. These outside AI businesses are ElevenLabs (USA), which receives voice Materials and recordings of the AI interview to create Voice Models and synthesise speech; OpenAI (USA), which receives the persona, profile and other text, links and files the Creator provides, photos, and conversations with the AI Clone, to create the persona, generate replies and images, and recognise content; and Groq (USA), which receives conversations with the AI Clone to generate replies.
 
 | Processing | Country where the business is located | Country where data is processed and stored |
 | --- | --- | --- |
@@ -155,4 +155,4 @@ Inquiries about the handling of personal information and requests for disclosure
 ---
 
 Established: 9 October 2026
-Revised: 9 October 2026 (Article 4, paragraph 2)
+Revised: 9 October 2026 (Article 4, paragraph 2); 6 November 2026 (Article 8, paragraph 1)
