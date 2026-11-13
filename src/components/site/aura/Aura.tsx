@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import Image from 'next/image';
 import type { PersonaId, PersonaDef } from '@/lib/personas';
 import { PERSONAS } from '@/lib/personas';
 
@@ -24,6 +25,15 @@ const BOX: Record<AuraShape, { h: number; radius: string }> = {
   card: { h: 133, radius: '20px' },
   reel: { h: 178, radius: '20px' },
   'scene-portrait': { h: 133, radius: '0' },
+};
+
+/** `sizes` for a portrait that fills its container (no `size` prop): the widest it gets. */
+const FILL_SIZES: Record<AuraShape, string> = {
+  avatar: '240px',
+  badge: '120px',
+  card: '(min-width: 1024px) 320px, 50vw',
+  reel: '(min-width: 1024px) 320px, 60vw',
+  'scene-portrait': '100vw',
 };
 
 // Partner orb colours (tokens only): teal-neon, pink-wash, gold-bright.
@@ -72,6 +82,7 @@ const gid = {
   base: (key: AuraKey, theme: AuraTheme) => `aura-${key}-${theme}-base`,
   orb: (id: PersonaId, k: 1 | 2) => `aura-${id}-o${k}`,
   sheen: 'aura-sheen',
+  photoFade: 'aura-photo-fade',
 };
 
 /** Every Aura gradient (all personas × themes); rendered once inside `SiteSprite`'s <defs>. */
@@ -114,6 +125,11 @@ export function AuraDefs() {
         <stop offset="0.5" stopColor="#fff" stopOpacity="0.18" />
         <stop offset="0.7" stopColor="#fff" stopOpacity="0" />
       </linearGradient>
+      {/* the bottom fade under a voiceprint drawn on a photo */}
+      <linearGradient id={gid.photoFade} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0.55" stopColor="#0f1018" stopOpacity="0" />
+        <stop offset="1" stopColor="#0f1018" stopOpacity="0.6" />
+      </linearGradient>
     </>
   );
 }
@@ -136,15 +152,19 @@ function voiceprintPaths(r: number[], h: number): [string, string] {
 }
 
 /**
- * Faceless メンカラ aura portrait (spec §4.7): an inline-SVG colour field with
- * soft partner orbs, a sheen band, 4% noise, an optional story/live/seen ring,
- * the monogram and (card/reel/scene) a per-persona 声紋 voiceprint. No photo,
- * no face; `CreatorImage` swaps in a licensed photo when one exists.
+ * The creator's picture (spec §4.7). With a licensed portrait
+ * (`PERSONAS[p].portrait`), the photo: no monogram, the voiceprint drawn over
+ * a bottom fade. Without one, a faceless メンカラ aura: an inline-SVG colour
+ * field with soft partner orbs, a sheen band, 4% noise, the monogram and
+ * (card/reel/scene) a per-persona 声紋 voiceprint. Either way an optional
+ * story/live/seen ring. A `scene-portrait` (the full-bleed backdrop behind a
+ * call screen) always stays the colour field, so text over it stays legible.
  * `persona="oshi"` follows the fan's chosen 推し色 (`--oshi`).
  */
 export function Aura({ persona, shape, size, ring = 'none', ringSpin = false, voiceprint, monogram = true, theme = 'cream', className }: AuraProps) {
   const def = personaOf(persona);
   const { h, radius } = BOX[shape];
+  const photo = shape === 'scene-portrait' ? undefined : def.portrait;
   const showPrint = voiceprint ?? (shape === 'card' || shape === 'reel' || shape === 'scene-portrait');
   const r = randomsOf(def);
   const wrap: CSSProperties = {
@@ -158,22 +178,43 @@ export function Aura({ persona, shape, size, ring = 'none', ringSpin = false, vo
 
   return (
     <span aria-hidden="true" className={['aura', className].filter(Boolean).join(' ')} data-aura={shape} data-shape={shape} style={wrap}>
-      <span className="aura-body">
-        <svg viewBox={`0 0 100 ${h}`} preserveAspectRatio="xMidYMid slice" focusable="false">
-          <rect width="100" height={h} fill={`url(#${gid.base(persona, theme)})`} />
-          <circle cx={20 + r[2] * 60} cy={h * (0.15 + r[3] * 0.35)} r={30 + r[4] * 18} fill={`url(#${gid.orb(def.id, 1)})`} />
-          <circle cx={15 + r[5] * 70} cy={h * (0.5 + r[6] * 0.4)} r={26 + r[7] * 16} fill={`url(#${gid.orb(def.id, 2)})`} />
-          <rect width="100" height={h} fill={`url(#${gid.sheen})`} />
+      {photo ? (
+        <span className="aura-body" data-photo="">
+          <Image
+            src={photo.src}
+            alt=""
+            fill
+            sizes={size ? `${Math.ceil(size)}px` : FILL_SIZES[shape]}
+            style={{ objectFit: 'cover', objectPosition: `${photo.focal[0] * 100}% ${photo.focal[1] * 100}%` }}
+          />
           {showPrint ? (
-            <g fill="#fff" opacity="0.82">
-              <path d={full} />
-              <path d={half} opacity="0.5" />
-            </g>
+            <svg viewBox={`0 0 100 ${h}`} preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100" height={h} fill={`url(#${gid.photoFade})`} />
+              <g fill="#fff" opacity="0.82">
+                <path d={full} />
+                <path d={half} opacity="0.5" />
+              </g>
+            </svg>
           ) : null}
-        </svg>
-        <span className="aura-noise" />
-        {monogram ? <span className="aura-mono">{def.monogram}</span> : null}
-      </span>
+        </span>
+      ) : (
+        <span className="aura-body">
+          <svg viewBox={`0 0 100 ${h}`} preserveAspectRatio="xMidYMid slice" focusable="false">
+            <rect width="100" height={h} fill={`url(#${gid.base(persona, theme)})`} />
+            <circle cx={20 + r[2] * 60} cy={h * (0.15 + r[3] * 0.35)} r={30 + r[4] * 18} fill={`url(#${gid.orb(def.id, 1)})`} />
+            <circle cx={15 + r[5] * 70} cy={h * (0.5 + r[6] * 0.4)} r={26 + r[7] * 16} fill={`url(#${gid.orb(def.id, 2)})`} />
+            <rect width="100" height={h} fill={`url(#${gid.sheen})`} />
+            {showPrint ? (
+              <g fill="#fff" opacity="0.82">
+                <path d={full} />
+                <path d={half} opacity="0.5" />
+              </g>
+            ) : null}
+          </svg>
+          <span className="aura-noise" />
+          {monogram ? <span className="aura-mono">{def.monogram}</span> : null}
+        </span>
+      )}
       {ring !== 'none' ? <span className="aura-ring" data-ring={ring} data-spin={ringSpin ? '' : undefined} data-loop={ringSpin ? '' : undefined} /> : null}
     </span>
   );

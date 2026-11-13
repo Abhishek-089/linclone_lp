@@ -1,5 +1,5 @@
 import type { SectionProps } from '@/i18n/types';
-import type { PersonaId } from '@/lib/personas';
+import { HAS_PORTRAITS, type PersonaId } from '@/lib/personas';
 import { Aura, Icon, Marquee } from '@/components/site';
 import s from './cast.module.css';
 
@@ -14,9 +14,10 @@ const CAST: { id: PersonaId; aura: PersonaId | 'oshi' }[] = [
 ];
 
 /**
- * #cast (spec §5.2): "these are official AI clones of creators", at a glance
- * and with no faces. Each item is a vinyl-glass can badge: a メンカラ aura
- * with a story ring, the name, genre and the official chip. Two rows
+ * #cast (spec §5.2): "these are official AI clones of creators", at a glance.
+ * Each item is a vinyl-glass can badge: the creator's AI-generated portrait
+ * (or, without one, a メンカラ aura) with a story ring, the name, genre and
+ * the official chip. Two rows
  * on desktop (the second reversed), one on mobile; a static wrap under
  * reduced motion. No heading: the section is labelled.
  *
@@ -44,7 +45,7 @@ export function CastMarquee({ d }: SectionProps) {
   return (
     <section id="cast" aria-label={t.label} data-surface="light" className={`surface-cream ${s.cast}`}>
       <Marquee rows={2} label={t.label} speed={48} items={CAST.map((c) => item(c))} />
-      <p className={`t-small container-site ${s.note}`}>{t.note}</p>
+      <p className={`t-small container-site ${s.note}`}>{HAS_PORTRAITS ? t.noteAi : t.note}</p>
     </section>
   );
 }

@@ -1,6 +1,8 @@
 import type { Locale } from '@/i18n/config';
 
-// The fictional cast (spec §1.3, §10). No real people, no photos by default.
+// The fictional cast (spec §1.3, §10). No real people. A portrait is an
+// AI-generated picture of the fictional creator (public/cast/<id>.webp, see
+// docs/site-redesign/CAST_PORTRAITS.md); without one the faceless aura shows.
 export type PersonaId = 'yuzu' | 'ren' | 'kai' | 'sora' | 'nagi' | 'aoi';
 type Portrait = { src: string; alt: Record<Locale, string>; focal: [number, number]; licensed: true; rightsRef: string };
 export type PersonaDef = { id: PersonaId; color: string; ring: 'story' | 'live'; voiceSeed: number; monogram: string; portrait?: Portrait };
@@ -20,3 +22,6 @@ for (const p of Object.values(PERSONAS)) {
     throw new Error(`Unlicensed portrait for ${p.id}`);
   }
 }
+
+/** True once any creator has a portrait: the notes then also say the pictures are AI-generated. */
+export const HAS_PORTRAITS = Object.values(PERSONAS).some((p) => p.portrait);
