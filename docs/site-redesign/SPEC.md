@@ -88,7 +88,7 @@ The day then runs: morning call at dawn, chat and Stories at lunch, LIVE配信 a
 
 | Judge must-fix | Resolution in this spec |
 |---|---|
-| Mina persona and real-singer traits; @kensei | Cast is Yuzu, Ren, Kai, Sora, Nagi and Aoi, with fan ひなた. New traits only: dance, sweets, hojicha latte, board games, rainy-day songs, cafés. The lint bans Mina, Kensei, 星空, シンセ, 深夜ラジオ, フィルム, 神戸 and Kobe. |
+| Mina persona and real-singer traits; @kensei | Cast is Yuzu, Ren, Kai, Sora, Nagi and Aoi, with fan ひなた (**renamed 2026-11-13**, Kensei: creators from all over the world. Display names are now Yuzu, Emma, Amara, Priya, Jiwoo and Sofia, and the monograms follow them: ren R→E, kai K→A, sora S→P, nagi N→J, aoi A→S, so the home OG badges read Y, A, P and the creators OG disc S. Wherever a later section names a persona or a monogram, read the new one. The persona ids and every trait below are unchanged. AI-generated portraits: `CAST_PORTRAITS.md`). New traits only: dance, sweets, hojicha latte, board games, rainy-day songs, cafés. The lint bans Mina, Kensei, 星空, シンセ, 深夜ラジオ, フィルム, 神戸 and Kobe. |
 | Numbers rule | LIVE request copy uses a hedge: 「準備ができしだい配信が始まります」 (`mock.fan.liveRequest.body`). No 30分/3分, +N counts, 翌月5日, ring %, counts or versions. The wired 「通常約1分」 is behind `CLAIMS.liveTimingWired` and is **not** in the dictionaries. |
 | Privacy contradiction | No 「読んだことは通知されません」 anywhere. There is no "creators can't see chats" claim on fan pages. Official replies are shown (verified shipped). |
 | Studio store badges | While `STUDIO_LIVE=false`: neutral text pills 「App Store・近日公開」 that are `aria-disabled`. No badge artwork, no Smart App Banner, no offers or installUrl. |

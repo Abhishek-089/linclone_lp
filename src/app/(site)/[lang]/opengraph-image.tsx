@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { isLocale, type Locale } from '@/i18n/config';
 import { OG_SIZE, INK, INK_2, FAMILY, ogFonts, brandMark, Phrases, firstSentence, AuraBadge } from '@/lib/og/og';
+import { PERSONAS } from '@/lib/personas';
 
 // Fan home OG image (spec §8.2): per-locale headline, the free-minute chip,
 // three faceless aura badges and the AI-clone disclosure. Static at build.
@@ -15,12 +16,12 @@ export async function generateImageMetadata({ params }: { params: { lang: string
   return [{ id: 'card', alt: getDictionary(lang).meta.home.ogImageAlt, size: OG_SIZE, contentType }];
 }
 
-// Persona メンカラ (lib/personas: yuzu, kai, sora); tint and deep are Aura's
-// cream-theme mixes (70% with white, 55% with #fbf7f0).
+// Persona メンカラ (lib/personas: yuzu, kai = Amara, sora = Priya); tint and deep are Aura's
+// cream-theme mixes (70% with white, 55% with #fbf7f0). Monograms come from PERSONAS.
 const BADGES = [
-  { size: 220, color: '#e14b81', tint: '#ea81a7', deep: '#ed98b3', monogram: 'Y', x: 830, y: 70 },
-  { size: 180, color: '#f0a53a', tint: '#f5c075', deep: '#f5ca8c', monogram: 'K', x: 960, y: 290 },
-  { size: 150, color: '#5b8def', tint: '#8caff4', deep: '#a3bdef', monogram: 'S', x: 790, y: 340 },
+  { size: 220, color: '#e14b81', tint: '#ea81a7', deep: '#ed98b3', monogram: PERSONAS.yuzu.monogram, x: 830, y: 70 },
+  { size: 180, color: '#f0a53a', tint: '#f5c075', deep: '#f5ca8c', monogram: PERSONAS.kai.monogram, x: 960, y: 290 },
+  { size: 150, color: '#5b8def', tint: '#8caff4', deep: '#a3bdef', monogram: PERSONAS.sora.monogram, x: 790, y: 340 },
 ];
 
 export default async function Image({ params }: { params: Promise<{ lang: string }> }) {

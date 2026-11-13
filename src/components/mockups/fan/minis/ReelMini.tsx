@@ -7,10 +7,10 @@ const SLIDES: (PersonaId | 'oshi')[] = ['kai', 'sora', 'oshi'];
 
 /**
  * F21 `ReelMini` (spec §7.1): a 9:16 aura Reel, 180×320 (mobile 150×266).
- * Hooks: `[data-m="reel-track"]` (vertical track of 3 slides: Kai, Sora, Yuzu;
+ * Hooks: `[data-m="reel-track"]` (vertical track of 3 slides: Amara, Priya, Yuzu;
  * animators move it by whole slide heights), `[data-m="follow"]` per slide,
  * `data-state` = follow | following (+ `[data-following]`) swaps the label.
- * SSR: Kai, Following.
+ * SSR: Amara, Following.
  */
 export function ReelMini({ d, className }: MockProps) {
   const c = d.mock.fan.common;

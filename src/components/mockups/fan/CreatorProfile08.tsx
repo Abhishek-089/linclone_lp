@@ -8,7 +8,7 @@ const ROWS = ['drink', 'hobby', 'style'] as const;
 
 /**
  * F16 `CreatorProfile08` (spec §7.1): the public creator profile (V3 08) with
- * new fictional facts for Sora. No follower count, no "+N" counts.
+ * new fictional facts for Priya (`sora`). No follower count, no "+N" counts.
  * Hook: `[data-m="new-row"]` (the `season` row, visible in SSR).
  */
 export function CreatorProfile08({ d, persona = 'sora', className }: MockProps) {

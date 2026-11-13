@@ -30,6 +30,7 @@
     "disclosure": "All creator profiles are AI clones",
     "disclosureOfficial": "All creator profiles are official AI clones",
     "screenNote": "Screens and conversations are illustrative. Creators shown are fictional.",
+    "screenNoteAi": "Screens and conversations are illustrative. Creators shown are fictional, and their pictures are AI-generated.",
     "devNote": "Screens are illustrative and may include features in development.",
     "freeWithIap": "Free to download · In-app purchases",
     "friction": {
@@ -144,27 +145,27 @@
       "tags": "Dance · Sweets"
     },
     "ren": {
-      "name": "Ren",
+      "name": "Emma",
       "genre": "Athlete",
       "tags": "Morning runs · Training"
     },
     "kai": {
-      "name": "Kai",
+      "name": "Amara",
       "genre": "Singer",
       "tags": "Rainy-day songs · Piano"
     },
     "sora": {
-      "name": "Sora",
+      "name": "Priya",
       "genre": "Actor & voice actor",
       "tags": "Board games · Hojicha"
     },
     "nagi": {
-      "name": "Nagi",
+      "name": "Jiwoo",
       "genre": "Gaming streamer",
       "tags": "Puzzles · Chit-chat"
     },
     "aoi": {
-      "name": "Aoi",
+      "name": "Sofia",
       "genre": "Singer-songwriter",
       "tags": "Cafés · Songwriting"
     },
@@ -199,7 +200,8 @@
     "cast": {
       "label": "Creators with official AI clones",
       "badge": "Official AI clone",
-      "note": "Creators shown are fictional."
+      "note": "Creators shown are fictional.",
+      "noteAi": "Creators shown are fictional, and their pictures are AI-generated."
     },
     "about": {
       "eyebrow": {
@@ -999,7 +1001,7 @@
           },
           "c4": {
             "user": "sakura",
-            "text": "Kai’s voice is so calming"
+            "text": "Amara’s voice is so calming"
           }
         },
         "gifts": {
@@ -1043,7 +1045,7 @@
           },
           "s2": {
             "title": "Rainy-day song talk",
-            "desc": "Kai talks about a favorite song"
+            "desc": "Amara talks about a favorite song"
           },
           "s3": {
             "title": "Comments & Super Chats",

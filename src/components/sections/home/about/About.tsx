@@ -121,7 +121,7 @@ export function About({ d, lang }: SectionProps) {
         <RevealGroup selector=".carousel-track > li">
           <Carousel label={t.eyebrow.label} items={cards} itemWidth="80vw" d={d} />
         </RevealGroup>
-        {/* The cards carry app crops (Yuzu's memory screen, Kai's LIVE card): §4.2 note. */}
+        {/* The cards carry app crops (Yuzu's memory screen, Amara's LIVE card): §4.2 note. */}
         <div className={`container-site ${s.note}`}>
           <ScreenNote d={d} />
         </div>

@@ -2,9 +2,11 @@ import { ImageResponse } from 'next/og';
 import { getDictionary } from '@/i18n/get-dictionary';
 import { isLocale, type Locale } from '@/i18n/config';
 import { OG_SIZE, INK, FAMILY, ogFonts, brandMark, Phrases } from '@/lib/og/og';
+import { PERSONAS } from '@/lib/personas';
 
 // LC Studio OG image (spec §8.2): lockup, headline, the invitation-only pill
-// and a violet ring around a faceless aura. No store, price or "free" claims.
+// and a violet ring around a faceless aura (the /creators persona, aoi = Sofia).
+// No store, price or "free" claims.
 
 export const size = OG_SIZE;
 export const contentType = 'image/png';
@@ -26,7 +28,7 @@ export default async function Image({ params }: { params: Promise<{ lang: string
       <div style={{ position: 'relative', display: 'flex', width: '100%', height: '100%', fontFamily: FAMILY, color: INK, backgroundImage: 'radial-gradient(120% 90% at 50% 0%, #f0e6fb, #eceae4 65%)' }}>
         <div style={{ position: 'absolute', left: 790, top: 150, display: 'flex', width: 330, height: 330, padding: 18, borderRadius: 330, background: '#8b55d6', boxShadow: '0 0 60px rgba(139,85,214,.35)' }}>
           <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 330, border: '6px solid #f2ecfb', backgroundImage: 'radial-gradient(circle at 35% 30%, #ae88e2 0%, #8b55d6 50%, #bd9ee2 100%)', color: 'rgba(255,255,255,.92)', fontFamily: 'PJS', fontWeight: 800, fontSize: 110 }}>
-            A
+            {PERSONAS.aoi.monogram}
           </div>
         </div>
         <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', width: 700, padding: '64px 0 0 72px' }}>

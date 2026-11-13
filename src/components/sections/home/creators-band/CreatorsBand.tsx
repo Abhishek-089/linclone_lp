@@ -8,9 +8,9 @@ import s from './creators-band.module.css';
 /**
  * #creators: the secondary entry to /creators (spec §5.12). A lavender band
  * inset from the page edge: copy + a violet ghost link on one side, and on
- * the other a glass card where Aoi's clone ring fills as the band scrolls in
+ * the other a glass card where Sofia's clone ring fills as the band scrolls in
  * (作成中 → クローンの準備ができました). No percentage anywhere. Server HTML is
- * the final state (ring full, "ready"). Aoi is fictional: the screen note sits
+ * the final state (ring full, "ready"). Sofia is fictional: the screen note sits
  * under the card like every other mockup cluster (spec §1.2.8).
  */
 export function CreatorsBand({ d, lang }: SectionProps) {

@@ -7,7 +7,7 @@ const READY_AT = 0.95;
 const DIM_FROM = 0.35;
 
 /**
- * Creators-band ring (spec §5.12): Aoi's clone ring fills (`--p` 0→100) as
+ * Creators-band ring (spec §5.12): Sofia's clone ring fills (`--p` 0→100) as
  * the band scrolls in, from `top 80%` to `center 45%`; the label crossfades
  * 作成中 → 準備ができました at p ≥ .95, and the aura brightens (a white
  * overlay fades out). No percentage numeral anywhere. Only a band that is

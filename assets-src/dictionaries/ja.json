@@ -30,6 +30,7 @@
     "disclosure": "クリエイターのプロフィールはすべてAIクローンです",
     "disclosureOfficial": "クリエイターのプロフィールはすべて公式のAIクローンです",
     "screenNote": "※画面・会話はイメージです。登場するクリエイターは架空です。",
+    "screenNoteAi": "※画面・会話はイメージです。登場するクリエイターは架空で、画像はAIで生成したものです。",
     "devNote": "※画面は開発中のものを含むイメージです。",
     "freeWithIap": "ダウンロード無料・アプリ内課金あり",
     "friction": {
@@ -144,27 +145,27 @@
       "tags": "ダンス・スイーツ"
     },
     "ren": {
-      "name": "Ren",
+      "name": "Emma",
       "genre": "アスリート",
       "tags": "朝ラン・筋トレ"
     },
     "kai": {
-      "name": "Kai",
+      "name": "Amara",
       "genre": "シンガー",
       "tags": "雨の日の歌・ピアノ"
     },
     "sora": {
-      "name": "Sora",
+      "name": "Priya",
       "genre": "俳優・声優",
       "tags": "ボードゲーム・ほうじ茶"
     },
     "nagi": {
-      "name": "Nagi",
+      "name": "Jiwoo",
       "genre": "ゲーム配信",
       "tags": "パズル・雑談"
     },
     "aoi": {
-      "name": "Aoi",
+      "name": "Sofia",
       "genre": "シンガーソングライター",
       "tags": "カフェ・作曲"
     },
@@ -199,7 +200,8 @@
     "cast": {
       "label": "公式AIクローンのクリエイター",
       "badge": "公式AIクローン",
-      "note": "※登場するクリエイターは架空です。"
+      "note": "※登場するクリエイターは架空です。",
+      "noteAi": "※登場するクリエイターは架空で、画像はAIで生成したものです。"
     },
     "about": {
       "eyebrow": {
@@ -999,7 +1001,7 @@
           },
           "c4": {
             "user": "sakura",
-            "text": "Kaiの声、落ちつく"
+            "text": "Amaraの声、落ちつく"
           }
         },
         "gifts": {
@@ -1043,7 +1045,7 @@
           },
           "s2": {
             "title": "雨の日の一曲トーク",
-            "desc": "Kaiが好きな曲を語る"
+            "desc": "Amaraが好きな曲を語る"
           },
           "s3": {
             "title": "コメントとスーパーチャットの読み上げ",

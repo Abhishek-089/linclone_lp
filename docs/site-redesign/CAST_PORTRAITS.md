@@ -42,23 +42,63 @@ screens and the OG image. The notes under the mockups then also say the pictures
 
 ## Cast and prompts
 
-Every prompt is the shared style plus that creator's line.
+Yuzu keeps her Japanese name; the other five have names that match their looks (2026-11-13). The
+file names use the internal ids, which predate the new names.
 
-**Shared style.** *Photorealistic portrait photo of a fictional woman in her early twenties,
-{creator}. Head and shoulders, face in the upper third of the frame, looking at the camera with a
-warm, friendly smile. Soft natural light, shallow depth of field, plain pastel {colour} background.
-Stylish, modern and tasteful, fully clothed. Vertical 3:4. No text, no logo, no watermark, no other
-people.*
+| File | Name | Role on the site | Background colour |
+|---|---|---|---|
+| `public/cast/yuzu.webp` | Yuzu | Japanese idol; the fan's 推し (hero, call, download) | blush pink `#e14b81` |
+| `public/cast/ren.webp` | Emma | Athlete | soft aqua `#00afc4` |
+| `public/cast/kai.webp` | Amara | Singer; the LIVE host | warm amber `#f0a53a` |
+| `public/cast/sora.webp` | Priya | Actor & voice actor | periwinkle `#5b8def` |
+| `public/cast/nagi.webp` | Jiwoo | Gaming streamer | mint green `#3fb98a` |
+| `public/cast/aoi.webp` | Sofia | Singer-songwriter; the LC Studio creator (`/creators`) | lavender `#8b55d6` |
 
-| id | Name now | Role on the site | Colour | {creator} |
-|---|---|---|---|---|
-| `yuzu` | Yuzu | Idol; the fan's 推し (hero, call, download) | blush pink `#e14b81` | a Japanese pop idol with long straight black hair and see-through bangs, light pink idol outfit with a small ribbon |
-| `ren` | Ren | Athlete | soft aqua `#00afc4` | a blonde athlete with a high ponytail and light freckles, sporty teal zip-up top |
-| `kai` | Kai | Singer; the LIVE host | warm amber `#f0a53a` | a Black singer with voluminous natural curls and small gold hoops, cream knit top |
-| `sora` | Sora | Actor & voice actor | periwinkle `#5b8def` | an Indian actress with long dark wavy hair and a small nose stud, elegant blue blouse |
-| `nagi` | Nagi | Gaming streamer | mint green `#3fb98a` | a Korean gaming streamer with a glossy short bob, headphones around her neck, oversized mint hoodie |
-| `aoi` | Aoi | Singer-songwriter; the LC Studio creator (`/creators`) | lavender `#8b55d6` | a Latina singer-songwriter with long brunette waves, lavender cardigan |
+Paste each prompt as-is into the image tool and pick a portrait (3:4) format. Generate a few
+results for each and keep the most natural one.
 
-The names are Japanese stage names. A creator's name can be changed in
-`src/i18n/dictionaries/{ja,en}/personas.json`, together with the strings that mention it
-(`grep -rn "Kai" src/i18n/dictionaries`).
+**Yuzu**
+> Photorealistic portrait photo of a fictional Japanese woman in her early twenties, a pop idol with
+> long straight black hair and see-through bangs, wearing a light pink idol outfit with a small
+> ribbon. Head and shoulders, face in the upper third of the frame, looking at the camera with a
+> warm, friendly smile. Soft natural light, shallow depth of field, plain pastel blush-pink
+> background. Stylish, modern and tasteful, fully clothed. Vertical 3:4. No text, no logo, no
+> watermark, no other people.
+
+**Emma**
+> Photorealistic portrait photo of a fictional blonde woman in her early twenties, an athlete with a
+> high ponytail and light freckles, wearing a sporty teal zip-up top. Head and shoulders, face in the
+> upper third of the frame, looking at the camera with a warm, friendly smile. Soft natural light,
+> shallow depth of field, plain pastel aqua background. Stylish, modern and tasteful, fully clothed.
+> Vertical 3:4. No text, no logo, no watermark, no other people.
+
+**Amara**
+> Photorealistic portrait photo of a fictional Black woman in her early twenties, a singer with
+> voluminous natural curls and small gold hoop earrings, wearing a cream knit top. Head and
+> shoulders, face in the upper third of the frame, looking at the camera with a warm, friendly
+> smile. Soft natural light, shallow depth of field, plain pastel warm-amber background. Stylish,
+> modern and tasteful, fully clothed. Vertical 3:4. No text, no logo, no watermark, no other people.
+
+**Priya**
+> Photorealistic portrait photo of a fictional Indian woman in her early twenties, an actress with
+> long dark wavy hair and a small nose stud, wearing an elegant blue blouse. Head and shoulders, face
+> in the upper third of the frame, looking at the camera with a warm, friendly smile. Soft natural
+> light, shallow depth of field, plain pastel periwinkle background. Stylish, modern and tasteful,
+> fully clothed. Vertical 3:4. No text, no logo, no watermark, no other people.
+
+**Jiwoo**
+> Photorealistic portrait photo of a fictional Korean woman in her early twenties, a gaming streamer
+> with a glossy short bob and headphones around her neck, wearing an oversized mint hoodie. Head and
+> shoulders, face in the upper third of the frame, looking at the camera with a warm, friendly
+> smile. Soft natural light, shallow depth of field, plain pastel mint-green background. Stylish,
+> modern and tasteful, fully clothed. Vertical 3:4. No text, no logo, no watermark, no other people.
+
+**Sofia**
+> Photorealistic portrait photo of a fictional Latina woman in her early twenties, a
+> singer-songwriter with long brunette waves, wearing a lavender cardigan. Head and shoulders, face
+> in the upper third of the frame, looking at the camera with a warm, friendly smile. Soft natural
+> light, shallow depth of field, plain pastel lavender background. Stylish, modern and tasteful,
+> fully clothed. Vertical 3:4. No text, no logo, no watermark, no other people.
+
+Names live in `src/i18n/dictionaries/{ja,en}/personas.json`; two strings in `mock.fan.json` name
+Amara directly.
