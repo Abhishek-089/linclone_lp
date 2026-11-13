@@ -54,7 +54,7 @@ export function FinalCta({ d, lang }: SectionProps) {
       </div>
     ),
     labelledBy: 'download-title',
-    height: { mobile: 140, desktop: 200 },
+    height: { desktop: 200 },
     direction: 'collapse',
     surfaceStart: 'night',
     phone: {

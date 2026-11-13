@@ -9,7 +9,7 @@ import { useScrollScene } from '@/lib/motion/use-scroll-scene';
  * (`top 75%` → `center 50%`) spreads across the segments, so the line draws
  * node to node (horizontal ≥1024, vertical below) and each node lights as the
  * line reaches it. Primed only when the track is below the fold at init;
- * reduced motion never runs (server: segments full, all steps lit).
+ * reduced motion and phones never run it (server: segments full, all steps lit).
  */
 export function JoinConnector() {
   const { anchor, scope } = useAnchorScope('.cr-track');
@@ -41,6 +41,6 @@ export function JoinConnector() {
         s.style.removeProperty('--seg');
       });
     };
-  });
+  }, { mobile: 'skip' });
   return <span ref={anchor} hidden />;
 }

@@ -6,7 +6,8 @@ import { loadMotion, motionRequested, requestRefresh } from './load';
 
 // Lenis smooth scroll (spec §4.5). Created lazily on the first interaction or
 // on idle, so neither Lenis nor GSAP is in the initial JS. Never created under
-// reduced motion or lite mode (native scroll then).
+// reduced motion, in lite mode, below 1024px or on a touch-first screen
+// (native scroll then: Lenis only ever smoothed the mouse wheel).
 
 declare global {
   interface Window {
@@ -28,6 +29,8 @@ const subscribe = (fn: () => void) => {
 };
 
 const START_EVENTS = ['wheel', 'pointerdown', 'keydown', 'touchstart'] as const;
+/** Where Lenis runs: a desktop-width viewport driven by a mouse or trackpad. */
+const MQ_SMOOTH = '(min-width: 1024px) and (pointer: fine)';
 
 /**
  * ScrollTrigger positions go stale whenever the page above a trigger changes
@@ -56,6 +59,7 @@ export function SmoothScroll(): null {
   useEffect(() => {
     const html = document.documentElement;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || html.hasAttribute('data-lite')) return;
+    if (!window.matchMedia(MQ_SMOOTH).matches) return;
 
     let disposed = false;
     let started = false;
@@ -108,7 +112,7 @@ export function SmoothScroll(): null {
   return null;
 }
 
-/** The live Lenis instance, or null (not yet created, reduced motion, lite). */
+/** The live Lenis instance, or null (not yet created, reduced motion, lite, phones). */
 export function useLenis(): Lenis | null {
   return useSyncExternalStore(
     subscribe,

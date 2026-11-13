@@ -19,7 +19,8 @@ const ACCENT_AT = 0.7;
 
 /**
  * Drives one ScrollFillText (spec §4.3). Rendered inside the text element as a
- * hidden anchor; the scope is its parent. Lite mode keeps the (cheap) scrub.
+ * hidden anchor; the scope is its parent. Lite mode keeps the (cheap) scrub;
+ * below 1024px nothing runs (the server HTML is already filled).
  */
 export function FillAnimator({ mode, start, end, scrub, driver, hasAccent }: FillAnimatorProps) {
   const { anchor, scope } = useAnchorScope();
@@ -69,6 +70,6 @@ export function FillAnimator({ mode, start, end, scrub, driver, hasAccent }: Fil
     }
     ScrollTrigger.create({ trigger: el, start, end, scrub, animation: tl });
     return () => target.removeAttribute('data-accent-off');
-  });
+  }, { mobile: 'skip' });
   return <span ref={anchor} hidden />;
 }

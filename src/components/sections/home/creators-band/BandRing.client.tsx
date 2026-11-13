@@ -11,7 +11,8 @@ const DIM_FROM = 0.35;
  * the band scrolls in, from `top 80%` to `center 45%`; the label crossfades
  * 作成中 → 準備ができました at p ≥ .95, and the aura brightens (a white
  * overlay fades out). No percentage numeral anywhere. Only a band that is
- * below the fold at init gets the start state; reduced motion never runs.
+ * below the fold at init gets the start state; reduced motion and phones
+ * (below 1024px) never run it: the server HTML is the full, ready ring.
  */
 export function BandRing() {
   const { anchor, scope } = useAnchorScope('section');
@@ -46,7 +47,7 @@ export function BandRing() {
       labels.setAttribute('data-ready', '');
       if (dim) dim.style.opacity = '';
     };
-  });
+  }, { mobile: 'skip' });
 
   return <span ref={anchor} hidden />;
 }

@@ -2,8 +2,9 @@
    collapsed final state; FinalStageAnimator scrubs from the full-bleed call. */
 
 /* Anchors (#download, the skip link) land at the end of the stage, i.e. on the
-   collapsed CTA, not on the full-bleed start. Lenis honours scroll-margin. */
-.stage { scroll-margin-top: calc(100svh - var(--h-m) - var(--header-h) - 8px); }
+   collapsed CTA, not on the full-bleed start. Lenis honours scroll-margin.
+   Phones: the stage is one static screen, so its top (under the header). */
+.stage { scroll-margin-top: calc(-1 * (var(--header-h) + 8px)); }
 @media (min-width: 1024px) { .stage { scroll-margin-top: calc(100svh - var(--h-d) - var(--header-h) - 8px); } }
 
 /* ── mobile phone rect: between the intro and the download block ── */

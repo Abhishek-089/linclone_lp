@@ -668,7 +668,8 @@ html.lenis, html.lenis body { height: auto; }
   [data-stage] {
     --pw: var(--pw-m); --pt: var(--pt-m); --r: var(--r-m); --intro-h: clamp(190px, 36svh, 320px);
     --ph: calc(100% - var(--pt)); --pl: calc((100% - var(--pw)) / 2); --pr: var(--pl); --pb: 0px;
-    position: relative; height: var(--h-m);
+    /* below 1024px: no scrub, one static screen of the final state (native scroll) */
+    position: relative; height: 100svh;
   }
   @media (min-width: 1024px) {
     [data-stage] {

@@ -1,8 +1,9 @@
 'use client';
 
-import type { RefObject } from 'react';
+import { useEffect, type RefObject } from 'react';
 import type { gsap } from 'gsap';
 import { requestRefresh } from './load';
+import { MQ_DESKTOP } from './policy';
 import { useScrollScene, type SceneCtx } from './use-scroll-scene';
 
 export type ExpandStageOptions = {
@@ -82,13 +83,47 @@ function insetFromRect(phone: DOMRect, media: DOMRect, radius: number): string {
 }
 
 /**
+ * Below 1024px the stage is static (one screen, the final state) and its
+ * composition lays out under the intro: keep --intro-h (intro bottom)
+ * measured there, with or without motion.
+ */
+function useMobileIntroHeight(scope: RefObject<HTMLElement | null>): void {
+  useEffect(() => {
+    const root = scope.current;
+    const intro = root?.querySelector<HTMLElement>('[data-stage-intro]');
+    if (!root || !intro || typeof ResizeObserver === 'undefined') return;
+    const mq = window.matchMedia(MQ_DESKTOP);
+    let ro: ResizeObserver | undefined;
+    const sync = () => {
+      ro?.disconnect();
+      ro = undefined;
+      if (mq.matches) {
+        root.style.removeProperty('--intro-h');
+        return;
+      }
+      ro = new ResizeObserver(() => root.style.setProperty('--intro-h', `${Math.ceil(intro.offsetTop + intro.offsetHeight)}px`));
+      ro.observe(intro);
+    };
+    sync();
+    mq.addEventListener('change', sync);
+    return () => {
+      mq.removeEventListener('change', sync);
+      ro?.disconnect();
+      root.style.removeProperty('--intro-h');
+    };
+  }, [scope]);
+}
+
+/**
  * Scroll-expand (or reverse-collapse) timeline for an `ExpandStage` (spec §4.4).
  * The stage is a CSS sticky child with a reserved svh height: no pin, no
  * pin-spacer. One timeline of duration 1, so positions equal progress.
+ * Desktop only: phones scroll natively past the static final state.
  */
 export function useExpandStage(scope: RefObject<HTMLElement | null>, opts: ExpandStageOptions): void {
+  useMobileIntroHeight(scope);
   useScrollScene(scope, (ctx) => {
-    const { gsap, scope: root, isDesktop, lite } = ctx;
+    const { gsap, scope: root, lite } = ctx;
     const one = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel);
     const media = one('[data-stage-media]');
     const inner = one('[data-stage-inner]');
@@ -103,19 +138,7 @@ export function useExpandStage(scope: RefObject<HTMLElement | null>, opts: Expan
     const span = Math.max(c1 - c0, 0.001);
     const introWin = opts.introToNight === undefined ? ([0.06, 0.3] as [number, number]) : opts.introToNight;
 
-    // Mobile: the phone sits under the intro; keep --intro-h (intro bottom) measured.
-    let ro: ResizeObserver | undefined;
-    if (intro && !isDesktop) {
-      const measure = () => root.style.setProperty('--intro-h', `${Math.ceil(intro.offsetTop + intro.offsetHeight)}px`);
-      measure();
-      ro = new ResizeObserver(() => {
-        measure();
-        requestRefresh();
-      });
-      ro.observe(intro);
-    }
-
-    const radius = () => parseFloat(getComputedStyle(root).getPropertyValue('--r')) || (isDesktop ? 44 : 36);
+    const radius = () => parseFloat(getComputedStyle(root).getPropertyValue('--r')) || 44;
     const atPhone = () => insetFromRect(phone.getBoundingClientRect(), media.getBoundingClientRect(), radius());
 
     /**
@@ -213,20 +236,13 @@ export function useExpandStage(scope: RefObject<HTMLElement | null>, opts: Expan
       }
     } else {
       tl.fromTo(media, { clipPath: expand ? atPhone : FULL }, { clipPath: expand ? FULL : atPhone, duration: span }, c0);
-      // Desktop keeps the 1.15 push-in; phones stay near 1 so text in the
-      // media never runs past the viewport edge during a fling.
-      const push = isDesktop ? 1.15 : 1.04;
-      if (inner) tl.fromTo(inner, { scale: expand ? push : 1 }, { scale: expand ? 1 : 0.9, duration: span }, c0);
+      if (inner) tl.fromTo(inner, { scale: expand ? 1.15 : 1 }, { scale: expand ? 1 : 0.9, duration: span }, c0);
       if (bezel) {
         const glue = span * GLUE;
         if (expand) {
           // The bezel's own screen goes first, so two UIs never double-expose.
           if (bezelScreen.length) tl.fromTo(bezelScreen, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.015 }, Math.max(0, c0 - 0.015));
-          if (isDesktop) {
-            tl.fromTo(bezel, { ...boxVars(0), autoAlpha: 1 }, { ...boxVars(GLUE), autoAlpha: 0, duration: glue }, c0);
-          } else {
-            tl.fromTo(bezel, { autoAlpha: 1 }, { autoAlpha: 0, duration: Math.min(0.1, glue) }, c0);
-          }
+          tl.fromTo(bezel, { ...boxVars(0), autoAlpha: 1 }, { ...boxVars(GLUE), autoAlpha: 0, duration: glue }, c0);
         } else {
           // Collapse mirrors it: the bezel rides the clip edge in over the
           // clip's last stretch and lands exactly on the phone rect at c1;
@@ -272,9 +288,7 @@ export function useExpandStage(scope: RefObject<HTMLElement | null>, opts: Expan
     return () => {
       ctx.ScrollTrigger.removeEventListener('refresh', resync);
       if (typeof extCleanup === 'function') extCleanup();
-      ro?.disconnect();
-      root.style.removeProperty('--intro-h');
       if (surfaceSwitch !== null) root.dataset.surface = endSurface;
     };
-  });
+  }, { mobile: 'skip' });
 }

@@ -22,6 +22,17 @@ export function HeaderBehavior() {
     const menuBtn = header.querySelector<HTMLButtonElement>('.header-inner .menu-btn');
 
     // ── scroll: glass, auto-hide, progress ──
+    // Layout is read on resize only (page height, header height): a scroll
+    // frame only writes, so it never forces a synchronous layout.
+    let max = 0;
+    let headerH = header.offsetHeight;
+    const measure = () => {
+      max = document.documentElement.scrollHeight - window.innerHeight;
+      headerH = header.offsetHeight;
+    };
+    measure();
+    const pageRo = new ResizeObserver(measure);
+    pageRo.observe(document.body);
     let lastY = window.scrollY;
     let dirY = lastY;
     let raf = 0;
@@ -31,14 +42,13 @@ export function HeaderBehavior() {
       const scrolled = y > 24;
       header.toggleAttribute('data-scrolled', scrolled);
       header.toggleAttribute('data-top', !scrolled);
-      if (y > lastY && y - dirY > 8 && y > header.offsetHeight) header.setAttribute('data-hidden', '');
+      if (y > lastY && y - dirY > 8 && y > headerH) header.toggleAttribute('data-hidden', true);
       else if (y < lastY) {
-        header.removeAttribute('data-hidden');
+        header.toggleAttribute('data-hidden', false);
         dirY = y;
       }
       if (y <= lastY) dirY = y;
       lastY = y;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
       progress?.style.setProperty('--progress', max > 0 ? String(Math.min(1, y / max)) : '0');
     };
     const onScroll = () => {
@@ -76,6 +86,7 @@ export function HeaderBehavior() {
     surfaces.forEach((el) => mo.observe(el, { attributes: true, attributeFilter: ['data-surface'] }));
     let resizeT: ReturnType<typeof setTimeout> | undefined;
     const onResize = () => {
+      measure();
       clearTimeout(resizeT);
       resizeT = setTimeout(observe, 150);
     };
@@ -113,6 +124,7 @@ export function HeaderBehavior() {
       clearTimeout(resizeT);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
+      pageRo.disconnect();
       io?.disconnect();
       mo.disconnect();
       menuBtn?.removeEventListener('click', openMenu);

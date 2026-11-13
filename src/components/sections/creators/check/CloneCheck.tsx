@@ -21,7 +21,7 @@ export function CloneCheck({ d, lang }: SectionProps) {
     <ExpandStage
       id="check"
       labelledBy="check-title"
-      height={{ mobile: 160, desktop: 220 }}
+      height={{ desktop: 220 }}
       direction="expand"
       phone={{
         desktop: { side: 'right', width: 300 },

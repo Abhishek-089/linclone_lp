@@ -5,8 +5,6 @@ import { useExpandStage } from '@/lib/motion/use-expand-stage';
 import type { FillTarget } from '@/components/site/fill/FillAnimator.client';
 import { clock, FREE_SECONDS } from './clock';
 
-const MQ_DESKTOP = '(min-width: 1024px)';
-
 type CallState = 'connecting' | 'listening' | 'thinking' | 'speaking';
 
 /**
@@ -15,8 +13,7 @@ type CallState = 'connecting' | 'listening' | 'thinking' | 'speaking';
  * later beat starts from ~0.32 and the demo CTA lands at 0.80 with a hold.
  */
 const B = {
-  clipDesktop: [0.06, 0.3] as [number, number],
-  clipMobile: [0.06, 0.28] as [number, number],
+  clip: [0.06, 0.3] as [number, number],
   /** call controls and meter fade in once the clip edge has passed them */
   chrome: [0.28, 0.36] as [number, number],
   /** the fan's turn: light rises from the bottom (listening) */
@@ -71,22 +68,16 @@ export function CallStageAnimator() {
 
   useExpandStage(scope, {
     direction: 'expand',
-    // Mobile expands sooner (§5.4); read when the scene is (re)built.
-    get clip(): [number, number] {
-      return window.matchMedia(MQ_DESKTOP).matches ? B.clipDesktop : B.clipMobile;
-    },
+    clip: B.clip,
     introToNight: [0.06, 0.3],
     scrub: 0.5,
-    extend: (tl, { gsap, scope: root, isDesktop, lite }) => {
+    extend: (tl, { gsap, scope: root, lite }) => {
       const media = root.querySelector<HTMLElement>('[data-stage-media]');
       if (!media) return;
       const one = <T extends Element = HTMLElement>(sel: string) => media.querySelector<T>(sel);
       const callRoot =
         one('[data-mock="CallStageMedia"]') ?? one('[data-call-state]')?.closest<HTMLElement>('[data-state]') ?? null;
       const bezelScreen = root.querySelector<HTMLElement>('[data-call-bezel]');
-      const more = root.querySelector<HTMLElement>('[data-call-more]');
-      const title = root.querySelector<HTMLElement>('#call-title');
-      const intro = root.querySelector<HTMLElement>('[data-stage-intro]');
       const fanGlow = one('[data-fan-glow]');
       const avatarGlow = one('[data-avatar-glow]');
       const wave = one('[data-wave]');
@@ -102,17 +93,6 @@ export function CallStageAnimator() {
       // 0.05–0.07: the first-call screen hands off to the media under the clip.
       // (Lite has no clip: the screen then fades out with the bezel, a clean crossfade.)
       if (bezelScreen && !lite) tl.fromTo(bezelScreen, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.02 }, 0.05);
-
-      // Mobile: the long lead is read at the start, then clears the way; the
-      // call composition lays out under the H2 only (--intro-h on the media).
-      let ro: ResizeObserver | undefined;
-      if (!isDesktop && more && title && intro) {
-        tl.fromTo(more, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -12, duration: 0.1 }, 0.1);
-        const measure = () => media.style.setProperty('--intro-h', `${Math.ceil(intro.offsetTop + title.offsetTop + title.offsetHeight + 8)}px`);
-        measure();
-        ro = new ResizeObserver(measure);
-        ro.observe(title);
-      }
 
       // 0.28–0.36: the call chrome (end/mute/speaker, free meter) fades in
       // after the clip edge has swept past, so it is never seen sliced.
@@ -178,8 +158,6 @@ export function CallStageAnimator() {
       return () => {
         window.clearTimeout(late);
         tl.eventCallback('onUpdate', null);
-        ro?.disconnect();
-        media.style.removeProperty('--intro-h');
         if (callRoot) callRoot.dataset.state = 'speaking';
         if (meter) meter.textContent = clock(FREE_SECONDS);
         fanFill?.__fill?.(1);

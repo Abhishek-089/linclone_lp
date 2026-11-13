@@ -28,7 +28,8 @@ type ToneTarget = { el: HTMLElement; g: number; at: number };
  * white → ink as a per-element step at the sky's luminance crossover (never a
  * fade through low-contrast mid-tones), the ringing phone rises in, then the
  * caption fills.
- * Mobile: no sticky; the clock rolls once on enter and the caption fill scrubs.
+ * Mobile: no sticky and nothing tied to scroll; the clock rolls once on enter
+ * (the caption is already filled).
  * Lite: static dawn (final), only the (cheap) caption fill scrubs.
  * Reduced motion: nothing runs (the CSS default is the final state).
  */
@@ -42,7 +43,7 @@ export function MorningStageAnimator() {
     const belowFold = stage.getBoundingClientRect().top > window.innerHeight;
 
     if (!isDesktop) {
-      // ── mobile: clock rolls once on enter; caption fill scrubs ──
+      // ── mobile: the clock rolls once on enter ──
       const clock = digits[0]?.parentElement;
       if (clock && digits.length) {
         const clockBelow = clock.getBoundingClientRect().top > window.innerHeight * 0.85;
@@ -59,22 +60,6 @@ export function MorningStageAnimator() {
                 .to(digits, { yPercent: -200, duration: 0.35, ease: 'power2.inOut' }, '+=0.25');
             },
           });
-        }
-      }
-      if (caption) {
-        const captionBelow = caption.getBoundingClientRect().top > window.innerHeight;
-        if (captionBelow) {
-          const st = ScrollTrigger.create({
-            trigger: caption,
-            start: 'top 75%',
-            end: 'center 45%',
-            scrub: true,
-            onUpdate: (self) => fillTo(caption, self.progress),
-          });
-          // The fill animator may initialise after us: sync once it exists.
-          const sync = () => fillTo(caption, st.progress);
-          const id = window.setTimeout(sync, 400);
-          return () => window.clearTimeout(id);
         }
       }
       return;

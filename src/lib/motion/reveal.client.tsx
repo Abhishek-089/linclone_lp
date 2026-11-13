@@ -15,7 +15,8 @@ const TALL_VIEWPORT = 2400;
 /**
  * Batch reveal for below-fold groups (spec §4.5). Items are the wrapper's
  * children unless `selector` is given. Only items below the fold at init get
- * the from-state, so server HTML (and no-JS) always shows everything.
+ * the from-state, so server HTML (and no-JS) always shows everything. Desktop
+ * only: below 1024px everything is simply there as you scroll.
  *
  * The from-state is opacity + transform only (never `visibility`), so pending
  * items stay in the tab order and accessibility tree. A focused pending item,
@@ -68,7 +69,7 @@ export function RevealGroup({ selector, stagger = 0.06, children }: { selector?:
       window.removeEventListener('resize', showAboveFold);
       window.clearTimeout(failsafe);
     };
-  });
+  }, { mobile: 'skip' });
   return (
     <div ref={ref} data-reveal-group="">
       {children}

@@ -7,13 +7,11 @@ import { useScrollScene } from '@/lib/motion/use-scroll-scene';
 
 type FillTarget = HTMLElement & { __fill?: (progress: number) => void };
 
-/** Beats by progress over the 180svh desktop / 160svh mobile stage. */
+/** Beats by progress over the 180svh stage (desktop; phones show the end frame). */
 const INTRO_OUT: [number, number] = [0.04, 0.16];
 const CLIP: [number, number] = [0.14, 0.52];
 const FILL: [number, number] = [0.54, 0.82];
 const READ_AT = 0.68;
-/** Phone landscape and other very short viewports: no expansion, the static end frame. */
-const MIN_STAGE_H = 500;
 
 /**
  * #live-stage (spec §5.7): on desktop the section intro (a sticky layer over
@@ -23,8 +21,8 @@ const MIN_STAGE_H = 500;
  * (0.54 → 0.82), the theme progress runs (0.42 → 0.87) and the Super Chat
  * is marked read on air at 0.68. Also: the bezel screen scale and the
  * intro's giant "LIVE" parallax (desktop, ±12px).
- * Below 500px of viewport height (phones in landscape) the stage renders its
- * end frame without scrubbing, like the reduced-motion path.
+ * Below 1024px the stage renders its end frame without scrubbing, like the
+ * reduced-motion path.
  * Rendered inside the stage's intro slot, so it anchors to `[data-stage]`.
  */
 export function LiveStageAnimator() {
@@ -51,7 +49,7 @@ export function LiveStageAnimator() {
     direction: 'expand',
     clip: CLIP,
     introToNight: false,
-    extend: (tl, { gsap, scope: root, isDesktop }) => {
+    extend: (tl, { gsap, scope: root }) => {
       const one = (sel: string) => root.querySelector<HTMLElement>(sel);
       const introEl = root.parentElement?.querySelector<HTMLElement>('[data-live-intro]') ?? null;
       const join = one('[data-stage-bezel] [data-m="join"]');
@@ -62,7 +60,7 @@ export function LiveStageAnimator() {
 
       // The sticky intro (desktop CSS, motion allowed) gives way before the clip opens.
       // Opacity only: the H2 labels the section, so it stays in the accessibility tree.
-      if (isDesktop && introEl && getComputedStyle(introEl).position === 'sticky') {
+      if (introEl && getComputedStyle(introEl).position === 'sticky') {
         tl.fromTo(introEl, { opacity: 1, y: 0 }, { opacity: 0, y: -48, duration: INTRO_OUT[1] - INTRO_OUT[0], ease: 'power1.in' }, INTRO_OUT[0]);
       }
       if (join) {
@@ -87,12 +85,6 @@ export function LiveStageAnimator() {
         }
       };
       tl.eventCallback('onUpdate', onUpdate);
-
-      // Too short to scrub a full-bleed expansion: freeze on the end frame.
-      if (!isDesktop && window.innerHeight < MIN_STAGE_H) {
-        tl.scrollTrigger?.disable(false);
-        tl.progress(1);
-      }
       onUpdate();
       // The fill animator may initialise after this timeline: resync shortly after.
       gsap.delayedCall(0.4, () => {

@@ -32,7 +32,7 @@ export function CommandCentre({ d, lang }: SectionProps) {
     <ExpandStage
       id="how"
       labelledBy="how-title"
-      height={{ mobile: 180, desktop: 240 }}
+      height={{ desktop: 240 }}
       direction="expand"
       phone={{
         desktop: { side: 'right', width: 300 },

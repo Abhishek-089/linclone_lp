@@ -84,7 +84,7 @@ export function CallChapter({ d, lang }: SectionProps) {
       <ExpandStage
         id="call"
         labelledBy="call-title"
-        height={{ mobile: 180, desktop: 220 }}
+        height={{ desktop: 220 }}
         direction="expand"
         phone={{
           desktop: { side: 'right', width: 330 },

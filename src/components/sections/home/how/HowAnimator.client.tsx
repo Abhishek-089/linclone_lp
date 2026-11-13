@@ -22,8 +22,9 @@ const win = (p: number, a: number, b: number) => clamp01((p - a) / (b - a));
  * step and counts 1:00 → 0:00 with the scroll; then, as #how-cta enters, the
  * phone morphs into the app icon sitting in its pad beside the badges
  * (translate + scale measured every frame, phone fades, icon fades in).
- * Mobile: line + dots, and the mini ring counts down once when it enters.
- * The sunrise glow rises across the section on both.
+ * The sunrise glow rises across the section.
+ * Mobile: nothing tied to scroll (line, dots and glow are in their final
+ * state); the mini ring counts down once when it enters.
  */
 export function HowAnimator() {
   const { anchor, scope } = useAnchorScope('section');
@@ -37,34 +38,6 @@ export function HowAnimator() {
     const sunGlow = one('[data-sunrise] [data-fan-glow]');
     const vh = window.innerHeight;
     const cleanups: (() => void)[] = [];
-
-    // Sunrise: rises across the section.
-    if (sunGlow) {
-      gsap.fromTo(
-        sunGlow,
-        { yPercent: 30 },
-        { yPercent: 0, ease: 'none', scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom bottom', scrub: true } },
-      );
-    }
-
-    // Dots + connector line (both breakpoints). Steps below the fold at init start "not done".
-    const mark = isDesktop ? 'top 55%' : 'top 70%';
-    steps.forEach((li) => {
-      if (li.getBoundingClientRect().top > vh * (isDesktop ? 0.55 : 0.7)) li.removeAttribute('data-done');
-      ScrollTrigger.create({
-        trigger: li,
-        start: mark,
-        onEnter: () => li.setAttribute('data-done', ''),
-        onLeaveBack: () => li.removeAttribute('data-done'),
-      });
-    });
-    if (lineFill && stepsWrap) {
-      gsap.fromTo(
-        lineFill,
-        { scaleY: belowFold ? 0 : 1 },
-        { scaleY: 1, ease: 'none', scrollTrigger: { trigger: stepsWrap, start: mark, end: `bottom ${isDesktop ? '55%' : '70%'}`, scrub: true } },
-      );
-    }
 
     if (!isDesktop) {
       // Mini ring: counts down once on enter, then refills to the free 1:00.
@@ -89,10 +62,40 @@ export function HowAnimator() {
           },
         });
       }
-      return () => cleanups.forEach((fn) => fn());
+      return;
     }
 
     // ── desktop ──
+    // Sunrise: rises across the section.
+    if (sunGlow) {
+      gsap.fromTo(
+        sunGlow,
+        { yPercent: 30 },
+        { yPercent: 0, ease: 'none', scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom bottom', scrub: true } },
+      );
+    }
+
+    // Dots + connector line. Steps below the fold at init start "not done".
+    const mark = 'top 55%';
+    steps.forEach((li) => {
+      if (li.getBoundingClientRect().top > vh * 0.55) li.removeAttribute('data-done');
+      ScrollTrigger.create({
+        trigger: li,
+        start: mark,
+        onEnter: () => li.setAttribute('data-done', ''),
+        onLeaveBack: () => li.removeAttribute('data-done'),
+      });
+    });
+    if (lineFill && stepsWrap) {
+      gsap.fromTo(
+        lineFill,
+        { scaleY: belowFold ? 0 : 1 },
+        { scaleY: 1, ease: 'none', scrollTrigger: { trigger: stepsWrap, start: mark, end: 'bottom 55%', scrub: true } },
+      );
+    }
+    // Back to the server state (every step done) when the scene is torn down.
+    cleanups.push(() => steps.forEach((li) => li.setAttribute('data-done', '')));
+
     root.setAttribute('data-how-live', '');
     cleanups.push(() => root.removeAttribute('data-how-live'));
 

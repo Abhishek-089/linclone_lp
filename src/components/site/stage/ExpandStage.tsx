@@ -4,8 +4,8 @@ import { SkipLink } from '../SkipLink';
 export type ExpandStageProps = {
   id: string;
   labelledBy: string;
-  /** svh; mobile ≤ 200 */
-  height: { mobile: number; desktop: number };
+  /** svh scroll length of the desktop scrub (phones: one static screen) */
+  height: { desktop: number };
   direction: 'expand' | 'collapse';
   /** phone-screen rect at rest (start for expand, end for collapse) */
   phone: {
@@ -38,7 +38,8 @@ export type ExpandStageProps = {
  * whose svh height is reserved in CSS: no GSAP pin and no pin-spacer. The
  * server/CSS state is the FINAL state (expand: full-bleed media, bezel hidden;
  * collapse: media clipped to the phone rect in pure CSS). Section animators
- * call `useExpandStage` to scrub from the start state.
+ * call `useExpandStage` to scrub from the start state on desktop; below
+ * 1024px the stage is one static screen of that final state.
  */
 export function ExpandStage({
   id,
@@ -56,9 +57,7 @@ export function ExpandStage({
   className,
   rootAttrs,
 }: ExpandStageProps) {
-  const mobileH = Math.min(height.mobile, 200);
   const style = {
-    '--h-m': `${mobileH}svh`,
     '--h-d': `${height.desktop}svh`,
     '--pw-d': `${phone.desktop.width}px`,
     '--pw-m': phone.mobile.width,

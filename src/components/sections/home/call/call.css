@@ -37,16 +37,10 @@
   transform: scale(tan(atan2(var(--pw), 390px)));
 }
 
-/* ───────────── no JS or reduced motion on mobile: a static, readable stage ─────────────
+/* ───────────── phones: a static, readable stage (no scrub below 1024px) ─────────────
    Without the scrub the long intro would sit on top of the call composition,
    so on phones the intro flows above a full-height static call instead. */
 @media (max-width: 1023.98px) {
-  html:not([data-js]) #call { height: auto; }
-  html:not([data-js]) #call [data-stage-sticky] { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; }
-  html:not([data-js]) #call [data-stage-intro] { order: -1; position: relative; inset: auto; padding: calc(var(--header-h) + 40px) var(--gutter) 8px; }
-  html:not([data-js]) #call [data-stage-media] { position: relative; inset: auto; height: max(100svh, 640px); --intro-h: var(--header-h); }
-}
-@media (max-width: 1023.98px) and (prefers-reduced-motion: reduce) {
   #call { height: auto; }
   #call [data-stage-sticky] { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; }
   #call [data-stage-intro] { order: -1; position: relative; inset: auto; padding: calc(var(--header-h) + 40px) var(--gutter) 8px; }

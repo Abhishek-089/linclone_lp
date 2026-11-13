@@ -22,13 +22,21 @@ export type ScrollSceneOptions = {
   rootMargin?: string;
   /** default 'run' (ctx.lite = true); 'skip' does nothing in lite mode */
   lite?: 'run' | 'skip';
+  /**
+   * default 'run'. Scroll-linked scenes (scrubs, progress-driven beats,
+   * reveal-on-scroll) pass 'skip': below 1024px the page scrolls natively and
+   * shows the CSS final state, like reduced motion. One-shot sequences that
+   * play on enter keep 'run'.
+   */
+  mobile?: 'run' | 'skip';
 };
 
 /**
  * The only way section code touches GSAP (spec §4.5). When the scope comes
  * within `rootMargin`, GSAP is loaded and `setup` runs inside a gsap.context
- * + matchMedia, never under prefers-reduced-motion. Everything is reverted on
- * unmount or when the media conditions change.
+ * + matchMedia, never under prefers-reduced-motion (nor below 1024px with
+ * `mobile: 'skip'`). Everything is reverted on unmount or when the media
+ * conditions change.
  */
 export function useScrollScene(
   scope: RefObject<HTMLElement | null>,
@@ -41,6 +49,7 @@ export function useScrollScene(
   });
   const rootMargin = opts?.rootMargin ?? '100% 0px';
   const litePolicy = opts?.lite ?? 'run';
+  const mobilePolicy = opts?.mobile ?? 'run';
 
   useEffect(() => {
     const el = scope.current;
@@ -62,7 +71,7 @@ export function useScrollScene(
         // matches, so `any` keeps it running on every viewport.
         mm.add({ isDesktop: MQ_DESKTOP, reduce: '(prefers-reduced-motion: reduce)', any: 'all' }, (c) => {
           const { isDesktop, reduce } = c.conditions as { isDesktop: boolean; reduce: boolean };
-          if (reduce) return;
+          if (reduce || (!isDesktop && mobilePolicy === 'skip')) return;
           return setupRef.current({
             gsap,
             ScrollTrigger,
@@ -93,5 +102,5 @@ export function useScrollScene(
       mm?.revert();
       ctx?.revert();
     };
-  }, [scope, rootMargin, litePolicy]);
+  }, [scope, rootMargin, litePolicy, mobilePolicy]);
 }

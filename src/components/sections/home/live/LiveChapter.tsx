@@ -47,7 +47,7 @@ export function LiveChapter({ d, lang }: SectionProps) {
         <ExpandStage
           id="live-stage"
           labelledBy="live-title"
-          height={{ mobile: 160, desktop: 180 }}
+          height={{ desktop: 180 }}
           direction="expand"
           surfaceStart="night"
           phone={{

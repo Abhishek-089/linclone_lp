@@ -714,12 +714,14 @@ Conventions:
 
 ### 4.4 Stage (scroll-expand)
 
+> **Amended 2026-11-13 (phones scroll natively).** Below 1024px nothing is tied to scroll position: stages are one static screen of their final state (`#call` flows its intro above a full-height call), and `useExpandStage`, `ScrollFillText`, `RevealGroup`, the band ring and the #join connector do not run (`useScrollScene(…, { mobile: 'skip' })`). Lenis runs only at `(min-width: 1024px) and (pointer: fine)`. One-shot sequences that play once on enter (chat, LIVE request, grow pipeline, the morning clock, the 60-second mini ring, LC Studio micro-sequences) still play. Reason: on smartphones the scrubbed stages felt slow and unresponsive. Desktop is unchanged.
+
 **`ExpandStage`** (`site/stage/ExpandStage.tsx`, server) + hook **`useExpandStage`** (`lib/motion/use-expand-stage.ts`, client). Section packages write thin `*StageAnimator.client.tsx` wrappers that call the hook and add their own beats.
 
 ```ts
 type ExpandStageProps = {
   id: string; labelledBy: string;
-  height: { mobile: number; desktop: number };         // svh; mobile ≤ 200
+  height: { desktop: number };                           // svh scroll length (phones: one static screen, §4.4 amendment)
   direction: 'expand' | 'collapse';
   phone: {                                               // phone-screen rect at rest (start for expand, end for collapse)
     desktop: { side: 'left' | 'right' | 'center'; width: number /* px, screen width */ };
@@ -736,7 +738,7 @@ type ExpandStageProps = {
 ```
 
 DOM contract (the hook and section animators select these):
-- `section#{id}[data-stage][data-immersive][data-surface=dark]` (`data-surface=light` when `surfaceEnd='studio'`, e.g. the creators command centre, so the header stays ink), with `style="--h-m:{mobile}svh; --h-d:{desktop}svh"` → `height: var(--h-m)` (≥1024 `var(--h-d)`)
+- `section#{id}[data-stage][data-immersive][data-surface=dark]` (`data-surface=light` when `surfaceEnd='studio'`, e.g. the creators command centre, so the header stays ink), with `style="--h-d:{desktop}svh"` → `height: 100svh` (≥1024 `var(--h-d)`)
 - `div[data-stage-sticky]`: `position: sticky; top: 0; height: 100svh; overflow: clip`
   - `div[data-stage-bg="start"]`: surfaceStart colour, opacity 1
   - `div[data-stage-bg="end"]`: `#0f1018`
