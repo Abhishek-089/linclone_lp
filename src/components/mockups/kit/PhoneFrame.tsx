@@ -4,7 +4,8 @@ import { StatusBar } from './StatusBar';
 type PhoneFrameProps = {
   size: { mobile: number; desktop: number };
   label: string;
-  theme?: 'cream' | 'night';
+  /** `auto`: the status bar follows the screen's own theme (site.css) */
+  theme?: 'cream' | 'night' | 'auto';
   statusTime?: string;
   className?: string;
   children: ReactNode;
@@ -22,7 +23,7 @@ export function PhoneFrame({ size, label, theme = 'cream', statusTime = '10:42',
     <figure role="img" aria-label={label} className={['phone', className].filter(Boolean).join(' ')} data-theme={theme} style={style} data-nosnippet="">
       <div className="screen" aria-hidden="true">
         {children}
-        <StatusBar time={statusTime} theme={theme} />
+        <StatusBar time={statusTime} theme={theme === 'night' ? 'night' : 'cream'} />
         <span className="phone-island" />
       </div>
     </figure>

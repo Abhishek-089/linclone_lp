@@ -27,7 +27,8 @@
 
 .sticky {
   position: relative;
-  padding-block: calc(var(--section-y) + 8px) 56px;
+  /* phones: the same rhythm as every other section */
+  padding-block: var(--section-y) 56px;
 }
 
 .dawn { display: none; }
@@ -122,8 +123,8 @@ html[data-js] :global(.is-inview) .stars > span { animation-play-state: running;
   position: relative;
   background: #f7f3ec;
   color: var(--color-ink);
-  /* bottom: #chat continues on the same cream, so it only needs half a gap here */
-  padding-block: 48px calc(var(--section-y) * .5);
+  /* phones: the usual gap below, like every section (desktop halves it, see below) */
+  padding-block: 48px var(--section-y);
 }
 .gridInner {
   display: flex;

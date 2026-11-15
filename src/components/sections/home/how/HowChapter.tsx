@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from 'react';
 import type { SectionProps } from '@/i18n/types';
 import { Section, Eyebrow, ScrollFillText, StoreBadges, FrictionList, Icon, Ring, CallGlow, ScreenNote } from '@/components/site';
-import { PhoneFrame, ScreenStack, ScreenSlice } from '@/components/mockups/kit';
+import { PhoneFrame, ScreenStack, ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { Welcome00a } from '@/components/mockups/fan/Welcome00a';
 import { PickReel00b } from '@/components/mockups/fan/PickReel00b';
 import { FirstCall00c } from '@/components/mockups/fan/FirstCall00c';
@@ -13,23 +13,15 @@ import s from './how.module.css';
 const STEPS = ['download', 'pick', 'call', 'signin'] as const;
 type StepKey = (typeof STEPS)[number];
 
-/** Mobile crops of each screen (spec §5.10), at 300px wide (scale .77). */
-const CROPS: Record<StepKey, { y: number; h: number }> = {
-  download: { y: 500, h: 344 },
-  pick: { y: 420, h: 424 },
-  call: { y: 80, h: 520 },
-  signin: { y: 360, h: 400 },
-};
-
 const APP_ICON = '/brand/appicon-512.webp';
 
 /** Glues a number to the word after it ("60 seconds") so the pair never wraps apart. */
 const keepNumberWithUnit = (text: string) => text.replace(/(\d+) (?=\S)/g, '$1\u00a0');
 
 /** The ring-60 label: `ringLabel` + a tabular `1:00` the animators count down. */
-function RingTimer({ label, size }: { label: string; size: 'lg' | 'sm' }) {
+function RingTimer({ label }: { label: string }) {
   return (
-    <span className={s.ringTimer} data-size={size}>
+    <span className={s.ringTimer}>
       <span className={s.ringTimerLabel}>{label}</span>
       <span className={s.ringTimerTime} data-ring-time="">
         1:00
@@ -44,7 +36,7 @@ function RingTimer({ label, size }: { label: string; size: 'lg' | 'sm' }) {
  * through Welcome → Reel → the free first call (with the 60-second ring) →
  * sign-in while the steps scroll on the right, then the phone morphs into
  * the LinClone app icon beside the store badges. Mobile: a vertical timeline
- * with a cropped screen per step. Server HTML is the final state: every step
+ * with a whole phone screen per step. Server HTML is the final state: every step
  * done, ring full at 1:00, the app icon resting in its pad.
  */
 export function HowChapter({ d, lang }: SectionProps) {
@@ -86,7 +78,7 @@ export function HowChapter({ d, lang }: SectionProps) {
                 </PhoneFrame>
                 <span className={s.ringChip} data-ring-chip="" aria-hidden="true">
                   <Icon name="timer" filled size={18} />
-                  <RingTimer label={t.ringLabel} size="lg" />
+                  <RingTimer label={t.ringLabel} />
                 </span>
                 {/* eslint-disable-next-line @next/next/no-img-element -- static brand PNG, decorative morph target */}
                 <img className={s.morphIcon} data-app-icon="" src={APP_ICON} alt="" width={330} height={330} loading="lazy" decoding="async" />
@@ -130,14 +122,9 @@ export function HowChapter({ d, lang }: SectionProps) {
                     <p className={`t-body ${s.stepBody}`}>{t.steps[k].body}</p>
                   </div>
                   <div className={s.slice} data-slice={k}>
-                    <ScreenSlice label={sliceLabel[k]} width={{ mobile: 300 }} crop={CROPS[k]} radius={24}>
+                    <ScreenSlice label={sliceLabel[k]} width={{ mobile: PHONE_SLICE_W }}>
                       {screens[k]}
                     </ScreenSlice>
-                    {k === 'call' ? (
-                      <span className={`glass-fake ${s.miniRing}`} data-ring-mini="" aria-hidden="true">
-                        <Ring size={110} tone="teal" stroke={6} label={<RingTimer label={t.ringLabel} size="sm" />} />
-                      </span>
-                    ) : null}
                   </div>
                 </li>
               ))}

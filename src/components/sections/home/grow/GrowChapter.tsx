@@ -1,6 +1,6 @@
 import type { SectionProps } from '@/i18n/types';
 import { Section, Eyebrow, ScrollFillText, ScreenNote, Carousel, Icon, type IconName } from '@/components/site';
-import { PhoneFrame, ScreenSlice } from '@/components/mockups/kit';
+import { PhoneFrame, ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { GrowPicker07 } from '@/components/mockups/fan/GrowPicker07';
 import { CreatorProfile08 } from '@/components/mockups/fan/CreatorProfile08';
 import { ReviewStatus10 } from '@/components/mockups/fan/ReviewStatus10';
@@ -34,7 +34,6 @@ export function GrowChapter({ d, lang }: SectionProps) {
     { key: 'profile', label: m.growProfile.alt, node: <CreatorProfile08 d={d} lang={lang} persona="sora" /> },
     { key: 'review', label: review.alt, node: <ReviewStatus10 d={d} lang={lang} persona="sora" /> },
   ];
-  const crops = { picker: { y: 80, h: 560 }, profile: { y: 60, h: 600 }, review: { y: 80, h: 560 } } as const;
 
   return (
     <Section id="grow" surface="lavender" labelledBy="grow-title" className={s.section}>
@@ -84,7 +83,7 @@ export function GrowChapter({ d, lang }: SectionProps) {
             itemWidth="max(78vw, 316px)"
             items={phones.map((p) => (
               <div key={p.key} className={s.slice} data-grow-mock={p.key}>
-                <ScreenSlice label={p.label} width={{ mobile: 300 }} crop={crops[p.key as keyof typeof crops]} radius={24}>
+                <ScreenSlice label={p.label} width={{ mobile: PHONE_SLICE_W }}>
                   {p.node}
                 </ScreenSlice>
               </div>

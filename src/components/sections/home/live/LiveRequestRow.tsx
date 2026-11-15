@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import type { SectionProps } from '@/i18n/types';
 import { Carousel, ScreenNote, Icon } from '@/components/site';
-import { PhoneFrame, ScreenSlice } from '@/components/mockups/kit';
+import { PhoneFrame, ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { LiveRequest12 } from '@/components/mockups/fan/LiveRequest12';
 import { LiveSetup13 } from '@/components/mockups/fan/LiveSetup13';
 import { ShowPreview14 } from '@/components/mockups/fan/ShowPreview14';
@@ -78,12 +78,12 @@ export function LiveRequestRow({ d, lang }: SectionProps) {
           items={[
             <Fragment key="request">{request}</Fragment>,
             <div key="setup" className={s.reqSlice} data-req-root="setup">
-              <ScreenSlice label={m.liveSetup.alt} width={{ mobile: 300 }} crop={{ y: 96, h: 560 }} radius={24}>
+              <ScreenSlice label={m.liveSetup.alt} width={{ mobile: PHONE_SLICE_W }}>
                 <LiveSetup13 d={d} lang={lang} persona="kai" />
               </ScreenSlice>
             </div>,
             <div key="preview" className={s.reqSlice} data-req-root="preview">
-              <ScreenSlice label={m.showPreview.alt} width={{ mobile: 300 }} crop={{ y: 96, h: 600 }} radius={24}>
+              <ScreenSlice label={m.showPreview.alt} width={{ mobile: PHONE_SLICE_W }}>
                 <ShowPreview14 d={d} lang={lang} persona="kai" />
               </ScreenSlice>
             </div>,

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { SectionProps } from '@/i18n/types';
 import { Units } from '@/lib/units';
 import { Section, Eyebrow, StickySteps, Ring, Icon, ScreenNote, RevealGroup, type IconName, type StickyStep } from '@/components/site';
-import { ScreenSlice } from '@/components/mockups/kit';
+import { ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { S04QuickPicks } from '@/components/mockups/studio/S04QuickPicks';
 import { S04aOwnWords } from '@/components/mockups/studio/S04aOwnWords';
 import { S05Photos } from '@/components/mockups/studio/S05Photos';
@@ -14,26 +14,22 @@ import '../creators.css';
 
 type StepKey = 'picks' | 'words' | 'photos' | 'modes' | 'ng' | 'voice';
 
-/**
- * Step → icon, mobile crop (§7.2, in 390×844 screen px) and its mockup alt key.
- * Crops end just under each screen's last meaningful row (no empty tail), so
- * the six stacked phone cards stay short; desktop shows the full screens.
- */
-const STEPS: { key: StepKey; icon: IconName; crop: { y: number; h: number }; alt: 'picks' | 'words' | 'photos' | 'modes' | 'ng' | 'record' }[] = [
-  { key: 'picks', icon: 'badge', crop: { y: 100, h: 400 }, alt: 'picks' },
-  { key: 'words', icon: 'edit_note', crop: { y: 100, h: 470 }, alt: 'words' },
-  { key: 'photos', icon: 'photo_library', crop: { y: 100, h: 330 }, alt: 'photos' },
-  { key: 'modes', icon: 'favorite', crop: { y: 100, h: 395 }, alt: 'modes' },
-  { key: 'ng', icon: 'do_not_disturb_on', crop: { y: 100, h: 465 }, alt: 'ng' },
-  { key: 'voice', icon: 'mic', crop: { y: 118, h: 450 }, alt: 'record' },
+/** Step → icon and its mockup alt key (§7.2). Every screen shows whole, on desktop and on phones. */
+const STEPS: { key: StepKey; icon: IconName; alt: 'picks' | 'words' | 'photos' | 'modes' | 'ng' | 'record' }[] = [
+  { key: 'picks', icon: 'badge', alt: 'picks' },
+  { key: 'words', icon: 'edit_note', alt: 'words' },
+  { key: 'photos', icon: 'photo_library', alt: 'photos' },
+  { key: 'modes', icon: 'favorite', alt: 'modes' },
+  { key: 'ng', icon: 'do_not_disturb_on', alt: 'ng' },
+  { key: 'voice', icon: 'mic', alt: 'record' },
 ];
 
 /**
  * #setup: 02 セットアップ (spec §6.4). Desktop: the six setup screens change
  * in a sticky phone as the steps scroll by (StickySteps), each playing its
- * micro-sequence when its step becomes current; mobile: a vertical list of
- * glass cards with cropped ScreenSlices that play once on enter. Then the
- * "ready" card. Server HTML: every screen in its final state.
+ * micro-sequence when its step becomes current; mobile: a carousel of glass
+ * cards, each with its whole screen in a phone, that play once on enter.
+ * Then the "ready" card. Server HTML: every screen in its final state.
  */
 export function StudioSetup({ d, lang }: SectionProps) {
   const t = d.creators.setup;
@@ -68,7 +64,7 @@ export function StudioSetup({ d, lang }: SectionProps) {
       </span>
     ),
     mobileSlice: (
-      <ScreenSlice label={m[s.alt].alt} width={{ mobile: 300 }} crop={s.crop} radius={24}>
+      <ScreenSlice label={m[s.alt].alt} width={{ mobile: PHONE_SLICE_W }}>
         {screen(s.key)}
       </ScreenSlice>
     ),
@@ -101,7 +97,8 @@ export function StudioSetup({ d, lang }: SectionProps) {
           phoneLabel={t.stageAlt}
           side="right"
           stepMinHeight="45svh"
-          mobileLayout="list"
+          carouselLabel={t.title}
+          d={d}
         />
 
         <div className="glass cr-ready" data-ready="">

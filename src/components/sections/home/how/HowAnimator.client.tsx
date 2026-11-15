@@ -23,13 +23,13 @@ const win = (p: number, a: number, b: number) => clamp01((p - a) / (b - a));
  * phone morphs into the app icon sitting in its pad beside the badges
  * (translate + scale measured every frame, phone fades, icon fades in).
  * The sunrise glow rises across the section.
- * Mobile: nothing tied to scroll (line, dots and glow are in their final
- * state); the mini ring counts down once when it enters.
+ * Mobile: nothing runs; every step, the line, the glow and each whole-phone
+ * screen show their final state.
  */
 export function HowAnimator() {
   const { anchor, scope } = useAnchorScope('section');
 
-  useScrollScene(scope, ({ gsap, ScrollTrigger, scope: root, isDesktop, belowFold }) => {
+  useScrollScene(scope, ({ gsap, ScrollTrigger, scope: root, belowFold }) => {
     const q = <T extends HTMLElement = HTMLElement>(sel: string) => Array.from(root.querySelectorAll<T>(sel));
     const one = <T extends HTMLElement = HTMLElement>(sel: string) => root.querySelector<T>(sel);
     const steps = q('[data-step]');
@@ -39,33 +39,7 @@ export function HowAnimator() {
     const vh = window.innerHeight;
     const cleanups: (() => void)[] = [];
 
-    if (!isDesktop) {
-      // Mini ring: counts down once on enter, then refills to the free 1:00.
-      const mini = one('[data-ring-mini]');
-      const ring = mini?.querySelector<HTMLElement>('[data-ring]');
-      const time = mini?.querySelector<HTMLElement>('[data-ring-time]');
-      if (mini && ring && time) {
-        const state = { p: 100 };
-        const render = () => {
-          ring.style.setProperty('--p', String(state.p));
-          time.textContent = clock((state.p / 100) * 60);
-        };
-        ScrollTrigger.create({
-          trigger: mini,
-          start: 'top 80%',
-          once: true,
-          onEnter: () => {
-            gsap
-              .timeline({ onUpdate: render })
-              .to(state, { p: 0, duration: 1.6, ease: 'none' })
-              .to(state, { p: 100, duration: 0.5, ease: 'power3.out' }, '+=0.6');
-          },
-        });
-      }
-      return;
-    }
-
-    // ── desktop ──
+    // ── desktop only (phones: nothing here; the screens show their final state) ──
     // Sunrise: rises across the section.
     if (sunGlow) {
       gsap.fromTo(
@@ -220,7 +194,7 @@ export function HowAnimator() {
     }
 
     return () => cleanups.forEach((fn) => fn());
-  });
+  }, { mobile: 'skip' });
 
   return <span ref={anchor} hidden />;
 }

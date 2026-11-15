@@ -165,6 +165,16 @@ html[data-lite] .cr-hero-halo { animation: none; }
 .cr-check-fill { margin: 0; font-size: clamp(1.375rem, 1.05rem + 1vw, 1.875rem); }
 .cr-check-fill:lang(ja) { line-height: 1.5; }
 
+/* Phones: #how and #check flow like #call (the intro above, the whole
+   composition below at its natural height), so no tile, button or caption is
+   squeezed or cut on a short screen. */
+@media (max-width: 1023.98px) {
+  :is(#how, #check)[data-stage] { height: auto; }
+  :is(#how, #check) [data-stage-sticky] { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; }
+  :is(#how, #check) [data-stage-intro] { order: -1; position: relative; inset: auto; padding: var(--section-y) var(--gutter) 8px; }
+  :is(#how, #check) :is([data-stage-media], [data-stage-inner], .cr-how-media, .cr-check-media) { position: relative; inset: auto; }
+}
+
 /* Dusk/dawn blends out of the stages into the next surface. */
 #how + .cr-setup { --blend-from: #eceae4; }
 #check + .cr-control { --blend-from: #0f1018; }
@@ -177,12 +187,6 @@ html[data-lite] .cr-hero-halo { animation: none; }
 .cr-step-icon { display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 12px; background: rgba(0, 176, 194, .12); color: #0096a8; margin-top: -4px; }
 .cr-setup .ss-step-card h3 { margin: 0; }
 
-/* Mobile list: glass cards, the slice sitting flush at the card's foot. */
-@media (max-width: 1023.98px) {
-  .cr-setup .ss-list .ss-step-card { padding: 22px 20px 0; gap: 10px; overflow: hidden; margin-bottom: 14px; }
-  .cr-setup .ss-list .ss-slice { margin: 10px -20px -28px; padding-inline: 20px; }
-  .cr-setup .ss-slice .screen-slice { box-shadow: 0 -1px 0 rgba(255, 255, 255, .9), 0 18px 40px rgba(60, 55, 90, .14); }
-}
 
 /* Desktop: a rail with one dot per step; the current step is lit. */
 @media (min-width: 1024px) {
@@ -385,6 +389,8 @@ html[data-lite] .cr-hero-halo { animation: none; }
 
 /* ─────────────────────────── #final ─────────────────────────── */
 .cr-final { overflow: clip; text-align: center; padding-block: clamp(96px, 6rem + 5vw, 180px); }
+/* phones: the same rhythm as every other section */
+@media (max-width: 1023.98px) { .cr-final { padding-block: var(--section-y); } }
 .cr-final-aura {
   position: absolute; z-index: -1; left: 50%; top: 55%; width: min(160vw, 1100px); aspect-ratio: 1; translate: -50% -50%; pointer-events: none;
   background: radial-gradient(closest-side, rgba(169, 127, 224, .36), rgba(139, 85, 214, .12) 50%, transparent 74%);

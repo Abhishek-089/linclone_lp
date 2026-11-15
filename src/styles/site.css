@@ -938,6 +938,9 @@ html.lenis, html.lenis body { height: auto; }
     transform: scale(calc(var(--pw) / 390)); transform-origin: 0 0; background: #f7f3ec;
   }
   .phone[data-theme="night"] > .screen { background: #0f1018; }
+  /* theme="auto" (ScreenSlice without a crop): the status bar follows the screen inside */
+  .phone[data-theme="auto"]:has(> .screen > .mock-screen[data-theme="night"]) > .screen { background: #0f1018; }
+  .phone[data-theme="auto"]:has(> .screen > .mock-screen[data-theme="night"]) .mock-statusbar { color: #fff; }
   .phone-island { position: absolute; z-index: 4; left: 50%; top: 11px; width: 126px; height: 37px; translate: -50% 0; border-radius: 9999px; background: #000; }
   .mock-screen { position: relative; width: 390px; height: 844px; overflow: hidden; background: #f7f3ec; color: #28273b; font-family: var(--font-sans); font-size: 13.5px; line-height: 19px; text-align: left; }
   .mock-screen[data-theme="night"] { background: #0f1018; color: #fff; }

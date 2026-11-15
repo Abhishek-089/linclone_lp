@@ -2,7 +2,7 @@ import type { SectionProps } from '@/i18n/types';
 import { CLAIMS } from '@/lib/site-config';
 import { Units } from '@/lib/units';
 import { Section, Eyebrow, Icon, ScreenNote, RevealGroup } from '@/components/site';
-import { PhoneFrame, ScreenSlice } from '@/components/mockups/kit';
+import { PhoneFrame, ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { D02bThread } from '@/components/mockups/studio/D02bThread';
 import { D05Live } from '@/components/mockups/studio/D05Live';
 import { RealMicro } from './RealMicro.client';
@@ -10,8 +10,8 @@ import '../creators.css';
 
 /**
  * #real: 05 本人として (spec §6.7). Official replies in any follower chat (with
- * the per-chat pause), and the clone-hosted LIVE配信. Desktop: two columns,
- * each with a 320 phone; mobile: stacked, with cropped slices. The drop-in
+ * the per-chat pause), and the clone-hosted ラジオ配信. Desktop: two columns,
+ * each with a 320 phone; mobile: stacked, each a whole phone. The drop-in
  * line and mockup row render only when CLAIMS.liveDropIn.
  */
 export function StudioReal({ d, lang }: SectionProps) {
@@ -43,7 +43,7 @@ export function StudioReal({ d, lang }: SectionProps) {
                 </PhoneFrame>
               </div>
               <div className="cr-only-mob">
-                <ScreenSlice label={m.thread.alt} width={{ mobile: 300 }} crop={{ y: 54, h: 520 }} radius={28}>
+                <ScreenSlice label={m.thread.alt} width={{ mobile: PHONE_SLICE_W }}>
                   <D02bThread {...p} />
                 </ScreenSlice>
               </div>
@@ -68,7 +68,7 @@ export function StudioReal({ d, lang }: SectionProps) {
                 </PhoneFrame>
               </div>
               <div className="cr-only-mob">
-                <ScreenSlice label={m.live.alt} width={{ mobile: 300 }} crop={{ y: 60, h: 600 }} radius={28}>
+                <ScreenSlice label={m.live.alt} width={{ mobile: PHONE_SLICE_W }}>
                   <D05Live {...p} dropIn={CLAIMS.liveDropIn} />
                 </ScreenSlice>
               </div>

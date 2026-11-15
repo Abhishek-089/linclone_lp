@@ -2,12 +2,10 @@
 
 The six creators on the site are fictional adults. Each has an AI-generated portrait in
 `public/cast/<id>.webp`. Every avatar, badge, card and reel that `Aura` draws on `/` and
-`/creators` shows that photo. A few places keep the colour "aura" instead:
+`/creators` shows that photo. Two places keep the colour "aura" instead:
 
 - the full-screen backdrop behind the call screens (shape `scene-portrait`);
-- the OG images;
-- the How-it-works phone slices of the welcome and sign-in screens, which only show the
-  lower part of the screen (`how.module.css`).
+- the OG images.
 
 While a portrait is present (`HAS_PORTRAITS` in `src/lib/personas.ts`), the notes under the
 mockups say that the pictures are AI-generated. So does the hero phone's label.
@@ -35,7 +33,7 @@ mockups say that the pictures are AI-generated. So does the hero phone's label.
 |---|---|---|---|---:|---|
 | `yuzu.webp` | Yuzu | Japanese idol; the fan's 推し (hero, call, download) | 1086×1448 | 214460 | `89a49c966e9a8cbf50a7bba36506aa2e1c72b6186ecc222573bcaef0675ade89` |
 | `ren.webp` | Emma | Athlete | 1086×1448 | 186722 | `d39a1fbccfbc7e058975da884ed40866835b43989433bdcff180c5d44448736b` |
-| `kai.webp` | Amara | Singer; the LIVE host | 1086×1448 | 367018 | `6e7675a1074f60a80deaf9b60ce1ea5caccdd384c34928caa366e76846585cb8` |
+| `kai.webp` | Amara | Singer; the radio host | 1086×1448 | 367018 | `6e7675a1074f60a80deaf9b60ce1ea5caccdd384c34928caa366e76846585cb8` |
 | `sora.webp` | Priya | Actor & voice actor | 1086×1448 | 194438 | `44cfdb6ef70d0e9a67bf48705b10695057b0b8fd22eb0637a87cedf7ab495bbf` |
 | `nagi.webp` | Jiwoo | Gaming streamer | 1086×1448 | 202900 | `7a38f5ca40d85cfcd82360944854ddfa20d39fbf8b8c5d8a517d8e2989beeb98` |
 | `aoi.webp` | Sofia | Singer-songwriter; the LC Studio creator (`/creators`) | 1086×1448 | 245712 | `b7b251c715fd5a584141806887d15b7f11f458ab3ad7c2b7b19105de173330df` |
@@ -54,13 +52,13 @@ The file names use the internal persona ids, which predate the names. The displa
    far as the image allows. Fills that CSS reshapes pass their real aspect to `Aura`
    (`CreatorProfile08`, `GrowPicker07`, and the full-screen reels in `Welcome00a`,
    `PickReel00b`, `GuestGate02` and `LiveFeedCard`); `faceY` moves the face lower
-   where a slice crops the top (`CreatorProfile08`).
+   where the status bar covers the top of the photo (`CreatorProfile08`).
 3. **Update the rights record.** If the new image came from a different tool, plan or person,
    update `CAST_RIGHTS` and this file.
 4. **Clear the local cache.** `next dev` caches optimised images by URL for hours, so delete
    `.next/dev/cache/images` before checking a replacement locally.
-5. **Check both pages on a phone.** Look closely at the How-it-works slices, the 育成 picker and
-   profile, the LIVE screen and the LC Studio 公式写真 picker.
+5. **Check both pages on a phone.** Look closely at the How-it-works phones, the 育成 picker and
+   profile, the radio screen and the LC Studio 公式写真 picker.
 
 ## Rules for the pictures
 

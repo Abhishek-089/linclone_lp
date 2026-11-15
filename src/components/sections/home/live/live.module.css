@@ -266,6 +266,15 @@
    stage animator fades it out as the clip opens. Reduced motion / no JS keep
    the intro in flow above the final full-bleed player. */
 .stageWrap { position: relative; }
+/* Phones held upright: the radio player is a one-screen composition, and a
+   phone browser with its toolbars out leaves ~650px. It never gets shorter
+   than 780px and the host sits a little lower, so the caption, the host, the
+   waveform and the comments never overlap. (Landscape: see the 500px rule.) */
+@media (max-width: 1023.98px) and (min-height: 501px) {
+  .stageWrap > :global([data-stage]),
+  .stageWrap > :global([data-stage]) :global([data-stage-sticky]) { height: max(100svh, 780px); }
+  .stageWrap :global(.fm-lp-centre) { top: clamp(317px, calc(37svh + 17px), 397px); }
+}
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
   :global(html[data-js]) .section { padding-top: 0; }
   :global(html[data-js]) .intro {

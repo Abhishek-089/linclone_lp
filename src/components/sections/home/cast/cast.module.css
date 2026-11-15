@@ -5,6 +5,10 @@
   /* soft top edge so the dawn hero melts into cream */
   --blend-from: #fbf7f0;
 }
+/* phones: the strip stays close under the hero; the usual gap follows it */
+@media (max-width: 1023.98px) {
+  .cast { padding-block: 32px var(--section-y); }
+}
 
 .cast :global(.marquee) {
   /* fade the rows out at both screen edges */

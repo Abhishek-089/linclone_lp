@@ -1,6 +1,6 @@
 import type { SectionProps } from '@/i18n/types';
 import { Section, Eyebrow, ScrollFillText, ScreenNote, Icon } from '@/components/site';
-import { PhoneFrame, ScreenSlice } from '@/components/mockups/kit';
+import { PhoneFrame, ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { IncomingRing06b } from '@/components/mockups/fan/IncomingRing06b';
 import { MorningSetup06b } from '@/components/mockups/fan/MorningSetup06b';
 import { HomeCards01 } from '@/components/mockups/fan/HomeCards01';
@@ -22,7 +22,7 @@ const STARS: [number, number, number][] = [
  * Desktop: a 160svh stage whose sticky layer scrubs night → dawn (one composited
  * transform on a 500%-tall gradient layer), rolls the poster clock 6:58 → 7:00
  * and lifts the ringing phone in; then a cream grid with setup + voice message.
- * Mobile: no sticky; a static night → cream gradient and a phone slice.
+ * Mobile: no sticky; a static night → cream gradient and a whole phone.
  * The server HTML is the final state (cream, 7:00, ink, phone in place, caption filled).
  */
 export function MorningChapter({ d, lang }: SectionProps) {
@@ -86,7 +86,7 @@ export function MorningChapter({ d, lang }: SectionProps) {
             </div>
 
             <div className={s.ringSlice}>
-              <ScreenSlice label={m.incoming.alt} width={{ mobile: 312 }} crop={{ y: 96, h: 690 }}>
+              <ScreenSlice label={m.incoming.alt} width={{ mobile: PHONE_SLICE_W }}>
                 <IncomingRing06b d={d} lang={lang} persona="oshi" />
               </ScreenSlice>
             </div>
@@ -115,7 +115,7 @@ export function MorningChapter({ d, lang }: SectionProps) {
               </PhoneFrame>
             </div>
             <div className={s.setupSlice} data-setup-root="">
-              <ScreenSlice label={m.morningSetup.alt} width={{ mobile: 312 }} crop={{ y: 120, h: 520 }}>
+              <ScreenSlice label={m.morningSetup.alt} width={{ mobile: PHONE_SLICE_W }}>
                 <MorningSetup06b d={d} lang={lang} persona="oshi" />
               </ScreenSlice>
             </div>

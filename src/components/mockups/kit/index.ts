@@ -1,7 +1,7 @@
 // Mockup kit barrel (exports contract, spec §11).
 export { PhoneFrame } from './PhoneFrame';
 export { Screen } from './Screen';
-export { ScreenSlice } from './ScreenSlice';
+export { ScreenSlice, PHONE_SLICE_W } from './ScreenSlice';
 export { ScreenStack } from './ScreenStack';
 export { StatusBar } from './StatusBar';
 export { TabBarFan } from './TabBarFan';

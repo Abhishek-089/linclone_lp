@@ -3,6 +3,10 @@
 .section { padding-bottom: calc(var(--section-y) * .6); }
 /* #morning-call's cream grid runs straight into this cream surface: one gap, not two. */
 .section { padding-top: calc(var(--section-y) * .5); }
+/* phones: every section keeps the same rhythm, var(--section-y) above and below its content */
+@media (max-width: 1023.98px) {
+  .section { padding-block: var(--section-y); }
+}
 
 .head {
   display: flex;
@@ -36,6 +40,10 @@
   pointer-events: none;
 }
 .bandInner { width: 100%; }
+/* phones: the band fades into the page cream, so its bottom padding would only add to the section gap */
+@media (max-width: 1023.98px) {
+  .band { padding-bottom: 0; }
+}
 
 /* ── step cards (mobile carousel) ── */
 .band :global(.carousel-track) { grid-auto-columns: max(86vw, 332px); }

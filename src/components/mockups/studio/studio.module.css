@@ -318,6 +318,12 @@
   position: absolute; left: 16px; right: 16px; top: calc(var(--intro-h, 300px) + 12px); bottom: 16px;
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto minmax(0, 1fr); gap: 8px;
 }
+/* Phones, inside a stage (#how): the stage flows (creators.css), so the grid
+   takes its natural height and no tile is squeezed or cut. */
+@media (max-width: 1023.98px) {
+  :global([data-stage]) .bento { position: relative; inset: auto; }
+  :global([data-stage]) .bentoGrid { position: relative; inset: auto; padding: 16px 16px var(--section-y); }
+}
 .bHead, .bStats { display: none; }
 .bCheck {
   grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 12px 8px 10px; border-radius: 18px;
@@ -503,6 +509,14 @@
 }
 @media (max-width: 1023.98px) and (max-height: 720px) {
   .selfControls, .selfLabel { display: none; }
+}
+/* Phones, inside a stage (#check): the stage flows (creators.css), so the
+   column takes its natural height and shows everything, even on short screens. */
+@media (max-width: 1023.98px) {
+  :global([data-stage]) .self { position: relative; inset: auto; }
+  :global([data-stage]) .selfCol { position: relative; inset: auto; padding: 28px 16px var(--section-y); container-type: normal; --rs: 180px; }
+  :global([data-stage]) .selfControls { display: flex; }
+  :global([data-stage]) .selfLabel { display: block; }
 }
 /* Landscape phones: the intro keeps the left half, the call takes the right. */
 @media (max-width: 1023.98px) and (orientation: landscape) and (max-height: 540px) {

@@ -1,6 +1,6 @@
 import type { SectionProps } from '@/i18n/types';
 import { Section, Eyebrow, StickySteps, ScreenNote, Icon } from '@/components/site';
-import { ScreenSlice } from '@/components/mockups/kit';
+import { ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { Conversation04 } from '@/components/mockups/fan/Conversation04';
 import { StoryFlow04to03b } from '@/components/mockups/fan/StoryFlow04to03b';
 import { Memory06 } from '@/components/mockups/fan/Memory06';
@@ -13,16 +13,16 @@ import s from './chat.module.css';
  * Desktop: header block, then StickySteps (steps left, sticky phone right) on
  * a rounded teal band; each step swaps the phone screen (fade / push / fade)
  * and ChatMicro plays that screen's micro-sequence once per activation.
- * Mobile: a 3-card carousel with cropped ScreenSlices.
+ * Mobile: a 3-card carousel, each card a whole phone screen.
  * Reduced motion / no JS: every screen shows its final state.
  */
 export function ChatChapter({ d, lang }: SectionProps) {
   const t = d.home.chat;
   const m = d.mock.fan;
 
-  const slice = (key: 'chat' | 'stories' | 'memory', crop: { y: number; h: number }, label: string, node: React.ReactNode) => (
+  const slice = (key: 'chat' | 'stories' | 'memory', label: string, node: React.ReactNode) => (
     <div className={s.slice} data-chat-slice={key}>
-      <ScreenSlice label={label} width={{ mobile: 300 }} crop={crop} radius={24}>
+      <ScreenSlice label={label} width={{ mobile: PHONE_SLICE_W }}>
         {node}
       </ScreenSlice>
     </div>
@@ -59,21 +59,21 @@ export function ChatChapter({ d, lang }: SectionProps) {
                 label: t.steps.chat.label,
                 title: t.steps.chat.title,
                 body: body(t.steps.chat.body),
-                mobileSlice: slice('chat', { y: 112, h: 540 }, m.conversation.alt, <Conversation04 d={d} lang={lang} persona="oshi" />),
+                mobileSlice: slice('chat', m.conversation.alt, <Conversation04 d={d} lang={lang} persona="oshi" />),
               },
               {
                 id: 'stories',
                 label: t.steps.stories.label,
                 title: t.steps.stories.title,
                 body: body(t.steps.stories.body),
-                mobileSlice: slice('stories', { y: 120, h: 560 }, m.story.alt, <StoryFlow04to03b d={d} lang={lang} persona="oshi" />),
+                mobileSlice: slice('stories', m.story.alt, <StoryFlow04to03b d={d} lang={lang} persona="oshi" />),
               },
               {
                 id: 'memory',
                 label: t.steps.memory.label,
                 title: t.steps.memory.title,
                 body: body(t.steps.memory.body),
-                mobileSlice: slice('memory', { y: 80, h: 560 }, m.memory.alt, <Memory06 d={d} lang={lang} persona="oshi" />),
+                mobileSlice: slice('memory', m.memory.alt, <Memory06 d={d} lang={lang} persona="oshi" />),
               },
             ]}
             screens={[

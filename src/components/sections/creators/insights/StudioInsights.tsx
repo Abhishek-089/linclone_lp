@@ -1,7 +1,7 @@
 import type { SectionProps } from '@/i18n/types';
 import { Units } from '@/lib/units';
 import { Section, Eyebrow, Icon, ScreenNote, RevealGroup } from '@/components/site';
-import { PhoneFrame, ScreenSlice } from '@/components/mockups/kit';
+import { PhoneFrame, ScreenSlice, PHONE_SLICE_W } from '@/components/mockups/kit';
 import { D09Analytics } from '@/components/mockups/studio/D09Analytics';
 import { D10EarningsCalculating } from '@/components/mockups/studio/D10EarningsCalculating';
 import { InsightsMicro } from './InsightsMicro.client';
@@ -10,7 +10,7 @@ import '../creators.css';
 /**
  * #insights: 07 データと収益 (spec §6.9). Analytics without values or axes,
  * and Coin-based earnings shown only in the "calculating" state. Desktop two
- * columns with 320 phones; mobile stacked slices. Bars grow on enter; the
+ * columns with 320 phones; mobile stacked whole phones. Bars grow on enter; the
  * hourglass turns every 2s while in view.
  */
 export function StudioInsights({ d, lang }: SectionProps) {
@@ -42,7 +42,7 @@ export function StudioInsights({ d, lang }: SectionProps) {
                 </PhoneFrame>
               </div>
               <div className="cr-only-mob">
-                <ScreenSlice label={m.analytics.alt} width={{ mobile: 300 }} crop={{ y: 54, h: 620 }} radius={28}>
+                <ScreenSlice label={m.analytics.alt} width={{ mobile: PHONE_SLICE_W }}>
                   <D09Analytics {...p} />
                 </ScreenSlice>
               </div>
@@ -66,7 +66,7 @@ export function StudioInsights({ d, lang }: SectionProps) {
                 </PhoneFrame>
               </div>
               <div className="cr-only-mob">
-                <ScreenSlice label={m.earnings.alt} width={{ mobile: 300 }} crop={{ y: 54, h: 560 }} radius={28}>
+                <ScreenSlice label={m.earnings.alt} width={{ mobile: PHONE_SLICE_W }}>
                   <D10EarningsCalculating {...p} />
                 </ScreenSlice>
               </div>

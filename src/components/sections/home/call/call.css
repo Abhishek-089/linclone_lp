@@ -42,8 +42,8 @@
    so on phones the intro flows above a full-height static call instead. */
 @media (max-width: 1023.98px) {
   #call { height: auto; }
-  #call [data-stage-sticky] { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; }
-  #call [data-stage-intro] { order: -1; position: relative; inset: auto; padding: calc(var(--header-h) + 40px) var(--gutter) 8px; }
+  #call [data-stage-sticky] { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; padding-bottom: 56px; }
+  #call [data-stage-intro] { order: -1; position: relative; inset: auto; padding: var(--section-y) var(--gutter) 8px; }
   #call [data-stage-media] { position: relative; inset: auto; height: max(100svh, 640px); --intro-h: var(--header-h); }
 }
 
@@ -158,6 +158,8 @@
 
 /* ───────────── checkpoint ───────────── */
 #call-checkpoint.cp { padding-block: 40px 72px; overflow: clip; }
+/* phones: #call above is a static screen ending on its own 72px, so the usual gap */
+@media (max-width: 1023.98px) { #call-checkpoint.cp { padding-top: var(--section-y); } }
 #call-checkpoint .cp-glow {
   position: absolute; z-index: -1; left: 50%; top: 0; width: min(1200px, 200vw); aspect-ratio: 2.2; translate: -50% -56%;
   border-radius: 50%; pointer-events: none;
