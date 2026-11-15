@@ -116,6 +116,14 @@
 .stepTitle { margin: 0; }
 .stepBody { margin: 0; color: var(--color-ink-2); }
 .slice { grid-column: 2; position: relative; margin-top: 18px; justify-self: start; }
+/* The slices show the lower part of each screen, below the face of a full-screen
+   photo: the welcome and sign-in backdrops fall back to the colour aura, and the
+   reel's photo moves into the pick window (y 420–844), above the name row. */
+.slice :global(:is([data-mock="Welcome00a"], [data-mock="GuestGate02"]) .aura-body[data-photo] > img) { display: none; }
+.slice :global([data-mock="PickReel00b"] .fm-fill-aura > .aura[data-photo]) { top: 350px; bottom: auto; height: 520px !important; }
+.slice :global([data-mock="PickReel00b"] .fm-photo-fade) {
+  background: linear-gradient(180deg, rgba(15, 16, 24, 0) 76%, rgba(15, 16, 24, .75) 82%, rgba(15, 16, 24, .92) 90%);
+}
 .miniRing {
   position: absolute; top: -18px; right: -4px; display: grid; place-items: center; padding: 6px; border-radius: 50%;
 }

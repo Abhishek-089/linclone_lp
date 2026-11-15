@@ -1,61 +1,76 @@
 # Cast portraits (AI-generated)
 
-The six creators on the site are fictional. Each one shows a faceless colour "aura" with a letter
-until it has a portrait. Add a portrait and that creator's photo replaces the aura in every avatar,
-badge and card on both pages. Two places keep the aura: the full-screen backdrop behind the call
-screens and the OG image. The notes under the mockups then also say the pictures are AI-generated
-(`HAS_PORTRAITS` in `src/lib/personas.ts`).
+The six creators on the site are fictional adults. Each has an AI-generated portrait in
+`public/cast/<id>.webp`. Every avatar, badge, card and reel that `Aura` draws on `/` and
+`/creators` shows that photo. A few places keep the colour "aura" instead:
 
-## Adding a portrait
+- the full-screen backdrop behind the call screens (shape `scene-portrait`);
+- the OG images;
+- the How-it-works phone slices of the welcome and sign-in screens, which only show the
+  lower part of the screen (`how.module.css`).
 
-1. Save the image as `public/cast/<id>.webp` (or `.jpg`). It must be portrait 3:4, at least
-   1024×1365, and under 400 KB. `next/image` serves resized AVIF/WebP from it.
-2. In `src/lib/personas.ts`, give the creator a `portrait`:
+While a portrait is present (`HAS_PORTRAITS` in `src/lib/personas.ts`), the notes under the
+mockups say that the pictures are AI-generated. So does the hero phone's label.
 
-   ```ts
-   yuzu: { id: 'yuzu', color: '#e14b81', ring: 'story', voiceSeed: 7, monogram: 'Y',
-     portrait: {
-       src: '/cast/yuzu.webp',
-       alt: { ja: 'Yuzuのイメージ画像（AI生成）', en: 'Yuzu, AI-generated picture' },
-       focal: [0.5, 0.3], // x, y of the face (0–1): round avatars crop around it
-       licensed: true,
-       rightsRef: 'AI-generated: <tool> <plan>, 2026-11-xx, by <name>; commercial use per the tool terms',
-     } },
-   ```
+## Provenance and permitted use
 
-   The build fails if a portrait has no `licensed: true` and no `rightsRef`. Only use an image
-   generator whose terms allow commercial use on your plan, and record the tool and plan in the
-   `rightsRef`.
-3. Check `/` and `/creators` on a phone, then deploy.
+- **Generated:** 2026-11-13 with OpenAI ChatGPT Images (the built-in image_gen tool), at the
+  request of Kensei Shiraishi.
+- **Plan:** ChatGPT Prolite, as reported by the generating session. Billing was not independently
+  inspected.
+- **Process:** three candidates per prompt, with one selected per creator. No real person,
+  celebrity, photo reference or other person's likeness was supplied. The prompts are below.
+- **Commercial use:** OpenAI's [ChatGPT FAQ](https://help.openai.com/en/articles/6783457-what-is-chatgpt)
+  permits commercial use of output on free and paid plans, subject to OpenAI's terms and policies.
+  The content-ownership section of the
+  [OpenAI Terms of Use](https://openai.com/policies/terms-of-use/) assigns OpenAI's rights in
+  output to the user, to the extent the law allows. It does not promise that outputs are unique.
+- **Rights record:** `CAST_RIGHTS` in `src/lib/personas.ts` records all of this. Every portrait
+  carries it with `licensed: true`. The build fails if a portrait has no licence or a blank
+  `rightsRef`.
+- **Earlier set not used:** a set delivered earlier the same day (`cast-portraits-v2.zip`) had no
+  provenance and lower quality.
+
+| File | Name | Role on the site | Size | Bytes | SHA-256 |
+|---|---|---|---|---:|---|
+| `yuzu.webp` | Yuzu | Japanese idol; the fan's 推し (hero, call, download) | 1086×1448 | 214460 | `89a49c966e9a8cbf50a7bba36506aa2e1c72b6186ecc222573bcaef0675ade89` |
+| `ren.webp` | Emma | Athlete | 1086×1448 | 186722 | `d39a1fbccfbc7e058975da884ed40866835b43989433bdcff180c5d44448736b` |
+| `kai.webp` | Amara | Singer; the LIVE host | 1086×1448 | 367018 | `6e7675a1074f60a80deaf9b60ce1ea5caccdd384c34928caa366e76846585cb8` |
+| `sora.webp` | Priya | Actor & voice actor | 1086×1448 | 194438 | `44cfdb6ef70d0e9a67bf48705b10695057b0b8fd22eb0637a87cedf7ab495bbf` |
+| `nagi.webp` | Jiwoo | Gaming streamer | 1086×1448 | 202900 | `7a38f5ca40d85cfcd82360944854ddfa20d39fbf8b8c5d8a517d8e2989beeb98` |
+| `aoi.webp` | Sofia | Singer-songwriter; the LC Studio creator (`/creators`) | 1086×1448 | 245712 | `b7b251c715fd5a584141806887d15b7f11f458ab3ad7c2b7b19105de173330df` |
+
+The file names use the internal persona ids, which predate the names. The display names live in
+`src/i18n/dictionaries/{ja,en}/personas.json`.
+
+## Replacing a portrait
+
+1. **Prepare the file.** Save it as `public/cast/<id>.webp`, portrait 3:4, at least 1024 px wide
+   and under 400 KB. `next/image` serves resized AVIF/WebP. If the size is not 1086×1448, update
+   `size` in `castPortrait()`.
+2. **Measure the face.** Run `swift scripts/face-centre.swift public/cast/<id>.webp` and pass
+   the printed centre to `castPortrait('<id>', [x, y])` in `src/lib/personas.ts`. Every crop is
+   computed from it (`portraitPosition()`): the face lands 50% across and 45% down each box, as
+   far as the image allows. Fills that CSS reshapes pass their real aspect to `Aura`
+   (`CreatorProfile08`, `GrowPicker07`).
+3. **Update the rights record.** If the new image came from a different tool, plan or person,
+   update `CAST_RIGHTS` and this file.
+4. **Clear the local cache.** `next dev` caches optimised images by URL for hours, so delete
+   `.next/dev/cache/images` before checking a replacement locally.
+5. **Check both pages on a phone.** Look closely at the How-it-works slices, the 育成 picker and
+   profile, the LIVE screen and the LC Studio 公式写真 picker.
 
 ## Rules for the pictures
 
-- They must show fictional adults (early to mid 20s). Never name a real person or celebrity in a
-  prompt, and throw away any result that looks like someone real.
-- Make them attractive and stylish, but not sexualised. That means no lingerie, swimwear or
-  suggestive poses. This page is the public face of an app that under-18s may use with a
-  guardian's consent, and the store listings link to it.
-- Use one consistent look for all six: photoreal, soft light, head and shoulders, and a plain pastel
-  background in the creator's colour. Do not include text, logos, watermarks or other people.
-- Keep the face in the upper-middle of the frame. The same image is cropped to circles (avatars)
-  and to tall cards.
+- They must show fictional adults. Never name a real person or celebrity in a prompt.
+- Make them attractive and stylish, but not sexualised. This page is the public face of an app
+  that under-18s may use with a guardian's consent, and the store listings link to it.
+- Use one consistent look: photoreal, soft light, head and shoulders, and a plain pastel
+  background in the creator's colour (yuzu `#e14b81`, ren `#00afc4`, kai `#f0a53a`, sora
+  `#5b8def`, nagi `#3fb98a`, aoi `#8b55d6`). Do not include text, logos, watermarks or other
+  people.
 
-## Cast and prompts
-
-Yuzu keeps her Japanese name; the other five have names that match their looks (2026-11-13). The
-file names use the internal ids, which predate the new names.
-
-| File | Name | Role on the site | Background colour |
-|---|---|---|---|
-| `public/cast/yuzu.webp` | Yuzu | Japanese idol; the fan's 推し (hero, call, download) | blush pink `#e14b81` |
-| `public/cast/ren.webp` | Emma | Athlete | soft aqua `#00afc4` |
-| `public/cast/kai.webp` | Amara | Singer; the LIVE host | warm amber `#f0a53a` |
-| `public/cast/sora.webp` | Priya | Actor & voice actor | periwinkle `#5b8def` |
-| `public/cast/nagi.webp` | Jiwoo | Gaming streamer | mint green `#3fb98a` |
-| `public/cast/aoi.webp` | Sofia | Singer-songwriter; the LC Studio creator (`/creators`) | lavender `#8b55d6` |
-
-Paste each prompt as-is into the image tool and pick a portrait (3:4) format. Generate a few
-results for each and keep the most natural one.
+## Prompts used
 
 **Yuzu**
 > Photorealistic portrait photo of a fictional Japanese woman in her early twenties, a pop idol with
@@ -99,6 +114,3 @@ results for each and keep the most natural one.
 > in the upper third of the frame, looking at the camera with a warm, friendly smile. Soft natural
 > light, shallow depth of field, plain pastel lavender background. Stylish, modern and tasteful,
 > fully clothed. Vertical 3:4. No text, no logo, no watermark, no other people.
-
-Names live in `src/i18n/dictionaries/{ja,en}/personas.json`; two strings in `mock.fan.json` name
-Amara directly.

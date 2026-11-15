@@ -19,7 +19,7 @@ export function CreatorProfile08({ d, persona = 'sora', className }: MockProps) 
       <div className={cx('fm-root fm-prof', className)} data-mock="CreatorProfile08">
         <div className="fm-prof-hero">
           <span className="fm-fill-aura">
-            <Aura persona={persona} shape="card" voiceprint={false} />
+            <Aura persona={persona} shape="card" voiceprint={false} aspect={390 / 244} sizes="(min-width: 1024px) 400px, 100vw" />
           </span>
           <span className="fm-prof-scrim" />
           <span className="fm-prof-back">

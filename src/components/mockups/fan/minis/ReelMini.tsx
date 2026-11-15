@@ -24,7 +24,8 @@ export function ReelMini({ d, className }: MockProps) {
             return (
               <div className="fm-rm-slide" key={id}>
                 <span className="fm-fill-aura">
-                  <Aura persona={id} shape="reel" theme="night" voiceprint={false} />
+                  {/* a 180×320 slide, cover-cropped from a 3:4 photo: 240px wide */}
+                  <Aura persona={id} shape="reel" theme="night" voiceprint={false} sizes="240px" />
                 </span>
                 <span className="fm-photo-fade" />
                 <span className="fm-rm-copy">

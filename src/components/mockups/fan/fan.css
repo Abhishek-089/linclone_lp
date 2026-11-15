@@ -477,17 +477,18 @@
   font: 700 10px/12px var(--font-label); letter-spacing: 1px; color: rgba(255, 255, 255, .72); white-space: nowrap;
 }
 .fm-lp-disclaimer:lang(ja) { font-family: var(--font-label), var(--font-sans); letter-spacing: .4px; }
-.fm-lp-centre { position: absolute; z-index: 1; left: 50%; top: clamp(270px, 37svh, 380px); translate: -50% 0; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.fm-lp-halo { position: absolute; left: 50%; top: 52px; width: 320px; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--pc) 40%, transparent), transparent); pointer-events: none; }
-.fm-lp-avatar { width: 104px !important; }
+.fm-lp-centre { position: absolute; z-index: 1; left: 50%; top: clamp(287px, calc(37svh + 17px), 397px); translate: -50% 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.fm-lp-halo { position: absolute; left: 50%; top: 48px; width: 320px; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--pc) 40%, transparent), transparent); pointer-events: none; }
+.fm-lp-avatar { width: 96px !important; }
 .fm-lp-wave { position: relative; width: 80vw; max-width: 480px; display: flex; justify-content: center; overflow: hidden; height: 16px; align-items: center; }
 .fm-lp-fill {
-  position: absolute; z-index: 3; left: var(--gutter, 16px); right: var(--gutter, 16px); top: calc(var(--header-h, 56px) + 168px);
+  position: absolute; z-index: 3; left: var(--gutter, 16px); right: var(--gutter, 16px); top: calc(var(--header-h, 56px) + 158px);
+  /* phones: the caption, the host's ring and the waveform share ~244px between the disclaimer and the feed */
   display: flex; justify-content: center; text-align: center; pointer-events: none;
 }
 /* the measure is in the display size's em (the slot's own font-size would make it ~240px) */
-.fm-lp-fill-in { font-size: clamp(1.5rem, 1rem + 2.2vw, 4rem); max-width: 12em; }
-.fm-lp-fill .t-display-l { font-size: clamp(1.5rem, 1rem + 2.2vw, 4rem); }
+.fm-lp-fill-in { font-size: clamp(1.375rem, .9rem + 2.2vw, 4rem); max-width: 12em; }
+.fm-lp-fill .t-display-l { font-size: clamp(1.375rem, .9rem + 2.2vw, 4rem); }
 .fm-lp-fill-in > * {
   display: inline; padding: .08em .32em; border-radius: .3em; line-height: 1.48 !important;
   background: rgba(15, 16, 24, .45); box-decoration-break: clone; -webkit-box-decoration-break: clone;
@@ -617,16 +618,20 @@
 .fm-pick-grid { position: absolute; left: 20px; right: 20px; top: 140px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .fm-pick-card { position: relative; height: 230px; border-radius: 20px; overflow: hidden; box-shadow: 0 0 0 1.5px #00c4d8, 0 10px 24px rgba(60, 55, 90, .12); }
 .fm-pick-card .fm-fill-aura > .aura { inset: -10% 0 auto; height: 120% !important; }
-.fm-pick-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 38%, rgba(15, 16, 24, .72)); }
+/* deep enough for white text over a light top in a photo */
+.fm-pick-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 34%, rgba(15, 16, 24, .42) 58%, rgba(15, 16, 24, .82)); }
 .fm-pick-copy { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 2px; color: #fff; }
 .fm-pick-name { display: flex; align-items: center; gap: 4px; font: 700 16px/20px var(--font-sans); }
 .fm-pick-name .verified-mark { color: #7df4ff; }
 .fm-pick-genre { font: 400 11.5px/15px var(--font-sans); color: rgba(255, 255, 255, .8); margin-bottom: 8px; }
+.fm-pick-name, .fm-pick-genre { text-shadow: 0 1px 8px rgba(15, 16, 24, .55); }
 .fm-pick-cta { height: 42px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 9999px; background: var(--grad-cta); color: #fff; font: 700 14px/1 var(--font-sans); box-shadow: 0 0 12px rgba(0, 175, 196, .4); }
 
 /* ─────────────────────────── F16 CreatorProfile08 ─────────────────────────── */
 .fm-prof-hero { position: absolute; left: 0; right: 0; top: 0; height: 244px; overflow: hidden; color: #fff; }
 .fm-prof-hero .fm-fill-aura > .aura { inset: auto 0 -10%; height: 170% !important; }
+/* a photo frames itself on the face (CreatorProfile08 passes the hero's aspect), so no stretch */
+.fm-prof-hero .fm-fill-aura > .aura[data-photo] { inset: 0; height: 100% !important; }
 .fm-prof-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 16, 24, .25), transparent 35%, rgba(15, 16, 24, .72)); }
 .fm-prof-back { position: absolute; left: 16px; top: 58px; }
 .fm-prof-id { position: absolute; left: 20px; right: 64px; bottom: 18px; display: flex; flex-direction: column; gap: 2px; }

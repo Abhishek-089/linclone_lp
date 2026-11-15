@@ -5,10 +5,11 @@ import { cx, SetupFooter, StepHead } from './parts';
 import s from './studio.module.css';
 
 /**
- * S6 `S05Photos` (spec §7.2): three faceless Aura portraits (aoi, 100×178,
- * radius 16, `data-m="photo"`), the first with the メイン badge
- * (`data-m="main"`), a dashed add tile and the guide line. No photos, no
- * counts. Crop `{y:100,h:420}`.
+ * S6 `S05Photos` (spec §7.2): three Aura portraits (aoi, 100×178, radius 16,
+ * `data-m="photo"`): with Sofia's AI-generated portrait they are three takes
+ * of it (as framed, close-up, mirrored; studio.module.css). The first has the
+ * メイン badge (`data-m="main"`), then a dashed add tile and the guide line.
+ * No counts. Crop `{y:100,h:420}`.
  */
 export function S05Photos({ d, className }: MockProps) {
   const p = d.mock.studio.photos;
@@ -20,7 +21,8 @@ export function S05Photos({ d, className }: MockProps) {
           <div className={s.photoGrid}>
             {[0, 1, 2].map((i) => (
               <span key={i} className={s.photo} data-m="photo">
-                <Aura persona="aoi" shape="reel" size={100} monogram={i === 0} voiceprint={i !== 1} />
+                {/* the close-up take is scaled 1.9× (studio.module.css), so it loads a larger image */}
+                <Aura persona="aoi" shape="reel" size={100} monogram={i === 0} voiceprint={i !== 1} sizes={i === 1 ? '190px' : undefined} />
                 {i === 0 ? (
                   <span className={s.mainBadge} data-m="main">
                     {p.main}

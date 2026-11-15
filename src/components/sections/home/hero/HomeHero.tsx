@@ -5,6 +5,7 @@ import { Section, Eyebrow, StoreBadges, Disclosure, ScreenNote, Sticker, Icon, t
 import { PhoneFrame } from '@/components/mockups/kit';
 import { FirstCall00c } from '@/components/mockups/fan/FirstCall00c';
 import { Units } from '@/lib/units';
+import { HAS_PORTRAITS } from '@/lib/personas';
 import { HeroAnimator } from './HeroAnimator.client';
 import s from './hero.module.css';
 
@@ -94,7 +95,7 @@ export function HomeHero({ d, lang }: SectionProps) {
                   overlay sibling (not a wrapper), so its name matches its own text and
                   the figure keeps role="img" with its label: no nested controls. */}
               <div className={s.phoneLink}>
-                <PhoneFrame size={{ mobile: 300, desktop: 360 }} label={t.phoneAlt} theme="night">
+                <PhoneFrame size={{ mobile: 300, desktop: 360 }} label={HAS_PORTRAITS ? t.phoneAltAi : t.phoneAlt} theme="night">
                   <FirstCall00c d={d} lang={lang} persona="oshi" />
                 </PhoneFrame>
                 <a href="#call" className={s.phoneHit}>

@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import type { PersonaId, PersonaDef } from '@/lib/personas';
-import { PERSONAS } from '@/lib/personas';
+import { PERSONAS, portraitPosition } from '@/lib/personas';
 
 export type AuraShape = 'avatar' | 'badge' | 'card' | 'reel' | 'scene-portrait';
 
@@ -16,6 +16,10 @@ type AuraProps = {
   monogram?: boolean;
   theme?: 'cream' | 'night';
   className?: string;
+  /** Portrait only: the image `sizes`; default `size` in px, or per shape when the aura fills its container. */
+  sizes?: string;
+  /** Portrait only: width / height of the box the photo really covers, when CSS reshapes the aura; default the shape's. */
+  aspect?: number;
 };
 
 // Shape boxes in SVG user units (width 100); height gives the aspect ratio.
@@ -27,12 +31,16 @@ const BOX: Record<AuraShape, { h: number; radius: string }> = {
   'scene-portrait': { h: 133, radius: '0' },
 };
 
+/** A shape's width / height. */
+export const shapeAspect = (shape: AuraShape): number => 100 / BOX[shape].h;
+
 /** `sizes` for a portrait that fills its container (no `size` prop): the widest it gets. */
 const FILL_SIZES: Record<AuraShape, string> = {
   avatar: '240px',
   badge: '120px',
-  card: '(min-width: 1024px) 320px, 50vw',
-  reel: '(min-width: 1024px) 320px, 60vw',
+  card: '(min-width: 1024px) 400px, 100vw',
+  // a full-screen reel is cover-cropped from a 3:4 photo: wider than its box
+  reel: '(min-width: 1024px) 400px, 130vw',
   'scene-portrait': '100vw',
 };
 
@@ -152,16 +160,30 @@ function voiceprintPaths(r: number[], h: number): [string, string] {
 }
 
 /**
- * The creator's picture (spec §4.7). With a licensed portrait
- * (`PERSONAS[p].portrait`), the photo: no monogram, the voiceprint drawn over
- * a bottom fade. Without one, a faceless メンカラ aura: an inline-SVG colour
- * field with soft partner orbs, a sheen band, 4% noise, the monogram and
- * (card/reel/scene) a per-persona 声紋 voiceprint. Either way an optional
- * story/live/seen ring. A `scene-portrait` (the full-bleed backdrop behind a
- * call screen) always stays the colour field, so text over it stays legible.
- * `persona="oshi"` follows the fan's chosen 推し色 (`--oshi`).
+ * The creator's picture (spec §4.7). Always a メンカラ aura: an inline-SVG
+ * colour field with soft partner orbs, a sheen band and 4% noise. Without a
+ * portrait it also carries the monogram and (card/reel/scene) a per-persona
+ * 声紋 voiceprint. With a licensed portrait (`PERSONAS[p].portrait`) the photo
+ * covers the field (which shows while it loads, and wherever CSS hides the
+ * photo: `.aura[data-photo]`), framed on the face, the voiceprint drawn over a
+ * bottom fade, no monogram. Either way an optional story/live/seen ring. A
+ * `scene-portrait` (the full-bleed backdrop behind a call screen) never shows
+ * the photo, so text over it stays legible. `persona="oshi"` follows the
+ * fan's chosen 推し色 (`--oshi`).
  */
-export function Aura({ persona, shape, size, ring = 'none', ringSpin = false, voiceprint, monogram = true, theme = 'cream', className }: AuraProps) {
+export function Aura({
+  persona,
+  shape,
+  size,
+  ring = 'none',
+  ringSpin = false,
+  voiceprint,
+  monogram = true,
+  theme = 'cream',
+  className,
+  sizes,
+  aspect,
+}: AuraProps) {
   const def = personaOf(persona);
   const { h, radius } = BOX[shape];
   const photo = shape === 'scene-portrait' ? undefined : def.portrait;
@@ -177,44 +199,48 @@ export function Aura({ persona, shape, size, ring = 'none', ringSpin = false, vo
   const [full, half] = showPrint ? voiceprintPaths(r, h) : ['', ''];
 
   return (
-    <span aria-hidden="true" className={['aura', className].filter(Boolean).join(' ')} data-aura={shape} data-shape={shape} style={wrap}>
-      {photo ? (
-        <span className="aura-body" data-photo="">
+    <span
+      aria-hidden="true"
+      className={['aura', className].filter(Boolean).join(' ')}
+      data-aura={shape}
+      data-shape={shape}
+      data-photo={photo ? '' : undefined}
+      style={wrap}
+    >
+      <span className="aura-body" data-photo={photo ? '' : undefined}>
+        <svg viewBox={`0 0 100 ${h}`} preserveAspectRatio="xMidYMid slice" focusable="false">
+          <rect width="100" height={h} fill={`url(#${gid.base(persona, theme)})`} />
+          <circle cx={20 + r[2] * 60} cy={h * (0.15 + r[3] * 0.35)} r={30 + r[4] * 18} fill={`url(#${gid.orb(def.id, 1)})`} />
+          <circle cx={15 + r[5] * 70} cy={h * (0.5 + r[6] * 0.4)} r={26 + r[7] * 16} fill={`url(#${gid.orb(def.id, 2)})`} />
+          <rect width="100" height={h} fill={`url(#${gid.sheen})`} />
+          {showPrint && !photo ? (
+            <g fill="#fff" opacity="0.82">
+              <path d={full} />
+              <path d={half} opacity="0.5" />
+            </g>
+          ) : null}
+        </svg>
+        <span className="aura-noise" />
+        {monogram && !photo ? <span className="aura-mono">{def.monogram}</span> : null}
+        {photo ? (
           <Image
             src={photo.src}
             alt=""
             fill
-            sizes={size ? `${Math.ceil(size)}px` : FILL_SIZES[shape]}
-            style={{ objectFit: 'cover', objectPosition: `${photo.focal[0] * 100}% ${photo.focal[1] * 100}%` }}
+            sizes={sizes ?? (size ? `${Math.ceil(size)}px` : FILL_SIZES[shape])}
+            style={{ objectFit: 'cover', objectPosition: portraitPosition(photo, aspect ?? shapeAspect(shape)) }}
           />
-          {showPrint ? (
-            <svg viewBox={`0 0 100 ${h}`} preserveAspectRatio="xMidYMid slice" focusable="false">
-              <rect width="100" height={h} fill={`url(#${gid.photoFade})`} />
-              <g fill="#fff" opacity="0.82">
-                <path d={full} />
-                <path d={half} opacity="0.5" />
-              </g>
-            </svg>
-          ) : null}
-        </span>
-      ) : (
-        <span className="aura-body">
+        ) : null}
+        {photo && showPrint ? (
           <svg viewBox={`0 0 100 ${h}`} preserveAspectRatio="xMidYMid slice" focusable="false">
-            <rect width="100" height={h} fill={`url(#${gid.base(persona, theme)})`} />
-            <circle cx={20 + r[2] * 60} cy={h * (0.15 + r[3] * 0.35)} r={30 + r[4] * 18} fill={`url(#${gid.orb(def.id, 1)})`} />
-            <circle cx={15 + r[5] * 70} cy={h * (0.5 + r[6] * 0.4)} r={26 + r[7] * 16} fill={`url(#${gid.orb(def.id, 2)})`} />
-            <rect width="100" height={h} fill={`url(#${gid.sheen})`} />
-            {showPrint ? (
-              <g fill="#fff" opacity="0.82">
-                <path d={full} />
-                <path d={half} opacity="0.5" />
-              </g>
-            ) : null}
+            <rect width="100" height={h} fill={`url(#${gid.photoFade})`} />
+            <g fill="#fff" opacity="0.82">
+              <path d={full} />
+              <path d={half} opacity="0.5" />
+            </g>
           </svg>
-          <span className="aura-noise" />
-          {monogram ? <span className="aura-mono">{def.monogram}</span> : null}
-        </span>
-      )}
+        ) : null}
+      </span>
       {ring !== 'none' ? <span className="aura-ring" data-ring={ring} data-spin={ringSpin ? '' : undefined} data-loop={ringSpin ? '' : undefined} /> : null}
     </span>
   );

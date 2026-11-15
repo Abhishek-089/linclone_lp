@@ -132,6 +132,9 @@
 .photoGrid { display: grid; grid-template-columns: repeat(3, 100px); justify-content: space-between; }
 .photo { position: relative; width: 100px; height: 178px; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 24px rgba(60, 55, 90, .14); }
 .photo > :global(.aura) { position: absolute; inset: 0; }
+/* one portrait, three takes: as framed, a close-up on the face, and mirrored */
+.photo:nth-child(2) :global(.aura-body[data-photo] > img) { transform: scale(1.9); transform-origin: 50% 30%; }
+.photo:nth-child(3) :global(.aura-body[data-photo] > img) { transform: scaleX(-1) scale(1.2); transform-origin: 50% 40%; }
 .mainBadge {
   position: absolute; left: 8px; top: 8px; z-index: 2; height: 18px; padding: 0 8px; border-radius: 9999px; display: inline-flex; align-items: center;
   background: #00b0c2; color: #fff; font: 700 9px/1 var(--font-label); letter-spacing: .1em; box-shadow: 0 4px 10px rgba(0, 176, 194, .35);

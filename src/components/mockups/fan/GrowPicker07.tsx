@@ -26,7 +26,8 @@ export function GrowPicker07({ d, className }: MockProps) {
             return (
               <span key={id} className="fm-pick-card">
                 <span className="fm-fill-aura">
-                  <Aura persona={id} shape="card" voiceprint={false} />
+                  {/* the card's aura box: 169px wide, 120% of 230px tall (fan.css .fm-pick-card) */}
+                  <Aura persona={id} shape="card" voiceprint={false} aspect={169 / 276} sizes="(min-width: 1024px) 180px, 50vw" />
                 </span>
                 <span className="fm-pick-scrim" />
                 <span className="fm-pick-copy">
