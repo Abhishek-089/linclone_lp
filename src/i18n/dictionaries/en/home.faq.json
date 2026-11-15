@@ -9,11 +9,11 @@
   "items": {
     "what": {
       "q": "What is LinClone?",
-      "a": "LinClone is an AI clone app for fans: AI chat, AI voice calls, morning calls and LIVE shows with official AI clones of your favorite creators. It works on iPhone and Android, in Japanese and English."
+      "a": "LinClone is an AI clone app for fans: AI chat, AI voice calls, morning calls and radio broadcasts with official AI clones of your favorite creators. It works on iPhone and Android, in Japanese and English."
     },
     "real": {
       "q": "Am I talking to the real creator?",
-      "a": "No. All creator profiles are AI clones. You talk with an official AI clone approved by the creator, and LIVE shows and Stories are marked as AI-generated."
+      "a": "No. All creator profiles are AI clones. You talk with an official AI clone approved by the creator, and radio broadcasts and Stories are marked as AI-generated."
     },
     "free": {
       "q": "Is it free?",
@@ -25,7 +25,7 @@
     },
     "video": {
       "q": "Can I video call?",
-      "a": "No. Calls are voice-only, and LIVE shows are audio shows too."
+      "a": "No. Calls are voice-only, and radio broadcasts are audio too."
     },
     "morning": {
       "q": "Will a morning call always ring?",
@@ -41,7 +41,7 @@
     },
     "oshikatsu": {
       "q": "How does it fit into my day?",
-      "a": "A morning call to start the day, chat in the gaps, calls and LIVE at night. With Grow, you can even help their AI learn who they really are."
+      "a": "A morning call to start the day, chat in the gaps, calls and radio at night. With Grow, you can even help their AI learn who they really are."
     },
     "delete": {
       "q": "How do I delete my account?",

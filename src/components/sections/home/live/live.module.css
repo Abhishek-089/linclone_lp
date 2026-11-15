@@ -28,7 +28,8 @@
   z-index: -1;
   right: -.04em;
   bottom: 12px;
-  font: 700 min(34vw, 280px)/.8 var(--font-label);
+  /* "ON AIR" (the radio broadcast's status) stays inside a phone's width */
+  font: 700 min(26vw, 210px)/.8 var(--font-label);
   letter-spacing: -.03em;
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, .12);
@@ -285,7 +286,7 @@
     right: auto;
     left: max(24px, (100vw - var(--container)) / 2 - .06em);
     bottom: 6svh;
-    font-size: min(20vw, 240px);
+    font-size: min(16vw, 200px);
   }
 }
 

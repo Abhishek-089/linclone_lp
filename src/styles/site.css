@@ -355,6 +355,15 @@ html.lenis, html.lenis body { height: auto; }
   .studio-store-group .studio-store { margin: 0; }
   .studio-store-label { margin: 0; font: 700 13px/1.4 var(--font-sans); color: var(--color-ink-2); }
   [data-surface="dark"] .studio-store-label { color: rgba(255, 255, 255, .78); }
+  /* LC Studio on the web (StudioWebLink): usable before the store release */
+  .studio-web { display: grid; gap: 6px; justify-items: start; }
+  .studio-web-btn { color: #6f3fb8; gap: 8px; }
+  .studio-web-note { margin: 0; color: var(--color-ink-2); }
+  .studio-web-link {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 32px; width: fit-content;
+    font: 700 13px/1.4 var(--font-sans); color: #6f3fb8; text-decoration: underline; text-underline-offset: 3px;
+  }
+  [data-surface="dark"] .studio-web-link { color: #cdb6f2; }
   .studio-store[data-compact] .pill-disabled { min-height: 36px; padding: 0 14px; font-size: 12.5px; }
   [data-surface="dark"] .pill-disabled { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .16); color: rgba(255, 255, 255, .78); box-shadow: none; }
   [data-surface="dark"] .pill-disabled svg { color: rgba(255, 255, 255, .78); }
@@ -992,7 +1001,7 @@ html.lenis, html.lenis body { height: auto; }
   .coin { display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; background: #e8a33d; color: #fff; font: 700 8px/1 var(--font-sans); letter-spacing: 0; }
   .coin-plus { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--grad-cta); color: #fff; font: 700 14px/1 var(--font-sans); }
 
-  .live-badge { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 6px; background: #e14b81; color: #fff; font: 700 10px/1 var(--font-sans); letter-spacing: .6px; }
+  .live-badge { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 6px; background: #e14b81; color: #fff; font: 700 10px/1 var(--font-sans); letter-spacing: .6px; white-space: nowrap; }
   .live-badge[data-loop] { animation: var(--animate-live-dot); }
   .verified-mark { display: inline-flex; color: #00c4d8; flex: none; }
   .verified-mark[data-tone="neon"] { color: #7df4ff; }

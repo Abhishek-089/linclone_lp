@@ -9,7 +9,7 @@ import { track, type AnalyticsEvent } from '@/lib/analytics';
 
 const EVENTS: ReadonlySet<string> = new Set<AnalyticsEvent>([
   'cta_click', 'qr_open', 'demo_start', 'demo_complete', 'sticky_dismiss',
-  'creators_nav', 'studio_mailto', 'studio_copy_email', 'lang_switch', 'faq_open',
+  'creators_nav', 'studio_mailto', 'studio_copy_email', 'studio_web', 'lang_switch', 'faq_open',
 ]);
 /** Which prop the `:<value>` part fills, per event. */
 const VALUE_KEY: Partial<Record<AnalyticsEvent, string>> = { creators_nav: 'from', lang_switch: 'to', faq_open: 'id' };

@@ -1,7 +1,8 @@
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
-import { STUDIO_APP, STUDIO_LIVE } from '@/lib/site-config';
+import { STUDIO_APP, STUDIO_LIVE, type StudioPlacement } from '@/lib/site-config';
 import { Icon } from '../icons/Icon';
+import { StudioWebLink } from './StudioWebLink';
 
 /**
  * LC Studio store row (spec §4.2). While STUDIO_LIVE is false: two neutral
@@ -10,18 +11,21 @@ import { Icon } from '../icons/Icon';
  *
  * `labelled` adds a "LC Studio: coming soon" line above the pills, for places
  * where the LinClone brand sits next to them (footer, menu) so they never read
- * as the fan app being unreleased.
+ * as the fan app being unreleased, and a link to LC Studio on the web below.
  */
 export function StudioStoreCTA({
   d,
   lang,
   compact = false,
   labelled = false,
+  placement = 'header',
 }: {
   d: Dictionary;
   lang: Locale;
   compact?: boolean;
   labelled?: boolean;
+  /** analytics location of the web link under a `labelled` group */
+  placement?: StudioPlacement;
 }) {
   const s = d.common.store;
   if (STUDIO_LIVE) {
@@ -58,6 +62,7 @@ export function StudioStoreCTA({
     <div className="studio-store-group">
       <p className="studio-store-label">{s.studioComingSoon}</p>
       {pills}
+      <StudioWebLink d={d} placement={placement} variant="compact" />
     </div>
   );
 }

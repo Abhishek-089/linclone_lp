@@ -153,7 +153,7 @@ export function Header({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
             </a>
             <LangPill lang={lang} page={page} d={d} />
           </div>
-          {creators ? <StudioStoreCTA d={d} lang={lang} compact labelled /> : <StoreBadges d={d} lang={lang} placement="header" />}
+          {creators ? <StudioStoreCTA d={d} lang={lang} compact labelled placement="header" /> : <StoreBadges d={d} lang={lang} placement="header" />}
           <Disclosure d={d} variant="line" />
         </div>
       </dialog>

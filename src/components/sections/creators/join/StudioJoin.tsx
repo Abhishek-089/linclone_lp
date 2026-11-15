@@ -1,7 +1,7 @@
 import type { SectionProps } from '@/i18n/types';
 import { SITE, STUDIO_LIVE } from '@/lib/site-config';
 import { Units } from '@/lib/units';
-import { Section, Eyebrow, MailtoButton, CopyEmail, StudioStoreCTA, Icon, RevealGroup, type IconName } from '@/components/site';
+import { Section, Eyebrow, MailtoButton, CopyEmail, StudioStoreCTA, StudioWebLink, Icon, RevealGroup, type IconName } from '@/components/site';
 import { JoinConnector } from './JoinConnector.client';
 import '../creators.css';
 
@@ -65,6 +65,7 @@ export function StudioJoin({ d, lang }: SectionProps) {
               </summary>
               <pre className="t-small whitespace-pre-wrap cr-template-pre">{d.creators.mailto.body}</pre>
             </details>
+            <StudioWebLink d={d} placement="join" />
             <StudioStoreCTA d={d} lang={lang} />
             <p className="t-small cr-invite-fine">{t.fine}</p>
           </div>

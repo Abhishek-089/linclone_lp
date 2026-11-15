@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import type { SectionProps } from '@/i18n/types';
 import { localePath } from '@/i18n/paths';
 import { Units } from '@/lib/units';
-import { Section, Eyebrow, MailtoButton, CopyEmail, StudioStoreCTA, CaptionMarker, Icon, ScreenNote } from '@/components/site';
+import { Section, Eyebrow, MailtoButton, CopyEmail, StudioStoreCTA, StudioWebLink, CaptionMarker, Icon, ScreenNote } from '@/components/site';
 import { PhoneFrame } from '@/components/mockups/kit';
 import { S09Building } from '@/components/mockups/studio/S09Building';
 import '../creators.css';
@@ -12,7 +12,7 @@ const rise = (i: number) => ({ '--i': i }) as CSSProperties;
 /**
  * #top: /creators hero and the page's only H1 (spec §6.1). First viewport at
  * 390×664: eyebrow (招待制), H1, lead, the violet mailto CTA, copy-address
- * fallback, 近日公開 pills and the invite note. Entrance is transform-only
+ * fallback, LC Studio on the web, 近日公開 pills and the invite note. Entrance is transform-only
  * (the H1 is the LCP element and is never transparent); the S09 ring fill and
  * the building → ready swap are WP5's pure-CSS S09 sequence (no client file).
  */
@@ -40,6 +40,7 @@ export function CreatorsHero({ d, lang }: SectionProps) {
               <MailtoButton d={d} lang={lang} variant="primary" placement="hero" />
               <CopyEmail label={t.copyEmail} copiedLabel={t.copied} selectedLabel={d.common.copySelected} placement="hero" />
             </div>
+            <StudioWebLink d={d} placement="hero" />
             <StudioStoreCTA d={d} lang={lang} />
             <p className="t-small cr-note">
               <Icon name="lock" size={14} />

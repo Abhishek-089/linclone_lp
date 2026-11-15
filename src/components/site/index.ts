@@ -11,6 +11,7 @@ export { MobileDownloadBar } from './download/MobileDownloadBar';
 export { QrDockShell } from './download/QrDockShell';
 export { StoreBadges } from './download/StoreBadges';
 export { StudioStoreCTA } from './download/StudioStoreCTA';
+export { StudioWebLink } from './download/StudioWebLink';
 export { QrBlock } from './download/QrBlock';
 export { FrictionList } from './download/FrictionList';
 export { MailtoButton } from './download/MailtoButton';

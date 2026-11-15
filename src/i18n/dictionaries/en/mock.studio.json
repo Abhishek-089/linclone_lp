@@ -50,7 +50,7 @@
     "tiles": {
       "publicProfile": "Public profile",
       "fanContent": "Follower content",
-      "live": "LIVE",
+      "live": "Radio",
       "homeVoice": "Home voice",
       "morningCall": "Morning call",
       "fillers": "Fillers",
@@ -120,7 +120,7 @@
   },
   "ng": {
     "title": "Topics your clone won’t touch",
-    "sub": "Applied with top priority in chat, calls, Stories and LIVE.",
+    "sub": "Applied with top priority in chat, calls, Stories and radio.",
     "presets": {
       "politics": {
         "label": "Politics & religion",
@@ -161,7 +161,7 @@
     "online": "Online — answers like it does for followers",
     "preview": "Preview mode — nothing here is shown to followers or counted in analytics.",
     "clone1": "Hey, it’s me. Ask me anything, just like a follower would",
-    "me1": "How should we open today’s LIVE?",
+    "me1": "How should we open today’s radio broadcast?",
     "clone2": "Maybe start with the rain. And a tiny hint about the new song",
     "voiceCall": "Voice call",
     "morningCall": "Try a morning call",
@@ -175,10 +175,10 @@
   },
   "thread": {
     "handle": "@momo_pk",
-    "follower1": "Today’s LIVE was amazing",
+    "follower1": "Today’s radio broadcast was amazing",
     "ai1": "Thank you for coming. I saw all your comments",
     "aiLabel": "AI clone",
-    "follower2": "I’m definitely coming to the next one",
+    "follower2": "I’m definitely tuning in to the next one",
     "officialLabel": "You · official reply",
     "official": "Thank you for always showing up. From the real me",
     "officialFoot": "Official replies appear to the follower with a verified badge",
@@ -194,7 +194,7 @@
     "pending": "Pending review",
     "category": "FOOD",
     "handle": "@yuki_nn",
-    "fact": "Always drinks honey lemon before a stream",
+    "fact": "Always drinks honey lemon before a broadcast",
     "aiReview": "Passed AI review",
     "approve": "Approve",
     "reject": "Reject",
@@ -261,8 +261,8 @@
     "alt": "Illustration of choosing the tone of in-call fillers."
   },
   "live": {
-    "title": "LIVE",
-    "liveNow": "LIVE NOW",
+    "title": "Radio",
+    "liveNow": "ON AIR",
     "autoHosting": "Auto-hosting",
     "segment": "Rainy-day song talk",
     "chat1": "Love this story",
@@ -278,7 +278,7 @@
     "archivesTitle": "Archives",
     "archiveItem": "Rainy-day song talk",
     "download": "DL",
-    "alt": "Illustration of managing a LIVE show your clone hosts."
+    "alt": "Illustration of managing a radio broadcast your clone hosts."
   },
   "analytics": {
     "title": "Analytics",
@@ -293,7 +293,7 @@
       "voices": "Voices",
       "callTime": "Call time",
       "coins": "Coins received",
-      "live": "LIVE"
+      "live": "Radio"
     },
     "chartTitle": "Coins consumed this week",
     "topTitle": "Top followers by Coins",

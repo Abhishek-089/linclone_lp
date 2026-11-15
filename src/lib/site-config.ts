@@ -32,6 +32,8 @@ export const STUDIO_APP = {
   appStoreUrl: 'https://apps.apple.com/app/id6798622206',
   playPackage: 'com.linclone.studio',
   playUrl: 'https://play.google.com/store/apps/details?id=com.linclone.studio',
+  /** LC Studio on the web: usable today, before the store release. */
+  webUrl: 'https://studio.linclone.com/welcome',
 } as const;
 
 /** false → show common.devNote under mockups. */

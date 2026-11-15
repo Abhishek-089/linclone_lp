@@ -3,7 +3,7 @@
     "tabHome": "Home",
     "tabChat": "Chat",
     "tabGrow": "Grow",
-    "tabLive": "LIVE",
+    "tabLive": "Radio",
     "tabMyPage": "My Page",
     "verified": "Official",
     "aiGenerated": "AI-generated",
@@ -12,7 +12,7 @@
     "following": "Following",
     "callNow": "Call now",
     "chat": "Chat",
-    "liveBadge": "LIVE"
+    "liveBadge": "ON AIR"
   },
   "firstCall": {
     "sub": "Try a free 60-second call",
@@ -129,11 +129,11 @@
     "alt": "Illustration of the bond & memories screen: nickname, relationship mode and recent memories."
   },
   "liveFeed": {
-    "title": "LIVE",
+    "title": "Radio",
     "onAir": "On air",
     "theme": "Theme: Rainy-day song talk",
-    "join": "Join LIVE",
-    "alt": "Illustration of the LIVE feed."
+    "join": "Tune in",
+    "alt": "Illustration of the radio feed."
   },
   "livePlayer": {
     "follow": "FOLLOW",
@@ -171,25 +171,25 @@
     },
     "composer": "Add a comment…",
     "gift": "Gift",
-    "alt": "Illustration of listening to an audio LIVE show."
+    "alt": "Illustration of listening to a radio broadcast."
   },
   "liveRequest": {
-    "title": "Request a LIVE show from your favorite",
-    "body": "Pick a theme and the show starts as soon as it’s ready. If it can’t start, your ticket is returned.",
-    "cta": "Request a LIVE show",
-    "alt": "Illustration of the card for requesting a LIVE show."
+    "title": "Request a radio broadcast from your favorite",
+    "body": "Pick a theme and the broadcast starts as soon as it’s ready. If it can’t start, your ticket is returned.",
+    "cta": "Request a radio broadcast",
+    "alt": "Illustration of the card for requesting a radio broadcast."
   },
   "liveSetup": {
-    "title": "Request a LIVE show",
+    "title": "Request a radio broadcast",
     "hostLabel": "HOST",
     "hostRole": "Host · AI",
     "topicLabel": "Show theme",
     "topicValue": "Songs for a rainy day",
     "commentsLabel": "Read comments aloud",
-    "commentsSub": "The AI may read comments aloud during the show",
+    "commentsSub": "The AI may read comments aloud during the broadcast",
     "bgLabel": "Choose a background",
     "next": "Next",
-    "alt": "Illustration of entering a theme for a LIVE show."
+    "alt": "Illustration of entering a theme for a radio broadcast."
   },
   "showPreview": {
     "title": "Show preview",
@@ -213,19 +213,19 @@
         "desc": "What’s next, and a good-night message"
       }
     },
-    "flowTitle": "How the show flows",
+    "flowTitle": "How the broadcast flows",
     "flow1": "{name} keeps talking, so there’s no dead air",
     "flow2": "When a comment arrives, the show pauses",
     "flow3": "They read it, answer, then return to the rundown",
-    "start": "Start the show",
-    "alt": "Illustration of an AI-written rundown for a LIVE show."
+    "start": "Start the broadcast",
+    "alt": "Illustration of an AI-written rundown for a radio broadcast."
   },
   "archive": {
     "tag": "ARCHIVE",
     "title": "Rainy-day song talk",
     "play": "Play",
     "recording": "Recording",
-    "alt": "Illustration of a LIVE archive."
+    "alt": "Illustration of a radio archive."
   },
   "growPicker": {
     "title": "Grow",
@@ -282,7 +282,7 @@
     "sub": "With official AI clones.\nYour first 60 seconds are free.",
     "valueCalls": "Calls",
     "valueChat": "Chat",
-    "valueLive": "LIVE",
+    "valueLive": "Radio",
     "getStarted": "Get started",
     "footnote": "ALL CREATOR PROFILES ARE AI CLONES",
     "alt": "Illustration of the app’s welcome screen."
@@ -326,7 +326,7 @@
       "c2": "Chapter 2 · Chat & Stories",
       "c3": "Chapter 3 · Closer by call",
       "c4": "Chapter 4 · Our bond & memories",
-      "c5": "Chapter 5 · LIVE together"
+      "c5": "Chapter 5 · Radio together"
     },
     "alt": "Illustration of the quest board."
   },
@@ -358,7 +358,7 @@
       "image": "IMAGE",
       "stories": "STORIES",
       "voice": "VOICE",
-      "archive": "LIVE ARCHIVE"
+      "archive": "RADIO ARCHIVE"
     },
     "alt": "Illustration of the My Page library."
   },

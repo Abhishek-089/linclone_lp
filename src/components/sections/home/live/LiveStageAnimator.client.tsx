@@ -20,7 +20,7 @@ const READ_AT = 0.68;
  * (0.14 → 0.52) into the full-bleed audio player; the fill line reads
  * (0.54 → 0.82), the theme progress runs (0.42 → 0.87) and the Super Chat
  * is marked read on air at 0.68. Also: the bezel screen scale and the
- * intro's giant "LIVE" parallax (desktop, ±12px).
+ * intro's giant "ON AIR" parallax (desktop, ±12px).
  * Below 1024px the stage renders its end frame without scrubbing, like the
  * reduced-motion path.
  * Rendered inside the stage's intro slot, so it anchors to `[data-stage]`.
@@ -94,7 +94,7 @@ export function LiveStageAnimator() {
     },
   });
 
-  // Giant outlined "LIVE" behind the intro: slow parallax (desktop scrub),
+  // Giant outlined "ON AIR" behind the intro: slow parallax (desktop scrub),
   // kept within the ±12px parallax limit (spec §9.1).
   useScrollScene(intro, ({ gsap, scope: el, isDesktop, lite }) => {
     if (!isDesktop || lite) return;

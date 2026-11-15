@@ -2,14 +2,14 @@
   "meta": {
     "home": {
       "title": "LinClone – The AI clone app for talking to your favorites",
-      "description": "Call, chat, get morning calls and join audio LIVE shows with official AI clones. First 60 seconds free. iPhone & Android. All creator profiles are AI clones.",
+      "description": "Call, chat, get morning calls and tune in to radio broadcasts with official AI clones. First 60 seconds free. iPhone & Android. All creator profiles are AI clones.",
       "ogTitle": "Talk with your favorites, out loud | LinClone",
-      "ogDescription": "Call, chat and join LIVE shows with official AI clones. Your first 60 seconds are free.",
+      "ogDescription": "Call, chat and tune in to radio broadcasts with official AI clones. Your first 60 seconds are free.",
       "ogImageAlt": "LinClone: “Talk with your favorites, out loud.” Aura portraits of official AI clones and a note that your first 60 seconds are free."
     },
     "creators": {
       "title": "LC Studio – Build and run your official AI clone",
-      "description": "Create and manage an official AI clone from your own voice and words. Chats, calls, LIVE, Grow and earnings in one creator app. LC Studio is invitation-only.",
+      "description": "Create and manage an official AI clone from your own voice and words. Chats, calls, radio, Grow and earnings in one creator app. LC Studio is invitation-only.",
       "ogTitle": "Build your official AI clone, right from your phone | LC Studio",
       "ogDescription": "LC Studio, the creator app from LinClone. Invitation only for now.",
       "ogImageAlt": "LC Studio: “Build your official AI clone, right from your phone.” An invitation-only label and a violet ring around an aura portrait.",
@@ -87,7 +87,7 @@
       "call": "Calls",
       "morning": "Morning calls",
       "chat": "Chat",
-      "live": "LIVE",
+      "live": "Radio",
       "grow": "Grow",
       "faq": "FAQ"
     },
@@ -123,7 +123,7 @@
       "call": "Calls",
       "morning": "Morning calls",
       "chat": "Chat",
-      "live": "LIVE",
+      "live": "Radio",
       "grow": "Grow",
       "faq": "FAQ",
       "fanApp": "The LinClone app",
@@ -178,12 +178,12 @@
     "hero": {
       "eyebrow": "The app for talking with your favorite’s AI clone",
       "title": "Talk with your favorites, out loud.",
-      "lead": "Call, chat and join LIVE shows with official AI clones of the creators you love. Your first 60 seconds are free.",
+      "lead": "Call, chat and tune in to radio broadcasts with official AI clones of the creators you love. Your first 60 seconds are free.",
       "stickers": {
         "official": "Official AI clones",
         "first60": "First 60 seconds free",
         "call": "Voice calls",
-        "live": "LIVE"
+        "live": "Radio"
       },
       "chipsLabel": "What you can do",
       "chips": {
@@ -191,7 +191,7 @@
         "morning": "Morning calls",
         "voice": "Voice messages",
         "chat": "Chat",
-        "live": "LIVE",
+        "live": "Radio",
         "grow": "Grow"
       },
       "phoneAlt": "Illustration of the free first call: Yuzu’s aura portrait and a “Tap to talk with Yuzu” button.",
@@ -218,7 +218,7 @@
         },
         "labelled": {
           "title": "Always labeled",
-          "body": "Every creator profile is an AI clone. LIVE shows and Stories are marked as AI-generated too."
+          "body": "Every creator profile is an AI clone. Radio broadcasts and Stories are marked as AI-generated too."
         },
         "memory": {
           "title": "Your memories, your call",
@@ -317,18 +317,18 @@
     "live": {
       "eyebrow": {
         "num": "04",
-        "label": "LIVE"
+        "label": "Radio"
       },
-      "title": "Tonight, they’re LIVE.",
-      "audioChip": "Audio-only LIVE",
-      "lead": "An audio-only LIVE show hosted by their AI clone. Send a comment and they may read it on air and answer. Cheer them on with gifts and Super Chat.",
+      "title": "Tonight, they’re on air.",
+      "audioChip": "Voice-only radio",
+      "lead": "A radio broadcast hosted by their AI clone. Send a comment and they may read it on air and answer. Cheer them on with gifts and Super Chat.",
       "fill": "They read your comment, answer, and carry on.",
-      "requestTitle": "Pick a theme. Request a show in their voice.",
-      "requestBody": "The AI writes the rundown and their AI clone keeps talking, so there’s no dead air. Requests use a LIVE ticket, and first-timers get a trial.",
+      "requestTitle": "Pick a theme. Request a broadcast in their voice.",
+      "requestBody": "The AI writes the rundown and their AI clone keeps talking, so there’s no dead air. Requests use a radio ticket, and first-timers get a trial.",
       "archiveTitle": "Missed it? Catch the archive.",
       "archiveBody": "Finished shows keep their recording, so you can listen back.",
-      "footnote": "LIVE shows are audio-only, AI-generated content. Whether requests are open depends on the creator. If a show can’t start, your ticket is returned.",
-      "stageAlt": "Illustration of an audio LIVE show with comments scrolling and a Super Chat marked as read on air."
+      "footnote": "Radio broadcasts are audio-only, AI-generated content. Whether requests are open depends on the creator. If a broadcast can’t start, your ticket is returned.",
+      "stageAlt": "Illustration of a radio broadcast with comments scrolling and a Super Chat marked as read on air."
     },
     "grow": {
       "eyebrow": {
@@ -375,7 +375,7 @@
         },
         "quests": {
           "title": "Play and earn coins.",
-          "body": "From your first meeting to LIVE with everyone. Clear quests and collect coins."
+          "body": "From your first meeting to tuning in together. Clear quests and collect coins."
         },
         "bonus": {
           "title": "Open daily, get a bonus.",
@@ -387,7 +387,7 @@
         },
         "plans": {
           "title": "For days you want more.",
-          "body": "You can start free. Plans add more chats, monthly coins and LIVE tickets.",
+          "body": "You can start free. Plans add more chats, monthly coins and radio tickets.",
           "note": "Prices are shown in the app. Payment is through the App Store or Google Play.",
           "cards": {
             "free": {
@@ -400,11 +400,11 @@
             },
             "premium": {
               "name": "Premium",
-              "perk": "Even more chats · Monthly coins · LIVE tickets"
+              "perk": "Even more chats · Monthly coins · Radio tickets"
             },
             "super": {
               "name": "Super",
-              "perk": "The most chats · Monthly coins · LIVE tickets"
+              "perk": "The most chats · Monthly coins · Radio tickets"
             }
           }
         },
@@ -420,7 +420,7 @@
         },
         "library": {
           "title": "Everything you made together, in one place.",
-          "body": "Images, Stories, voices and LIVE archives all live in My Page."
+          "body": "Images, Stories, voices and radio archives all live in My Page."
         },
         "sleep": {
           "title": "Mute notifications while you sleep.",
@@ -443,8 +443,8 @@
         "memory": "Our bond & memories",
         "nickname": "Nickname",
         "modes": "Relationship modes",
-        "live": "LIVE",
-        "liveRequest": "Request a LIVE show",
+        "live": "Radio",
+        "liveRequest": "Request a radio broadcast",
         "gifts": "Gifts & Super Chat",
         "archive": "Archives",
         "grow": "Grow",
@@ -498,11 +498,11 @@
       "items": {
         "what": {
           "q": "What is LinClone?",
-          "a": "LinClone is an AI clone app for fans: AI chat, AI voice calls, morning calls and LIVE shows with official AI clones of your favorite creators. It works on iPhone and Android, in Japanese and English."
+          "a": "LinClone is an AI clone app for fans: AI chat, AI voice calls, morning calls and radio broadcasts with official AI clones of your favorite creators. It works on iPhone and Android, in Japanese and English."
         },
         "real": {
           "q": "Am I talking to the real creator?",
-          "a": "No. All creator profiles are AI clones. You talk with an official AI clone approved by the creator, and LIVE shows and Stories are marked as AI-generated."
+          "a": "No. All creator profiles are AI clones. You talk with an official AI clone approved by the creator, and radio broadcasts and Stories are marked as AI-generated."
         },
         "free": {
           "q": "Is it free?",
@@ -514,7 +514,7 @@
         },
         "video": {
           "q": "Can I video call?",
-          "a": "No. Calls are voice-only, and LIVE shows are audio shows too."
+          "a": "No. Calls are voice-only, and radio broadcasts are audio too."
         },
         "morning": {
           "q": "Will a morning call always ring?",
@@ -530,7 +530,7 @@
         },
         "oshikatsu": {
           "q": "How does it fit into my day?",
-          "a": "A morning call to start the day, chat in the gaps, calls and LIVE at night. With Grow, you can even help their AI learn who they really are."
+          "a": "A morning call to start the day, chat in the gaps, calls and radio at night. With Grow, you can even help their AI learn who they really are."
         },
         "delete": {
           "q": "How do I delete my account?",
@@ -580,7 +580,7 @@
     "hero": {
       "eyebrow": "LC Studio · The creator app · Invitation-only",
       "title": "Build your official AI clone, right from your phone.",
-      "lead": "Create and manage an official AI clone from your own voice and words. Then look after its chats, calls, morning calls and LIVE shows from one app.",
+      "lead": "Create and manage an official AI clone from your own voice and words. Then look after its chats, calls, morning calls and radio broadcasts from one app.",
       "audience": "For creators, talent, voice actors, athletes, singers, and their agencies.",
       "cta": "Request an invitation",
       "copyEmail": "Copy email address",
@@ -592,22 +592,27 @@
       "fanLink": "Want to talk with your favorites? Get the LinClone app",
       "phoneAlt": "Illustration of a clone being created in LC Studio. When the ring fills, it’s ready."
     },
+    "web": {
+      "cta": "Try it on the web",
+      "short": "Open LC Studio on the web",
+      "note": "The apps are coming soon. You can use LC Studio in your browser today."
+    },
     "statement": {
       "fill": "The you that never goes offline.",
-      "sub": "Chats in your words. Calls, morning calls and LIVE shows in your voice."
+      "sub": "Chats in your words. Calls, morning calls and radio broadcasts in your voice."
     },
     "home": {
       "eyebrow": {
         "num": "01",
         "label": "How it works"
       },
-      "fill": "Chats, LIVE and earnings. All from your phone.",
+      "fill": "Chats, radio and earnings. All from your phone.",
       "lead": "LC Studio’s Home holds everything you need to run your clone. Tap a tile to jump to how it works.",
       "tocLabel": "LC Studio features",
       "tiles": {
         "publicProfile": "Edit what followers see",
         "fanContent": "Images and voices followers made with your clone",
-        "live": "Auto-hosted shows, settings and archives",
+        "live": "Auto-hosted broadcasts, settings and archives",
         "homeVoice": "Voice messages followers hear on Home",
         "morningCall": "Your clone’s first lines",
         "fillers": "The sounds between thoughts",
@@ -677,7 +682,7 @@
         },
         "ng": {
           "title": "NG topics",
-          "body": "Topics you switch on get top priority across chat, calls, Stories and LIVE, and your clone is set to steer clear of them."
+          "body": "Topics you switch on get top priority across chat, calls, Stories and radio, and your clone is set to steer clear of them."
         },
         "profile": {
           "title": "Your profile, your likeness",
@@ -697,7 +702,7 @@
       "title": "Step in as the real you.",
       "officialBody": "Join any follower’s chat with an official reply. Official replies carry a verified badge and are shown apart from AI replies.",
       "pauseBody": "You can also pause your clone’s replies in a single chat.",
-      "liveTitle": "Your clone hosts the LIVE show.",
+      "liveTitle": "Your clone hosts the radio broadcast.",
       "liveBody": "Your clone runs the show and reads comments aloud to answer them. You decide whether to accept follower requests. Archives save automatically and can be downloaded.",
       "dropIn": "You can also drop into the show as yourself."
     },
@@ -736,7 +741,7 @@
         "label": "Insights & earnings"
       },
       "title": "Know your community.",
-      "analyticsBody": "See chats, images, voices, call time, coins received and LIVE shows charted over time.",
+      "analyticsBody": "See chats, images, voices, call time, coins received and radio broadcasts charted over time.",
       "privacy": "Individual follower data is shown inside LC Studio only and is never made public in the LinClone app.",
       "earningsTitle": "Coin-based earnings.",
       "earningsBody": "Each month’s earnings are finalized from the coins followers spend on your clone. No figures are shown while a month is being calculated. Statements come as CSV, and payouts go to your registered bank account. We’ll explain the details when we’re in touch."
@@ -758,7 +763,7 @@
         },
         "get": {
           "title": "Get LC Studio",
-          "body": "Coming soon to the App Store and Google Play."
+          "body": "Coming soon to the App Store and Google Play. You can use it in your browser today."
         },
         "getLive": {
           "title": "Get LC Studio",
@@ -782,7 +787,7 @@
       "items": {
         "what": {
           "q": "What is LC Studio?",
-          "a": "The creator app for building your official AI clone and running its chats, calls, morning calls, LIVE shows, Grow and earnings from one place."
+          "a": "The creator app for building your official AI clone and running its chats, calls, morning calls, radio broadcasts, Grow and earnings from one place."
         },
         "who": {
           "q": "Who can use it?",
@@ -823,7 +828,7 @@
         },
         "release": {
           "q": "When will it be on the stores?",
-          "a": "We’re preparing the store release. If you request an invitation, we’ll tell you how to get the app when we’re in touch."
+          "a": "We’re preparing the store release. In the meantime, LC Studio works in your browser on the web. If you request an invitation, we’ll tell you how to get the app when we’re in touch."
         },
         "releaseLive": {
           "q": "Where can I get it?",
@@ -847,7 +852,7 @@
         "tabHome": "Home",
         "tabChat": "Chat",
         "tabGrow": "Grow",
-        "tabLive": "LIVE",
+        "tabLive": "Radio",
         "tabMyPage": "My Page",
         "verified": "Official",
         "aiGenerated": "AI-generated",
@@ -856,7 +861,7 @@
         "following": "Following",
         "callNow": "Call now",
         "chat": "Chat",
-        "liveBadge": "LIVE"
+        "liveBadge": "ON AIR"
       },
       "firstCall": {
         "sub": "Try a free 60-second call",
@@ -973,11 +978,11 @@
         "alt": "Illustration of the bond & memories screen: nickname, relationship mode and recent memories."
       },
       "liveFeed": {
-        "title": "LIVE",
+        "title": "Radio",
         "onAir": "On air",
         "theme": "Theme: Rainy-day song talk",
-        "join": "Join LIVE",
-        "alt": "Illustration of the LIVE feed."
+        "join": "Tune in",
+        "alt": "Illustration of the radio feed."
       },
       "livePlayer": {
         "follow": "FOLLOW",
@@ -1015,25 +1020,25 @@
         },
         "composer": "Add a comment…",
         "gift": "Gift",
-        "alt": "Illustration of listening to an audio LIVE show."
+        "alt": "Illustration of listening to a radio broadcast."
       },
       "liveRequest": {
-        "title": "Request a LIVE show from your favorite",
-        "body": "Pick a theme and the show starts as soon as it’s ready. If it can’t start, your ticket is returned.",
-        "cta": "Request a LIVE show",
-        "alt": "Illustration of the card for requesting a LIVE show."
+        "title": "Request a radio broadcast from your favorite",
+        "body": "Pick a theme and the broadcast starts as soon as it’s ready. If it can’t start, your ticket is returned.",
+        "cta": "Request a radio broadcast",
+        "alt": "Illustration of the card for requesting a radio broadcast."
       },
       "liveSetup": {
-        "title": "Request a LIVE show",
+        "title": "Request a radio broadcast",
         "hostLabel": "HOST",
         "hostRole": "Host · AI",
         "topicLabel": "Show theme",
         "topicValue": "Songs for a rainy day",
         "commentsLabel": "Read comments aloud",
-        "commentsSub": "The AI may read comments aloud during the show",
+        "commentsSub": "The AI may read comments aloud during the broadcast",
         "bgLabel": "Choose a background",
         "next": "Next",
-        "alt": "Illustration of entering a theme for a LIVE show."
+        "alt": "Illustration of entering a theme for a radio broadcast."
       },
       "showPreview": {
         "title": "Show preview",
@@ -1057,19 +1062,19 @@
             "desc": "What’s next, and a good-night message"
           }
         },
-        "flowTitle": "How the show flows",
+        "flowTitle": "How the broadcast flows",
         "flow1": "{name} keeps talking, so there’s no dead air",
         "flow2": "When a comment arrives, the show pauses",
         "flow3": "They read it, answer, then return to the rundown",
-        "start": "Start the show",
-        "alt": "Illustration of an AI-written rundown for a LIVE show."
+        "start": "Start the broadcast",
+        "alt": "Illustration of an AI-written rundown for a radio broadcast."
       },
       "archive": {
         "tag": "ARCHIVE",
         "title": "Rainy-day song talk",
         "play": "Play",
         "recording": "Recording",
-        "alt": "Illustration of a LIVE archive."
+        "alt": "Illustration of a radio archive."
       },
       "growPicker": {
         "title": "Grow",
@@ -1126,7 +1131,7 @@
         "sub": "With official AI clones.\nYour first 60 seconds are free.",
         "valueCalls": "Calls",
         "valueChat": "Chat",
-        "valueLive": "LIVE",
+        "valueLive": "Radio",
         "getStarted": "Get started",
         "footnote": "ALL CREATOR PROFILES ARE AI CLONES",
         "alt": "Illustration of the app’s welcome screen."
@@ -1170,7 +1175,7 @@
           "c2": "Chapter 2 · Chat & Stories",
           "c3": "Chapter 3 · Closer by call",
           "c4": "Chapter 4 · Our bond & memories",
-          "c5": "Chapter 5 · LIVE together"
+          "c5": "Chapter 5 · Radio together"
         },
         "alt": "Illustration of the quest board."
       },
@@ -1202,7 +1207,7 @@
           "image": "IMAGE",
           "stories": "STORIES",
           "voice": "VOICE",
-          "archive": "LIVE ARCHIVE"
+          "archive": "RADIO ARCHIVE"
         },
         "alt": "Illustration of the My Page library."
       },
@@ -1269,7 +1274,7 @@
         "tiles": {
           "publicProfile": "Public profile",
           "fanContent": "Follower content",
-          "live": "LIVE",
+          "live": "Radio",
           "homeVoice": "Home voice",
           "morningCall": "Morning call",
           "fillers": "Fillers",
@@ -1339,7 +1344,7 @@
       },
       "ng": {
         "title": "Topics your clone won’t touch",
-        "sub": "Applied with top priority in chat, calls, Stories and LIVE.",
+        "sub": "Applied with top priority in chat, calls, Stories and radio.",
         "presets": {
           "politics": {
             "label": "Politics & religion",
@@ -1380,7 +1385,7 @@
         "online": "Online — answers like it does for followers",
         "preview": "Preview mode — nothing here is shown to followers or counted in analytics.",
         "clone1": "Hey, it’s me. Ask me anything, just like a follower would",
-        "me1": "How should we open today’s LIVE?",
+        "me1": "How should we open today’s radio broadcast?",
         "clone2": "Maybe start with the rain. And a tiny hint about the new song",
         "voiceCall": "Voice call",
         "morningCall": "Try a morning call",
@@ -1394,10 +1399,10 @@
       },
       "thread": {
         "handle": "@momo_pk",
-        "follower1": "Today’s LIVE was amazing",
+        "follower1": "Today’s radio broadcast was amazing",
         "ai1": "Thank you for coming. I saw all your comments",
         "aiLabel": "AI clone",
-        "follower2": "I’m definitely coming to the next one",
+        "follower2": "I’m definitely tuning in to the next one",
         "officialLabel": "You · official reply",
         "official": "Thank you for always showing up. From the real me",
         "officialFoot": "Official replies appear to the follower with a verified badge",
@@ -1413,7 +1418,7 @@
         "pending": "Pending review",
         "category": "FOOD",
         "handle": "@yuki_nn",
-        "fact": "Always drinks honey lemon before a stream",
+        "fact": "Always drinks honey lemon before a broadcast",
         "aiReview": "Passed AI review",
         "approve": "Approve",
         "reject": "Reject",
@@ -1480,8 +1485,8 @@
         "alt": "Illustration of choosing the tone of in-call fillers."
       },
       "live": {
-        "title": "LIVE",
-        "liveNow": "LIVE NOW",
+        "title": "Radio",
+        "liveNow": "ON AIR",
         "autoHosting": "Auto-hosting",
         "segment": "Rainy-day song talk",
         "chat1": "Love this story",
@@ -1497,7 +1502,7 @@
         "archivesTitle": "Archives",
         "archiveItem": "Rainy-day song talk",
         "download": "DL",
-        "alt": "Illustration of managing a LIVE show your clone hosts."
+        "alt": "Illustration of managing a radio broadcast your clone hosts."
       },
       "analytics": {
         "title": "Analytics",
@@ -1512,7 +1517,7 @@
           "voices": "Voices",
           "callTime": "Call time",
           "coins": "Coins received",
-          "live": "LIVE"
+          "live": "Radio"
         },
         "chartTitle": "Coins consumed this week",
         "topTitle": "Top followers by Coins",

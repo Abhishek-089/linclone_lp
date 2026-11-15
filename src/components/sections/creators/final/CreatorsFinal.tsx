@@ -1,14 +1,15 @@
 import type { SectionProps } from '@/i18n/types';
 import { localePath } from '@/i18n/paths';
 import { Units } from '@/lib/units';
-import { Section, MailtoButton, CopyEmail, StudioStoreCTA, CaptionMarker, Aura, Icon } from '@/components/site';
+import { Section, MailtoButton, CopyEmail, StudioStoreCTA, StudioWebLink, CaptionMarker, Aura, Icon } from '@/components/site';
 import '../creators.css';
 
 /**
  * #final: もう一人の自分に、会いにいこう。 (spec §6.12). Studio surface with a
  * violet aura; the "two of you" emblem (a hairline self beside the aura
  * clone), the H2 with the violet caption marker (after idle, not scrubbed),
- * the mailto, copy fallback, 近日公開 pills and the link back to the fan app.
+ * the mailto, copy fallback, LC Studio on the web, 近日公開 pills and the
+ * link back to the fan app.
  */
 export function CreatorsFinal({ d, lang }: SectionProps) {
   const t = d.creators.final;
@@ -31,6 +32,7 @@ export function CreatorsFinal({ d, lang }: SectionProps) {
           <MailtoButton d={d} lang={lang} variant="primary" placement="final" />
           <CopyEmail label={d.creators.hero.copyEmail} copiedLabel={d.creators.hero.copied} selectedLabel={d.common.copySelected} placement="final" />
         </div>
+        <StudioWebLink d={d} placement="final" />
         <StudioStoreCTA d={d} lang={lang} />
         <p className="t-small cr-fanlink cr-final-home">
           <a href={localePath(lang, 'home')} data-analytics="creators_nav:creators_final">

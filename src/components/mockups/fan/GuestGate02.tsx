@@ -13,7 +13,7 @@ export function GuestGate02({ d, persona = 'oshi', className }: MockProps) {
     <Screen theme="night">
       <div className={cx('fm-root fm-gate', className)} data-mock="GuestGate02">
         <div className="fm-fill-aura fm-gate-bg">
-          <Aura persona={persona} shape="reel" theme="night" voiceprint={false} />
+          <Aura persona={persona} shape="reel" theme="night" voiceprint={false} aspect={390 / 844} />
         </div>
         <span className="fm-gate-dim" />
         <BrandRow brand={d.common.brand} top={64} />

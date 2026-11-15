@@ -17,7 +17,7 @@
   "hero": {
     "eyebrow": "LC Studio · The creator app · Invitation-only",
     "title": "Build your official AI clone, right from your phone.",
-    "lead": "Create and manage an official AI clone from your own voice and words. Then look after its chats, calls, morning calls and LIVE shows from one app.",
+    "lead": "Create and manage an official AI clone from your own voice and words. Then look after its chats, calls, morning calls and radio broadcasts from one app.",
     "audience": "For creators, talent, voice actors, athletes, singers, and their agencies.",
     "cta": "Request an invitation",
     "copyEmail": "Copy email address",
@@ -29,22 +29,27 @@
     "fanLink": "Want to talk with your favorites? Get the LinClone app",
     "phoneAlt": "Illustration of a clone being created in LC Studio. When the ring fills, it’s ready."
   },
+  "web": {
+    "cta": "Try it on the web",
+    "short": "Open LC Studio on the web",
+    "note": "The apps are coming soon. You can use LC Studio in your browser today."
+  },
   "statement": {
     "fill": "The you that never goes offline.",
-    "sub": "Chats in your words. Calls, morning calls and LIVE shows in your voice."
+    "sub": "Chats in your words. Calls, morning calls and radio broadcasts in your voice."
   },
   "home": {
     "eyebrow": {
       "num": "01",
       "label": "How it works"
     },
-    "fill": "Chats, LIVE and earnings. All from your phone.",
+    "fill": "Chats, radio and earnings. All from your phone.",
     "lead": "LC Studio’s Home holds everything you need to run your clone. Tap a tile to jump to how it works.",
     "tocLabel": "LC Studio features",
     "tiles": {
       "publicProfile": "Edit what followers see",
       "fanContent": "Images and voices followers made with your clone",
-      "live": "Auto-hosted shows, settings and archives",
+      "live": "Auto-hosted broadcasts, settings and archives",
       "homeVoice": "Voice messages followers hear on Home",
       "morningCall": "Your clone’s first lines",
       "fillers": "The sounds between thoughts",
@@ -114,7 +119,7 @@
       },
       "ng": {
         "title": "NG topics",
-        "body": "Topics you switch on get top priority across chat, calls, Stories and LIVE, and your clone is set to steer clear of them."
+        "body": "Topics you switch on get top priority across chat, calls, Stories and radio, and your clone is set to steer clear of them."
       },
       "profile": {
         "title": "Your profile, your likeness",
@@ -134,7 +139,7 @@
     "title": "Step in as the real you.",
     "officialBody": "Join any follower’s chat with an official reply. Official replies carry a verified badge and are shown apart from AI replies.",
     "pauseBody": "You can also pause your clone’s replies in a single chat.",
-    "liveTitle": "Your clone hosts the LIVE show.",
+    "liveTitle": "Your clone hosts the radio broadcast.",
     "liveBody": "Your clone runs the show and reads comments aloud to answer them. You decide whether to accept follower requests. Archives save automatically and can be downloaded.",
     "dropIn": "You can also drop into the show as yourself."
   },
@@ -173,7 +178,7 @@
       "label": "Insights & earnings"
     },
     "title": "Know your community.",
-    "analyticsBody": "See chats, images, voices, call time, coins received and LIVE shows charted over time.",
+    "analyticsBody": "See chats, images, voices, call time, coins received and radio broadcasts charted over time.",
     "privacy": "Individual follower data is shown inside LC Studio only and is never made public in the LinClone app.",
     "earningsTitle": "Coin-based earnings.",
     "earningsBody": "Each month’s earnings are finalized from the coins followers spend on your clone. No figures are shown while a month is being calculated. Statements come as CSV, and payouts go to your registered bank account. We’ll explain the details when we’re in touch."
@@ -195,7 +200,7 @@
       },
       "get": {
         "title": "Get LC Studio",
-        "body": "Coming soon to the App Store and Google Play."
+        "body": "Coming soon to the App Store and Google Play. You can use it in your browser today."
       },
       "getLive": {
         "title": "Get LC Studio",
@@ -219,7 +224,7 @@
     "items": {
       "what": {
         "q": "What is LC Studio?",
-        "a": "The creator app for building your official AI clone and running its chats, calls, morning calls, LIVE shows, Grow and earnings from one place."
+        "a": "The creator app for building your official AI clone and running its chats, calls, morning calls, radio broadcasts, Grow and earnings from one place."
       },
       "who": {
         "q": "Who can use it?",
@@ -260,7 +265,7 @@
       },
       "release": {
         "q": "When will it be on the stores?",
-        "a": "We’re preparing the store release. If you request an invitation, we’ll tell you how to get the app when we’re in touch."
+        "a": "We’re preparing the store release. In the meantime, LC Studio works in your browser on the web. If you request an invitation, we’ll tell you how to get the app when we’re in touch."
       },
       "releaseLive": {
         "q": "Where can I get it?",

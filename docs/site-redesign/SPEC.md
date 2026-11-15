@@ -77,7 +77,7 @@ The day then runs: morning call at dawn, chat and Stories at lunch, LIVE配信 a
    - the desktop QR dock
    - the Smart App Banner (fan pages only)
    - a header CTA that works without JS
-8. **No faces.** *(Amended 2026-11-13: the six fictional creators now show AI-generated portraits with recorded provenance, and the notes say so; see `CAST_PORTRAITS.md`. Call backdrops and OG images keep the auras.)* Creators appear as メンカラ aura can-badges with 声紋. A photo can only render through `CreatorImage` when `licensed: true` and `rightsRef` are set; otherwise the build throws. Every mockup cluster carries `common.screenNote`.
+8. **No faces.** *(Amended 2026-11-13: the six fictional creators now show AI-generated portraits with recorded provenance, and the notes say so; see `CAST_PORTRAITS.md`. Call backdrops and OG images keep the auras.)* Creators appear as メンカラ aura can-badges with 声紋. A photo renders through `Aura` (or `CreatorImage`) only when the persona's portrait has `licensed: true` and a non-blank `rightsRef`; the guard in `lib/personas.ts` throws otherwise. Every mockup cluster carries `common.screenNote`.
 9. **Accessible by default.**
    - Ink labels on the teal gradient, never white.
    - `#5b5970` is the minimum for any text on cream; `#8d8ba0` is decoration only.

@@ -47,6 +47,7 @@
 .cr-hero-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
 .cr-cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 18px; }
 .cr-hero .cr-cta-row .mailto-btn { width: 100%; }
+.cr-hero .studio-web, .cr-hero .studio-web-btn { width: 100%; }
 .cr-hero .studio-store { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 8px; }
 .cr-hero .pill-disabled { min-height: 36px; padding: 0 10px; gap: 5px; font-size: 12px; white-space: nowrap; justify-content: center; }
 .cr-hero .studio-store:lang(en) { display: flex; flex-wrap: wrap; }
@@ -59,6 +60,7 @@
 }
 @media (min-width: 768px) {
   .cr-hero .cr-cta-row .mailto-btn { width: auto; }
+  .cr-hero .studio-web, .cr-hero .studio-web-btn { width: auto; }
   .cr-hero .studio-store { display: flex; gap: 10px; }
   .cr-hero .pill-disabled { min-height: 40px; padding: 0 16px; gap: 8px; font-size: 13.5px; }
 }
@@ -361,9 +363,10 @@ html[data-lite] .cr-hero-halo { animation: none; }
 .cr-template-pre { margin: 0; padding: 2px 18px 18px; font-family: var(--font-sans); color: #5b5970; }
 .cr-template[open] .cr-template-pre { animation: fadeUp var(--dur-base) var(--ease-reveal); }
 .cr-invite .studio-store { justify-content: center; }
+:is(.cr-invite, .cr-final) .studio-web { justify-items: center; text-align: center; }
 .cr-invite-fine { max-width: 30em; }
 @media (max-width: 767.98px) {
-  .cr-invite-cta, .cr-invite-cta .mailto-btn { width: 100%; }
+  .cr-invite-cta, .cr-invite-cta .mailto-btn, .cr-invite .studio-web, .cr-invite .studio-web-btn { width: 100%; }
 }
 @media (min-width: 768px) {
   .cr-invite { padding: 48px 56px 40px; gap: 18px; }
@@ -395,7 +398,7 @@ html[data-lite] .cr-hero-halo { animation: none; }
 .cr-final-home { margin-top: 8px; color: #28273b; }
 @media (max-width: 767.98px) {
   .cr-final-cta { flex-direction: column; width: 100%; }
-  .cr-final-cta .mailto-btn { width: 100%; }
+  .cr-final-cta .mailto-btn, .cr-final .studio-web, .cr-final .studio-web-btn { width: 100%; }
 }
 
 /* "The other you": a hairline self beside the aura clone. */

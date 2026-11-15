@@ -14,7 +14,7 @@ export function Welcome00a({ d, persona = 'oshi', className }: MockProps) {
     <Screen theme="night">
       <div className={cx('fm-root fm-wel', className)} data-mock="Welcome00a">
         <div className="fm-fill-aura">
-          <Aura persona={persona} shape="reel" theme="night" />
+          <Aura persona={persona} shape="reel" theme="night" aspect={390 / 844} />
         </div>
         <span className="fm-photo-fade fm-wel-fade" />
         <BrandRow brand={d.common.brand} top={64} />

@@ -20,6 +20,8 @@ type AuraProps = {
   sizes?: string;
   /** Portrait only: width / height of the box the photo really covers, when CSS reshapes the aura; default the shape's. */
   aspect?: number;
+  /** Portrait only: where the face centre lands, as a share of the box height; default .45. */
+  faceY?: number;
 };
 
 // Shape boxes in SVG user units (width 100); height gives the aspect ratio.
@@ -183,6 +185,7 @@ export function Aura({
   className,
   sizes,
   aspect,
+  faceY,
 }: AuraProps) {
   const def = personaOf(persona);
   const { h, radius } = BOX[shape];
@@ -228,7 +231,7 @@ export function Aura({
             alt=""
             fill
             sizes={sizes ?? (size ? `${Math.ceil(size)}px` : FILL_SIZES[shape])}
-            style={{ objectFit: 'cover', objectPosition: portraitPosition(photo, aspect ?? shapeAspect(shape)) }}
+            style={{ objectFit: 'cover', objectPosition: portraitPosition(photo, aspect ?? shapeAspect(shape), faceY) }}
           />
         ) : null}
         {photo && showPrint ? (

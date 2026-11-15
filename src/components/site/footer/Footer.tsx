@@ -67,7 +67,7 @@ export function Footer({ d, lang, page }: { d: Dictionary; lang: Locale; page: P
             <img src="/brand/mark-white-256.png" alt="" width={36} height={36} loading="lazy" decoding="async" fetchPriority="low" />
             <p className="wordmark">{d.common.brand}</p>
             <p className="footer-tagline t-small">{d.footer.tagline}</p>
-            {creators ? <StudioStoreCTA d={d} lang={lang} compact labelled /> : <StoreBadges d={d} lang={lang} placement="footer" />}
+            {creators ? <StudioStoreCTA d={d} lang={lang} compact labelled placement="footer" /> : <StoreBadges d={d} lang={lang} placement="footer" />}
           </div>
           <div className="footer-cols">
             <Column

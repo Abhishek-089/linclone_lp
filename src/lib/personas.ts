@@ -51,10 +51,10 @@ const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 
 /**
  * `object-position` for a portrait under `object-fit: cover` in a box of
- * `boxAspect` (width / height): the face centre lands 50% across and 45% down
- * the box, as far as the image's overflow allows.
+ * `boxAspect` (width / height): the face centre lands 50% across and `faceY`
+ * (default 45%) down the box, as far as the image's overflow allows.
  */
-export function portraitPosition({ size: [w, h], focal: [fx, fy] }: Portrait, boxAspect: number): string {
+export function portraitPosition({ size: [w, h], focal: [fx, fy] }: Portrait, boxAspect: number, faceY = 0.45): string {
   const img = w / h;
   if (img > boxAspect) {
     const shown = boxAspect / img; // share of the width in view
@@ -62,7 +62,7 @@ export function portraitPosition({ size: [w, h], focal: [fx, fy] }: Portrait, bo
   }
   if (img < boxAspect) {
     const shown = img / boxAspect; // share of the height in view
-    return `50% ${(clamp01((fy - shown * 0.45) / (1 - shown)) * 100).toFixed(1)}%`;
+    return `50% ${(clamp01((fy - shown * faceY) / (1 - shown)) * 100).toFixed(1)}%`;
   }
   return '50% 50%';
 }

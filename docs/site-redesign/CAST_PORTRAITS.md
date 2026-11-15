@@ -52,7 +52,9 @@ The file names use the internal persona ids, which predate the names. The displa
    the printed centre to `castPortrait('<id>', [x, y])` in `src/lib/personas.ts`. Every crop is
    computed from it (`portraitPosition()`): the face lands 50% across and 45% down each box, as
    far as the image allows. Fills that CSS reshapes pass their real aspect to `Aura`
-   (`CreatorProfile08`, `GrowPicker07`).
+   (`CreatorProfile08`, `GrowPicker07`, and the full-screen reels in `Welcome00a`,
+   `PickReel00b`, `GuestGate02` and `LiveFeedCard`); `faceY` moves the face lower
+   where a slice crops the top (`CreatorProfile08`).
 3. **Update the rights record.** If the new image came from a different tool, plan or person,
    update `CAST_RIGHTS` and this file.
 4. **Clear the local cache.** `next dev` caches optimised images by URL for hours, so delete

@@ -15,7 +15,7 @@ export function LiveFeedCard({ d, persona = 'kai', className }: MockProps) {
     <Screen theme="night">
       <div className={cx('fm-root fm-feed', className)} data-mock="LiveFeedCard">
         <div className="fm-fill-aura">
-          <Aura persona={persona} shape="reel" theme="night" voiceprint={false} />
+          <Aura persona={persona} shape="reel" theme="night" voiceprint={false} aspect={390 / 844} />
         </div>
         <span className="fm-photo-fade" />
 

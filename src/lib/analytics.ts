@@ -4,7 +4,7 @@
 
 export type AnalyticsEvent =
   | 'cta_click' | 'qr_open' | 'demo_start' | 'demo_complete' | 'sticky_dismiss'
-  | 'creators_nav' | 'studio_mailto' | 'studio_copy_email' | 'lang_switch' | 'faq_open';
+  | 'creators_nav' | 'studio_mailto' | 'studio_copy_email' | 'studio_web' | 'lang_switch' | 'faq_open';
 
 type AnalyticsProps = Record<string, string | number | boolean>;
 type DataLayerWindow = Window & { dataLayer?: { push: (entry: Record<string, unknown>) => unknown } };

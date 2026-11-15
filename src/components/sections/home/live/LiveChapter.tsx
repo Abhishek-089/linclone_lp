@@ -9,8 +9,8 @@ import { LiveLoops } from './LiveLoops.client';
 import s from './live.module.css';
 
 /**
- * #live: 04 LIVE配信, 今夜は、推しのLIVE配信。 (spec §5.7), stage #2.
- * A night intro (H2 + audio-only chip, a giant outlined "LIVE" behind), then
+ * #live: 04 ラジオ配信 (formerly LIVE配信), 今夜は、推しのラジオ配信。 (spec §5.7), stage #2.
+ * A night intro (H2 + audio-only chip, a giant outlined "ON AIR" behind), then
  * the scroll-expand stage: the LIVE feed card in a phone grows into the
  * full-bleed audio player while the fill line reads, then the request row.
  * Desktop with motion: the intro is a sticky layer over the stage's first
@@ -26,7 +26,7 @@ export function LiveChapter({ d, lang }: SectionProps) {
         <div className={s.intro} data-live-intro="">
           <span className={s.glow} aria-hidden="true" />
           <span className={s.giant} aria-hidden="true" data-live-word="">
-            LIVE
+            ON AIR
           </span>
           <div className={`container-site ${s.introInner}`}>
             <Eyebrow num={t.eyebrow.num} label={t.eyebrow.label} tone="white" />
