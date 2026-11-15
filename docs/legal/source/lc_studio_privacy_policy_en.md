@@ -58,7 +58,7 @@ My Number is used only for preparing and submitting statutory reports under item
 1. The following information is published in the Fan App as the AI Clone's profile. If the visibility is set to a limited URL, it is published to those who know the URL.
     1. Name or stage name, username, profile photo and profile
     2. The AI Clone's speech and voice
-    3. Video and audio of LIVE broadcasts
+    3. Video and audio of radio broadcasts
 2. The information in the preceding paragraph may also be used in app store screenshots, advertisements, the Company's official social media and official clips in accordance with Article 17 of the Creator Terms.
 3. E-mail addresses, the contact details of agency staff and the like, payout destination information, tax information and identity verification information are not published to Followers.
 
@@ -155,4 +155,4 @@ Inquiries about the handling of personal information and requests for disclosure
 ---
 
 Established: 9 October 2026
-Revised: 9 October 2026 (Article 4, paragraph 2); 6 November 2026 (Article 8, paragraph 1)
+Revised: 9 October 2026 (Article 4, paragraph 2); 6 November 2026 (Article 8, paragraph 1); 15 November 2026 (“LIVE” renamed “radio broadcast”)

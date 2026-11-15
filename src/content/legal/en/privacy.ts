@@ -26,6 +26,7 @@ export default defineLegalDoc({
   title: 'LinClone Privacy Policy',
   lead: 'LinClone K.K. (the “Company”) handles the personal information of users of the application “LinClone” and its related services (the “Service”) as set out below, in accordance with the Act on the Protection of Personal Information (the “APPI”), the Telecommunications Business Act and other laws and regulations. Terms used in this Policy have the meanings defined in the Terms of Service of the Service.',
   establishedDate: '2026-10-09',
+  lastUpdated: '2026-11-15',
   sectionNumbers: false,
   sections: [
     {
@@ -53,7 +54,7 @@ export default defineLegalDoc({
           items: [
             'Registration information: the email address, name (where provided) and account identifier received through linking a Google account or Apple ID. Where the User has chosen to keep their email address private through Apple ID, the Company receives the relay address issued by Apple.',
             'Profile information: display name, username, profile image, date of birth or age category, language settings, and the record of consent by a parent or guardian (for persons under 18)',
-            'Interaction History: chats with AI Clones (text, voice messages and images); the date, time and duration of calls and transcripts of the conversations; records of comments, gifts and viewing in LIVE streams; Stories and reactions to them; posts to Grow; and relationship, form-of-address and memory settings',
+            'Interaction History: chats with AI Clones (text, voice messages and images); the date, time and duration of calls and transcripts of the conversations; records of comments, gifts and viewing in radio broadcasts; Stories and reactions to them; posts to Grow; and relationship, form-of-address and memory settings',
             'Purchase information: date and time of purchase, item, amount, the transaction identifier issued by the App Store, and records of the granting, consumption and expiry of Coins. Payment information such as credit card numbers is collected by the App Stores and is not collected by the Company.',
             'Device and log information: device type, OS, app version, IP address, push notification token, information on the occurrence of malfunctions, and logs of use of the Service',
             'The content of inquiries, reports and claims of rights infringement',
@@ -70,7 +71,7 @@ export default defineLegalDoc({
           kind: 'list',
           ordered: true,
           items: [
-            'Provision of the Service (account management; provision of chats, calls and LIVE with AI Clones; and the memory function that maintains the context of conversations)',
+            'Provision of the Service (account management; provision of chats, calls and radio broadcasts with AI Clones; and the memory function that maintains the context of conversations)',
             'Provision to Creators as set out in Article 5',
             'Management of Coin Passes, Coins and Subscriptions, confirmation of purchases, and prevention of fraudulent purchases',
             'Feature restrictions according to age (including the restriction of paid relationship modes to persons aged 18 or over, and the purchase limits for minors)',
@@ -117,7 +118,7 @@ export default defineLegalDoc({
                 'The date on which the User started following, and the follow status',
                 'The content of chats with that AI Clone',
                 'The date, time and duration of calls with that AI Clone, and transcripts of the conversations',
-                'Records of comments, gifts and viewing in that Creator’s LIVE streams',
+                'Records of comments, gifts and viewing in that Creator’s radio broadcasts',
                 'Relationship, form-of-address and memory settings for that AI Clone, and posts to Grow',
                 'Coin consumption relating to the above',
               ],
@@ -337,6 +338,6 @@ export default defineLegalDoc({
       ],
     },
   ],
-  closing: ['Established: October 9, 2026'],
+  closing: ['Established: October 9, 2026', 'Revised: November 15, 2026 (“LIVE” renamed “radio broadcast”)'],
   related: ['terms', 'cookies', 'childProtection', 'deleteUser', 'support'],
 });

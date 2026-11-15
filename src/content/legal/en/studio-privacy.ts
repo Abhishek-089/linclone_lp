@@ -13,7 +13,7 @@ export default defineLegalDoc({
   title: 'LC Studio Privacy Policy (for Creators)',
   lead: 'This English text is a translation provided for convenience. The Japanese text is the original, and it prevails if the two differ.',
   establishedDate: '2026-10-09',
-  lastUpdated: '2026-11-06',
+  lastUpdated: '2026-11-15',
   sectionNumbers: false,
   preamble: [
     {
@@ -125,7 +125,7 @@ export default defineLegalDoc({
               items: [
                 'Name or stage name, username, profile photo and profile',
                 'The AI Clone\'s speech and voice',
-                'Video and audio of LIVE broadcasts',
+                'Video and audio of radio broadcasts',
               ],
             },
             'The information in the preceding paragraph may also be used in app store screenshots, advertisements, the Company\'s official social media and official clips in accordance with Article 17 of the Creator Terms.',
@@ -346,7 +346,7 @@ export default defineLegalDoc({
   ],
   closing: [
     'Established: 9 October 2026',
-    'Revised: 9 October 2026 (Article 4, paragraph 2); 6 November 2026 (Article 8, paragraph 1)',
+    'Revised: 9 October 2026 (Article 4, paragraph 2); 6 November 2026 (Article 8, paragraph 1); 15 November 2026 (“LIVE” renamed “radio broadcast”)',
   ],
   related: ['studioTerms'],
 });

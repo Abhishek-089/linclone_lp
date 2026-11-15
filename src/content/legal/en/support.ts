@@ -10,12 +10,12 @@ export default defineLegalDoc({
   meta: {
     title: 'Support and contact | LinClone',
     description:
-      'LinClone app help and contact: sign-in, coins, cancelling and refunding subscriptions, calls and morning calls, LIVE, reporting and account deletion.',
+      'LinClone app help and contact: sign-in, coins, cancelling and refunding subscriptions, calls and morning calls, radio, reporting and account deletion.',
   },
   eyebrow: 'Support',
   title: 'How can we help?',
   lead: 'Answers to common questions about the LinClone app, and how to reach us. If this page does not solve it, [email us](#contact).',
-  lastUpdated: '2026-10-09',
+  lastUpdated: '2026-11-15',
   quickActions: [
     { icon: 'mail', title: 'Contact us', body: 'Email the team', href: '#contact' },
     { icon: 'person_remove', title: 'Delete your account', body: 'Steps and what happens', href: '/en/delete-user' },
@@ -40,7 +40,7 @@ export default defineLegalDoc({
           items: [
             {
               q: 'What is LinClone?',
-              a: 'An app where you chat, call and watch LIVE shows with creators’ official AI Clones. An AI Clone is a conversational AI modelled on a creator, built by LinClone K.K. with generative AI from information, voice and other material the creator provided ([Terms, Article 1](/en/terms#art-1)).',
+              a: 'An app where you chat, call and listen to radio broadcasts with creators’ official AI Clones. An AI Clone is a conversational AI modelled on a creator, built by LinClone K.K. with generative AI from information, voice and other material the creator provided ([Terms, Article 1](/en/terms#art-1)).',
             },
             {
               q: 'What are relationship modes (partner, best friend and so on)?',
@@ -48,11 +48,11 @@ export default defineLegalDoc({
             },
             {
               q: 'Who can see my conversations with an AI Clone?',
-              a: 'The creator of an AI Clone you follow can read, at any time, your chats with that AI Clone, the date, time, length and transcript of your calls, your LIVE comments and gifts, and your relationship, nickname and memory settings, among other things ([Terms, Article 8](/en/terms#art-8)). Your email address, name, other contact details and payment information are not given to creators. LinClone staff look at the content of your interactions only in limited cases, such as investigating trouble, a request from you, or investigating a fault ([Terms, Article 9](/en/terms#art-9)).',
+              a: 'The creator of an AI Clone you follow can read, at any time, your chats with that AI Clone, the date, time, length and transcript of your calls, your comments and gifts on radio broadcasts, and your relationship, nickname and memory settings, among other things ([Terms, Article 8](/en/terms#art-8)). Your email address, name, other contact details and payment information are not given to creators. LinClone staff look at the content of your interactions only in limited cases, such as investigating trouble, a request from you, or investigating a fault ([Terms, Article 9](/en/terms#art-9)).',
             },
             {
               q: 'Can other users see anything?',
-              a: 'Your display name and profile picture are shown with your LIVE comments and gifts, and your display name, username and profile picture with Stories you post, and other users can see them. Other users can also see LIVE comments in the show’s archive. Please do not send other people’s personal information, or anything you would not want known.',
+              a: 'Your display name and profile picture are shown with your comments and gifts on radio broadcasts, and your display name, username and profile picture with Stories you post, and other users can see them. Other users can also see comments on a radio broadcast in its archive. Please do not send other people’s personal information, or anything you would not want known.',
             },
             {
               q: 'Are my conversations used to train AI?',
@@ -85,7 +85,7 @@ export default defineLegalDoc({
             },
             {
               q: 'Will my coins and data move to a new phone?',
-              a: 'Coins, LIVE Tickets, Interaction History and other data are managed with your account. On a new device, sign in with the same Google account or Apple ID to keep using them. If the link to your external account is lost, your data may not carry over ([Terms, Article 4(4)](/en/terms#art-4)).',
+              a: 'Coins, Radio Tickets, Interaction History and other data are managed with your account. On a new device, sign in with the same Google account or Apple ID to keep using them. If the link to your external account is lost, your data may not carry over ([Terms, Article 4(4)](/en/terms#art-4)).',
             },
             {
               q: 'I want to sign in with Face ID or a fingerprint (iPhone)',
@@ -180,7 +180,7 @@ export default defineLegalDoc({
             },
             {
               q: 'If I cancel, how long can I keep using it?',
-              a: 'You keep your perks until the end of the period you have paid for. There are no pro-rated refunds for the rest of a period ([Terms, Article 12(5)](/en/terms#art-12)). After you cancel, Paid Coins and LIVE Tickets that have not expired can still be used ([Article 12(7)](/en/terms#art-12)).',
+              a: 'You keep your perks until the end of the period you have paid for. There are no pro-rated refunds for the rest of a period ([Terms, Article 12(5)](/en/terms#art-12)). After you cancel, Paid Coins and Radio Tickets that have not expired can still be used ([Article 12(7)](/en/terms#art-12)).',
             },
             {
               q: 'Where can I see what each plan includes and costs?',
@@ -231,25 +231,25 @@ export default defineLegalDoc({
     },
     {
       id: 'live',
-      heading: 'LIVE shows and LIVE Tickets',
+      heading: 'Radio broadcasts and Radio Tickets',
       blocks: [
         {
           kind: 'faq',
           items: [
             {
-              q: 'What is a LIVE Ticket?',
-              a: 'A right we grant to watch a LIVE show ([Terms, Article 1](/en/terms#art-1)). LIVE Tickets come mainly as a subscription perk and cannot be bought with coins. LIVE Tickets granted as a perk are valid for 6 months from the grant date ([Terms, Article 12(6)](/en/terms#art-12)).',
+              q: 'What is a Radio Ticket?',
+              a: 'A right we grant to listen to a radio broadcast ([Terms, Article 1](/en/terms#art-1)). Radio Tickets come mainly as a subscription perk and cannot be bought with coins. Radio Tickets granted as a perk are valid for 6 months from the grant date ([Terms, Article 12(6)](/en/terms#art-12)).',
             },
             {
-              q: 'The LIVE show I requested did not start',
-              a: 'If the show could not start, the LIVE Ticket you used is returned. It can take a little while to show in your remaining count.',
+              q: 'The radio broadcast I requested did not start',
+              a: 'If the broadcast could not start, the Radio Ticket you used is returned. It can take a little while to show in your remaining count.',
             },
             {
-              q: 'Who can see my LIVE comments and gifts?',
-              a: 'Your display name and profile picture are shown with each comment and gift, and other users watching the show can see them. Comments can also be seen in the show’s archive. The AI may read comments aloud. The creator can also see your LIVE comments, gifts and viewing record ([Terms, Article 8](/en/terms#art-8)).',
+              q: 'Who can see my comments and gifts on radio broadcasts?',
+              a: 'Your display name and profile picture are shown with each comment and gift, and other users listening to the broadcast can see them. Comments can also be seen in the broadcast’s archive. The AI may read comments aloud. The creator can also see your comments, gifts and viewing in radio broadcasts record ([Terms, Article 8](/en/terms#art-8)).',
             },
             {
-              q: 'Can I post a clip of a LIVE show on social media?',
+              q: 'Can I post a clip of a radio broadcast on social media?',
               a: 'Only if the creator allows it, and only to your own social media account. Conditions apply: say that it is AI-generated, do not remove or hide the watermark, and do not edit it so it looks like the creator’s own words, among others ([Terms, Article 11](/en/terms#art-11)).',
             },
           ],
@@ -271,7 +271,7 @@ export default defineLegalDoc({
           items: [
             {
               q: 'I want to report something inappropriate',
-              a: 'You can report a Story with the flag icon on the Story screen (after 3 reports it is hidden and reviewed again). For anything else, such as something an AI Clone said or a LIVE comment, you can also [email us](mailto:info@linclone.com?subject=%5BLinClone%5D%20Safety%20report) with the date and time, the creator’s name and enough detail to find it. We review reported content under [Terms, Article 9](/en/terms#art-9) and act where needed. We may not tell you the outcome individually ([Terms, Article 16](/en/terms#art-16)).',
+              a: 'You can report a Story with the flag icon on the Story screen (after 3 reports it is hidden and reviewed again). For anything else, such as something an AI Clone said or a comment on a radio broadcast, you can also [email us](mailto:info@linclone.com?subject=%5BLinClone%5D%20Safety%20report) with the date and time, the creator’s name and enough detail to find it. We review reported content under [Terms, Article 9](/en/terms#art-9) and act where needed. We may not tell you the outcome individually ([Terms, Article 16](/en/terms#art-16)).',
             },
             {
               q: 'I do not want reactions from a particular user',

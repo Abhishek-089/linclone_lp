@@ -16,7 +16,7 @@ export default defineLegalDoc({
   eyebrow: 'Support',
   title: 'Delete your account',
   lead: 'You can delete your account in the LinClone app (developer: LinClone K.K.) from Settings at any time. If you cannot use the app, you can ask us to delete it by email.',
-  lastUpdated: '2026-10-09',
+  lastUpdated: '2026-11-15',
   atAGlance: [
     {
       icon: 'autorenew',
@@ -26,7 +26,7 @@ export default defineLegalDoc({
     {
       icon: 'person_remove',
       title: 'Immediate and final',
-      body: 'Your account is closed at once and you can no longer sign in. Unused coins, LIVE Tickets and perks are forfeited.',
+      body: 'Your account is closed at once and you can no longer sign in. Unused coins, Radio Tickets and perks are forfeited.',
     },
     {
       icon: 'history',
@@ -144,7 +144,7 @@ export default defineLegalDoc({
             ['Your account', 'It is closed and you can no longer sign in.', 'At once'],
             ['Email address, display name, username and profile picture', 'Deleted.', 'At once'],
             [
-              'Unused coins (paid and free), LIVE Tickets and perks',
+              'Unused coins (paid and free), Radio Tickets and perks',
               'They are forfeited. They cannot be refunded or moved to another account ([Terms, Article 7](/en/terms#art-7) and [Article 19(2)](/en/terms#art-19)).',
               'At once',
             ],
@@ -172,7 +172,7 @@ export default defineLegalDoc({
             {
               term: 'What “Interaction History” means',
               definition:
-                'The record of your chats with AI Clones (including text, voice messages and images), calls (including AI calls and morning calls), LIVE comments, gifts and viewing, Stories, posts to Grow, relationship, nickname and memory settings, and your other activity on the Service ([Terms, Article 1(4)](/en/terms#art-1)).',
+                'The record of your chats with AI Clones (including text, voice messages and images), calls (including AI calls and morning calls), comments, gifts and viewing in radio broadcasts, Stories, posts to Grow, relationship, nickname and memory settings, and your other activity on the Service ([Terms, Article 1(4)](/en/terms#art-1)).',
             },
           ],
         },
@@ -180,7 +180,7 @@ export default defineLegalDoc({
           kind: 'callout',
           tone: 'important',
           title: 'Coins are not refunded',
-          body: 'Coins are not refunded, except where a refund is required by law ([Terms, Article 7(8)](/en/terms#art-7)). Use any remaining coins or LIVE Tickets before you delete.',
+          body: 'Coins are not refunded, except where a refund is required by law ([Terms, Article 7(8)](/en/terms#art-7)). Use any remaining coins or Radio Tickets before you delete.',
         },
       ],
     },
@@ -193,7 +193,7 @@ export default defineLegalDoc({
           items: [
             '**App Store and Google Play subscriptions** are not cancelled. [Cancel in the store](#before-you-start).',
             '**Information already shared with creators** (such as chat content and call transcripts; [Terms, Article 8](/en/terms#art-8)) may not be deleted from the creator’s side, just as when you unfollow (Article 8(6)). Nothing new is shared after your account is deleted.',
-            '**Anything posted outside the Service** (such as LIVE clips posted to social media) does not disappear when you delete your account.',
+            '**Anything posted outside the Service** (such as radio clips posted to social media) does not disappear when you delete your account.',
             '**Sign in with Apple** is not unlinked automatically. If you want, remove it in your iPhone’s Settings, under your Apple Account.',
           ],
         },
@@ -216,7 +216,7 @@ export default defineLegalDoc({
             },
             {
               q: 'Can I use LinClone again after deleting?',
-              a: 'Yes, by signing up again, but it will be a new account. The coins, LIVE Tickets, perks and Interaction History of the deleted account do not carry over.',
+              a: 'Yes, by signing up again, but it will be a new account. The coins, Radio Tickets, perks and Interaction History of the deleted account do not carry over.',
             },
             {
               q: 'Can I get my data before I delete?',
